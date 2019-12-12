@@ -1,3 +1,4 @@
+var base_url='https://ceonpoint.com/api';
 
  function flippageup(page) {
 
