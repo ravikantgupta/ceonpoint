@@ -1,165 +1,122 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <title>pure cbd</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link
-        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=devanagari,latin-ext"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap&subset=latin-ext,vietnamese"
-        rel="stylesheet">
-  <script type="text/javascript" src="js/functions.js"></script>
-    <!-- Bootstrap CSS -->
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">   
-    <link rel="stylesheet" href="css/style.css">
-
-
-
-</head>
-
-<body onload="setvalue()">
-
-<script type="text/javascript">
-function setvalue()
-	{ 
-		var loggedIn=window.localStorage.getItem("loggedIn");
-       	
-		if(loggedIn)
-		 {
-		   nextpage('index.html');
-		 }
-	  if(window.localStorage.getItem("successmsg"))
-	  {
-	    jQuery("#msgstatus").addClass("alert-success").fadeIn(10).text(window.localStorage.getItem("successmsg"));
-		window.localStorage.removeItem('successmsg');
-	  }
-	  
-	}
-function userlogin()
-{		
-
-   var username=jQuery("#username").val();
-   var password=jQuery("#password").val();
-	if(username=='')
-	{
-	 jQuery("#msgstatus").addClass("alert-danger").text("Please enter user name");
-	}
-    else
-	{
-     if(password=='')
-		{
-		 jQuery("#msgstatus").addClass("alert-danger").text("Please enter password");
-		}
-		else
-		{
-		   jQuery("#msgstatus").addClass("alert-danger").text("Please Wait....");
-           jQuery.ajax({					  
-						type:'POST',  
-						url:"https://purecbdgroup.com/api.php/login",
-						data: JSON.stringify({username: jQuery("#username").val(),password: jQuery("#password").val()}),										
-						contentType: 'application/json',
-						success:function(data)
-							 {
-                                						 
-								  if(data.status)
-									  {
-									  
-										 window.localStorage.setItem("loggedIn", 1);
-										 window.localStorage.setItem('login_user_id', data.response_data.id);
-										 window.localStorage.setItem('login_user_email', data.response_data.user_email); 
-										 window.localStorage.setItem('login_user_name', data.response_data.user_nicename); 
-										 window.plugins.nativepagetransitions.flip({
-												 'backgroundColor' : "#BBBBBB",
-												 'direction': 'right',										
-												 "href" : "index.html"
-												 });
-									  }else
-										 {
-											 jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.message);
-										 }	  
-
-							}
-			           });	
-
-		}
-	 }
-	}
-
-</script>
-
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">    
+    <link rel="stylesheet" href="css/style.css"> 
+    <script type="text/javascript" src="js/functions.js"></script>	
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     
-    <div class="main-sign-box">
-        <div class="sign-titile">
-            <h1>Sign In </h1>
-        </div>
-		  <div class="form-box">
-		    <div id="msgstatus" style="font-size:15px;"></div>
-			<br>
-		  </div>
-        <div class="form-box">
-		
-            <form>
-                <div class="form-group">
-                    <input type="text" name="username" id="username" class="form-control inputLableUp" value="">
-                    <label class="form-control-placeholder" for="buisness">username</label>
-					
+</head>
+<body>
+    
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="back-link-box pl-2">
+                       
+                        <div class="back-link">
+                            <a onclick="bakpage('index.html')" href="javascript:void(0)">
+                                <img class="img-fluid" src="images/left.png" alt="">
+                            </a>
+                        </div>
+                        
+                        <div class="back-logo">
+                            <a nclick="bakpage('index.html')">
+                                <img class="img-fluid" src="images/logo-login.png" alt="">
+                            </a>
+                        </div>
+                        
+                    </div>
                 </div>
-
-              
-             
-                <div class="form-group">
-                    <input type="password" name="password" id="password" class="form-control inputLableUp" value="">
-                    <label class="form-control-placeholder" for="buisness">password</label>
-                </div>
-
-                <button type="button" class="sign-btn" onClick="userlogin()">sign in <img src="images/left-arrow.png" alt=""></button>
-               <div class="forget-password"> <a >Forget Password</a> </div>
-               <div class="line-box" style="display:none;">
-                   <div>or</div>
-               </div>
-
-               <div class="socal-btn-box" style="display:none;">
-                   <button><i class="fa fa-twitter" aria-hidden="true"></i> twitter</button>
-                   <button class="fb-btn"><i class="fa fa-facebook" aria-hidden="true"></i> facebook</button>
-               </div>
-               
-
-            </form>
-        </div>
-    </div>
-
-      <div class="sign-footer">
-            <div class="container">
-                    <p>Don't have an account? <a onclick="nextpage('signup.html')">Sign Up for free</a></p>
             </div>
         </div>
-     <script type="text/javascript" src="cordova.js"></script>        
-     <script src="js/jquery-1.11.2.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    </header>
     
-    <script>
-     
-
-        $(document).ready(function () {
-            $(".inputLableUp").focus(function () {
-                $(this).parent().addClass('lableup');
-            }).blur(function () {
-                if ($(this).val() == '') {
-                    $(this).parent().removeClass('lableup');
-                } else {
-                    $(this).parent().addClass('lableup');
-                }
-            });
-        });
-    </script>
-
+    <section class="hero-login-banner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 px-0">
+                    <div class="hero-login-box">
+                        <img class="img-fluid" src="images/login-banner.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="login-banner">
+		<div class="container-fluid">
+			<div class="row">
+			
+			    <div class="col-12 px-4">
+					<div class="login-title">
+						<h6>LOG IN</h6>
+					</div>
+				</div>
+				
+				<div class="col-12 px-4">
+					<div class="login-text">
+						<label for="email">Email ID</label>
+						<input id="email" type="email" placeholder="webpanelsolutions@gmail.com">
+					</div>
+				</div>
+				
+				<div class="col-12 px-4">
+					<div class="login-text mt-3">
+						<label for="pass">PASSWORD</label>
+						<input id="pass" type="password" placeholder="********">
+					</div>
+				</div>
+				
+				<div class="col-12 px-4">
+					<div class="forget-link text-right">
+						<a onclick="nextpage('forgot.html')" href="javascript:void(0)" class="after-link">Forget Password</a>
+					</div>
+				</div>
+				
+				<div class="col-12 px-4">
+				    <div class="link-para">
+				        <p>By tapping Continue, I agree to Indiecube <a href="#" class="after-link">Terms of service</a> and <a href="#" class="after-link"> Privacy Policy.</a></p>
+				    </div>
+				</div>
+				
+				<div class="col-12 px-4">
+				    <div class="continue-btn">
+                        <button class="btn">CONTINUE</button>
+				    </div>
+				</div>
+				
+				<div class="col-12 px-4">
+				    <div class="or-box">
+                        <span>or</span>
+				    </div>
+				</div>
+				
+				<div class="col-12 px-4">
+                    <a href="#" class="with-link google-link">
+                        <img class="img-fluid" src="images/google.png" alt="">Login with Google
+                    </a>
+                    <a href="#" class="with-link">
+                        <img class="img-fluid" src="images/facebook.png" alt="">Login with Facebook
+                    </a>
+				</div>
+				
+			</div>
+		</div>
+	</section>	 
+	 <script type="text/javascript" src="cordova.js"></script>        
+     <script src="js/jquery-1.11.2.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+    
+   
 </body>
 
 </html>
