@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Pure cbd</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=latin-ext,vietnamese"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=devanagari,latin-ext"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap&subset=latin-ext,vietnamese"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+     <script type="text/javascript" src="js/functions.js"></script>
+
+</head>
+
+<body onload="setvalue()">
+<script>
+function setvalue()
+		{ 				
+		  var login_user_id= window.localStorage.getItem("login_user_id");	
+          	
+		  if(login_user_id)
+		  {
+                
+			  jQuery('.loader').show();
+			  jQuery('.mask').show();	  
+			  $.ajax({	    	
+				   type:'POST',						
+					url:"https://purecbdgroup.com/api.php/get_profile",
+					data:JSON.stringify({'user_id':login_user_id}),						
+					contentType: 'application/json',
+					success:function(data)
+					{	
+                      console.log(data);
+					    if(data.status)
+						{
+						   jQuery('#nicename').val(data.user_data.nicename);
+						   jQuery('#email').val(data.user_data.email);
+						   jQuery('#phone').val(data.user_data.phone);
+						   
+						}
+					     jQuery('.loader').hide();
+						  jQuery('.mask').hide();
+					},
+					error: function(e) {						 
+						 alert('Error: ' + e.message);				  
+						  jQuery('.loader').hide();
+						  jQuery('.mask').hide();
+					}
+			});			
+		   
+	  }  
+  }
+ 
+function updateAccount()
+{
+      var login_user_id= window.localStorage.getItem("login_user_id");
+	  var nicename=jQuery('#nicename').val();
+	  var phone=jQuery('#phone').val();
+	  
+	  var newpassword=jQuery('#newpassword').val();
+	  var cpassword=jQuery('#cpassword').val();
+	  var flag=0;
+	  if(nicename=='')
+	  {
+	     jQuery('.nicename-error').show();
+		 flag=1;
+	  }
+	  if(phone=='')
+	  {
+	     jQuery('.phone-error').show();
+		 flag=1;
+	  }
+	  if(newpassword!='')
+	  {
+	     if(newpassword!==cpassword)
+		 {
+		   jQuery('.cpassword-error').show();
+		   flag=1;
+		 }
+	  }
+	  
+	  if(flag==1)
+	  {
+	  setTimeout(function(){jQuery('.error').hide();},3000);
+	    return false;
+	  }
+	
+	  
+             jQuery('.loader').show();
+			  jQuery('.mask').show();
+               			  
+			  $.ajax({	    	
+				   type:'POST',						
+					url:"https://purecbdgroup.com/api.php/update_profile",
+					data:JSON.stringify({'user_id':login_user_id,
+					                      'nicename':nicename,
+										  'phone':phone,
+										  'password':newpassword}),						
+					contentType: 'application/json',
+					success:function(data)
+					{	
+                      
+					    jQuery('.successmessage').show();
+					     jQuery('.loader').hide();
+						 jQuery('.mask').hide();
+					},
+					error: function(e) {						 
+						 alert('Error: ' + e.message);				  
+						  jQuery('.loader').hide();
+						  jQuery('.mask').hide();
+					}
+			});	
+} 
+ 
+</script>
+    <div class="header">
+        <div class="container">
+            <div class="header-nave  detail-nave">
+                <span class="navbar-toggler-icon nav-logo">
+                    <a onclick="nextpage('index.html')"><img src="images/left-arrow.png" alt=""><span class="my-cart">My Account</span></a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt51"></div>
+
+    <section class="shipping address-details">
+        <div class="container">
+            <div class="shipping-main">
+                <h3 class="CP-dtl">Your Account Details</h3>
+				<span class="successmessage alert" style="color:green;display:none;"> Successfully updated.</span>
+                <form>
+                    <div class="shipping-main-box" style="display:none;">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">First Name <span class="importent-star">*</span></label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Last Name <span class="importent-star">*</span></label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nicename">Display name<span class="importent-star">*</span></label>
+                        <input type="text" class="form-control" id="nicename"  aria-describedby="emailHelp">
+                        <P class="smalltext">This will be how your name will be displayed in the account section and in reviews</P>
+                    <span class="nicename-error error" style="color:red;display:none;">Please enter name</span>
+					</div>
+                   
+                    <div class="form-group">
+                        <label for="email">Email address <span class="importent-star">*</span></label>
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" readonly >
+                    </div> 
+					<div class="form-group">
+                        <label for="phone">Phone <span class="importent-star">*</span></label>
+                        <input type="number" class="form-control" id="phone" name="phone" aria-describedby="emailHelp">
+                    <span class="phone-error error" style="color:red;display:none;">Please enter phone</span>
+					</div>
+                    <h3 class="CP-dtl pt-3">Password change</h3>
+                           <div class="form-group">
+                        <label for="newpassword">New password (leave blank to leave unchanged)<span class="importent-star">*</span></label>
+                        <input type="password" class="form-control" id="newpassword" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="cpassword">Confirm new password<span class="importent-star">*</span></label>
+                        <input type="password" class="form-control" id="cpassword" aria-describedby="emailHelp">
+                      <span class="cpassword-error error" style="color:red;display:none;">Confirm password not matched</span>
+					</div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer payment-option-footer">
+        <div class="container">
+            <div class="foote-box" onclick="updateAccount()">
+                <div class="add-total text-center">
+                    <p>Update Account Details</p>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+ <div class="loader" style="position: absolute;top: 20%;left: 21%;z-index:999; ">
+     <img  src="images/loading.gif" style="height: 115px;margin-top: 50%;
+    margin-left: 37%;" alt="">
+      </div>
+	  <div class="mask"></div>
+	  <style>
+	  .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+	  </style>
+     <script type="text/javascript" src="cordova.js"></script>  
+    <script src="js/jquery-1.11.2.min.js"></script>
+   
+
+
+</body>
+
+</html>

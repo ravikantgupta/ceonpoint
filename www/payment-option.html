@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>pure cbd</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=latin-ext,vietnamese"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=devanagari,latin-ext"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap&subset=latin-ext,vietnamese"
+        rel="stylesheet">
+
+   
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">    
+    <link rel="stylesheet" href="css/style.css">
+
+  <script type="text/javascript" src="js/functions.js"></script>
+  <script type="text/javascript" src="js/cart.js"></script>
+
+</head>
+
+<body onload="setvalue()">
+<script>   
+	function setvalue()
+		{ 
+		  var login_user_id= window.localStorage.getItem("login_user_id");
+		   $.ajax({	    	
+					type:'GET',					
+					url:"https://purecbdgroup.com/api.php/country",					
+					success:function(data){
+					
+					   var countryhtml='<option data="" value="">Select</option>';
+							  $.each(data.country, function(index) { 
+							  countryhtml+='<option data="'+data.country[index].id+'" value="'+data.country[index].sortname+'">'+data.country[index].name+'</option>';
+        
+							  });
+							  
+							jQuery('#country').html(countryhtml);  
+					
+					},
+					error: function(e) {
+						//alert('UError: ' + e.message);
+					}
+				  });
+				  
+			$.ajax({	    	
+				   type:'POST',						
+					url:"https://purecbdgroup.com/api.php/cart_list",
+					data:JSON.stringify({'user_id':login_user_id}),						
+					contentType: 'application/json',
+					success:function(data)
+					{					  
+					 
+					  var carthtml='';						
+						if(data.total_cart_item)
+						{
+						  var i=0;
+						  var productids='';
+						  var productqty='';
+						  
+						  $.each(data.cart_list, function(index) {							
+                              
+                            if(productids=='')
+							{
+							   productids=data.cart_list[index].product_id;
+							   productqty=data.cart_list[index].quantity;
+							}else
+							{
+                               productids+=','+data.cart_list[index].product_id;
+							   productqty+=','+data.cart_list[index].quantity;
+							}
+																		
+						  });
+						  
+						 
+						  jQuery('#quantity').val(productqty);
+						  jQuery('#product_id').val(productids);
+						  jQuery('#totalprice').val(parseFloat(data.payableamount).toFixed(2));
+						  
+						}
+						
+					},
+					error: function(e) {
+						alert('Error: ' + e.message);
+					}
+			});		  
+				  
+		
+		   getCartDetail();
+		}
+function paynow()
+		{
+		  var first_name=jQuery('#first_name').val();
+		  var last_name=jQuery('#last_name').val();
+		  var company=jQuery('#company').val();
+		  var country=jQuery('#country').val();
+		  var address=jQuery('#address').val();
+		  var city=jQuery('#city').val();
+		  var state=jQuery('#state').val();
+		  var postcode=jQuery('#postcode').val();
+		  var phone=jQuery('#phone').val();
+		  var email=jQuery('#email').val();
+		
+		 var flag=0;
+		  if(first_name=="")
+		  {
+			jQuery('.first_name-error').show();
+			flag=1;
+		  }
+		  if(last_name=="")
+		  {
+			jQuery('.last_name-error').show();
+			flag=1;
+		  }
+		  if(company=="")
+		  {
+			jQuery('.company-error').show();
+			flag=1;
+		  }
+		  if(country=="")
+		  {
+			jQuery('.country-error').show();
+			flag=1;
+		  }if(address=="")
+		  {
+			jQuery('.address-error').show();
+			flag=1;
+		  }if(city=="")
+		  {
+			jQuery('.city-error').show();
+			flag=1;
+		  }if(state=="")
+		  {
+			jQuery('.state-error').show();
+			flag=1;
+		  }if(postcode=="")
+		  {
+			jQuery('.postcode-error').show();
+			flag=1;
+		  }if(phone=="")
+		  {
+			jQuery('.phone-error').show();
+			flag=1;
+		  }
+		  if(email=="")
+		  {
+			jQuery('.email-error').show();
+			flag=1;
+		  }
+		  
+		  if(flag==1)
+		  {
+			setTimeout(function(){jQuery('.error').hide();},3000);
+			return false;
+		  }else{
+			    
+				  jQuery('#buyNowBtn').click();
+			}  
+  }
+  
+function placeorder()
+{
+   var login_user_id= window.localStorage.getItem("login_user_id");
+   
+    var first_name=jQuery('#first_name').val();
+		  var last_name=jQuery('#last_name').val();
+		  var company=jQuery('#company').val();
+		  var country=jQuery('#country').val();
+		  var address=jQuery('#address').val();
+		  var city=jQuery('#city').val();
+		  var state=jQuery('#state').val();
+		  var postcode=jQuery('#postcode').val();
+		  var phone=jQuery('#phone').val();
+		  var email=jQuery('#email').val();
+		   var product_id=jQuery('#product_id').val();
+		  var quantity=jQuery('#quantity').val();
+		  
+		  jQuery('.loader').show();
+		  jQuery('.mask').show();	  
+        $.ajax({	    	
+				   type:'POST',						
+					url:"https://purecbdgroup.com/api.php/order",
+					data:JSON.stringify({'user_id':login_user_id,
+					                     'product_id':product_id,
+										 'quantity':quantity,
+										 'first_name':first_name,
+										 'last_name':last_name,
+										 'company':company,
+                                         'email':email, 
+ 										 'phone':phone, 
+										 'address':address,
+										 'city':city,
+										 'state':state,
+										 'postcode':postcode, 
+										 'country':country
+					                    }),						
+					contentType: 'application/json',
+					success:function(data)
+					{				 
+					  jQuery('.loader').hide();
+			          jQuery('.mask').hide();	  
+					  
+					  if(data.status)
+						{
+						
+						  nextpage('thanku.html')
+						
+						}
+						
+					},
+					error: function(e) {
+					   jQuery('.loader').hide();
+			           jQuery('.mask').hide();
+						alert('Error: ' + e.message);
+					}
+			});	
+   
+}  
+  
+function getState()
+{
+  var countryid = jQuery("#country option:selected").attr("data");
+   var statehtml='<option value="">Select</option>';
+  if(countryid!='')
+  {
+      $.ajax({	    	
+			   type:'POST',						
+				url:"https://purecbdgroup.com/api.php/state",
+				data:JSON.stringify({'country_id':countryid}),						
+				contentType: 'application/json',
+				success:function(data)
+				{				
+					  $.each(data.state, function(index) { 					  
+					  statehtml+='<option value="'+data.state[index].name+'">'+data.state[index].name+'</option>';
+
+					  });
+					  
+					 jQuery('#state').html(statehtml);  
+					
+			  },
+				error: function(e) {
+					alert('Error-p: ' + e.message);
+				}
+				});	  		
+  }
+  jQuery('#state').html(statehtml);  
+ 
+} 
+
+function cancelpayment()
+{
+  alert('paymentcancel');
+}
+</script>		
+    <div class="header">
+        <div class="container">
+            <div class="header-nave  detail-nave">
+                <span class="navbar-toggler-icon nav-logo">
+                    <a onclick="bakpage('index.html')"><img src="images/left-arrow.png" alt=""><span class="my-cart">Checkout</span></a>
+                </span>
+                <div class="header-icon">
+                 
+                    <span class="cart-icon"> <a href="#"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span
+                                class="zero">0</span> </a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="payment-option">
+        <div class="container">
+            <div class="payment-option-box">
+                <p class="total-para">Total Amaunt<span class="doler-option pricehtml">$0.00</span></p>
+                  <p class="total-coler">Tex<span class="doler-option taxhtml" >$0</span></p>
+            </div>
+            <div class="payment-option-box pay-amount">
+                <p class="total-para">Amaunt Payble<span class="doler-option payablepricehtml">$0.00</span></p>
+                <p class="total-coler">Including all Tex<span class="doler-option"></span></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="shipping">
+        <div class="container">
+            <div class="shipping-main">
+                <h3 class="CP-dtl">Billing And Shipping Details</h3>
+                <form>
+				   <input type="hidden" name="product_id" id="product_id" value="">
+				   <input type="hidden" name="quantity" id="quantity" value=""> 
+				   <input type="hidden" name="totalprice" id="totalprice" value="">
+                    <div class="shipping-main-box">
+                        <div class="form-group">
+                            <label for="first_name">First Name <span class="importent-star">*</span></label>
+                            <input type="text" class="form-control" name="first_name" id="first_name">
+                            <span class="first_name-error error" style="color:red;display:none;">Please Enter First Name.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name <span class="importent-star">*</span></label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" >
+                            <span class="last_name-error error" style="color:red;display:none;">Please Enter Last Name.</span>
+                        </div>
+                    </div>
+					 <div class="form-group">
+                            <label for="company">Company Name <span class="importent-star">*</span></label>
+                            <input type="text" class="form-control" name="company" id="company" >
+                             <span class="company-error error" style="color:red;display:none;">Please Enter Company Name.</span> 
+                        </div>
+                    <div class="form-group">
+                        <label for="country">Country <span class="importent-star">*</span></label>
+                        <select class="form-control" name="country" id="country" onchange="getState()">
+                          
+                        </select>
+						<span class="country-error error" style="color:red;display:none;">Please Enter Country.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Street address <span class="importent-star">*</span></label>
+                        <input type="text" class="form-control" name="address" id="address">
+						<span class="address-error error" style="color:red;display:none;">Please Enter Address.</span>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="city">Town/City <span class="importent-star">*</span></label>
+                        <input type="text" class="form-control" name="city" id="city" >
+						<span class="city-error error" style="color:red;display:none;">Please enter City.</span>
+                    </div>
+                    <div class="form-group">
+                            <label for="state">State<span class="importent-star">*</span></label>
+                            <select class="form-control" id="state" name="state">
+                               
+                            </select>
+							<span class="state-error error" style="color:red;display:none;">Please Enter State.</span>
+                        </div>
+                        <div class="form-group">
+                                <label for="postcode">Postcode / ZIP <span class="importent-star">*</span></label>
+                                <input type="number" class="form-control" id="postcode" name="postcode">
+								<span class="postcode-error error" style="color:red;display:none;">Please Enter Postcode.</span>
+                            </div>
+                            <div class="form-group">
+                                    <label for="phone">Phone <span class="importent-star">*</span></label>
+                                    <input type="tel" class="form-control" name="phone" id="phone">
+									<span class="phone-error error" style="color:red;display:none;">Please Enter Phone.</span>
+                                </div>
+                                <div class="form-group">
+                                        <label for="email">Email address <span class="importent-star">*</span></label>
+                                        <input type="email" class="form-control" name="email" id="email" >
+										<span class="email-error error" style="color:red;display:none;">Please Enter Email.</span>
+                                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="discribtion cart-option">
+        <div class="container">
+		
+           
+			<div class="tab-content" id="nav-tabContent">
+               
+                <div class="tab-pane fade active show" id="nav-contact-paypal" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                    <div class="paypal-payble">
+                        <a href="javascript:void(0)"> <img src="images/paypal.png" alt=""></a>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+		<button id="buyNowBtn" hidden>Pay Now</button>
+    </section>
+    <section class="footer payment-option-footer">
+        <div class="container">
+            <div class="foote-box" onclick="paynow()">
+			
+                <div class="add-total">
+                 <p >Pay Now</p>
+                   
+                </div>
+                <div class="add-total">
+                    <P class="payablepricehtml">$0 <span class="left-img"><img src="images/left.jpg" alt=""></span></P>
+                </div>
+            </div>
+        </div>
+    </section>
+	<div class="loader" style="position: absolute;top: 20%;left: 21%;z-index:999;display:none; ">
+     <img  src="images/loading.gif" style="height: 115px;margin-top: 50%;
+    margin-left: 37%;" alt="">
+      </div>
+	  <div class="mask" style="display:none;"></div>
+	  <style>
+	  .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+	  </style>
+
+   <script type="text/javascript" src="cordova.js"></script>  
+   <script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/paypal-mobile-js-helper.js"></script>
+     
+    <script src="js/jquery-1.11.2.min.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    
+
+
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>pure cbd</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=latin-ext,vietnamese"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=devanagari,latin-ext"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap&subset=latin-ext,vietnamese"
+        rel="stylesheet">      
+        <script type="text/javascript" src="js/functions.js"></script>
+		<script type="text/javascript" src="js/cart.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">   
+    <link rel="stylesheet" href="css/style.css">
+	</head>
+<body onload="setvalue()">
+<script>   
+	function setvalue()
+		{  
+		   var current_product_id= window.localStorage.getItem("current_product_id");	
+            if(current_product_id)
+              {	
+                		  
+		      $.ajax({	    	
+			           type:'POST',						
+						url:"https://purecbdgroup.com/api.php/product_details",
+						data:JSON.stringify({'product_id':current_product_id}),						
+						contentType: 'application/json',
+						success:function(data)
+						{						  
+                          if(data.status) 
+						  {
+						     jQuery('#product_image').attr('src',data.product_data.product_image);
+						     jQuery('#product_name').html(data.product_data.product_name);
+							 jQuery('#product_price').html('price: '+data.currency+data.product_data.product_price);
+						     jQuery('#prodescription').html(data.product_data.description);
+						    
+						  }
+						  jQuery('.loader').hide();
+						  jQuery('.mask').hide();
+						},
+						error: function(e) {
+							alert('Error-p: ' + e.message);
+						}
+				});	  
+	  getCartDetail();
+	  }else
+	  {
+	    nextpage('index.html');
+	  }
+  }
+ function addtocart()
+	{
+	    var current_product_id= window.localStorage.getItem("current_product_id");		
+	    addProductTocart(current_product_id,1,1);
+	} 
+
+</script>
+    <div class="header">
+        <div class="container">
+            <div class="header-nave  detail-nave">
+                <span class="navbar-toggler-icon">
+                    <a onclick="bakpage('product-list.html')"><img src="images/left-arrow.png" alt=""></i></a>
+                </span>
+                <div class="header-icon">
+                   
+                    <span class="cart-icon"> <a onclick="nextpage('my-cart.html')"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span
+                                class="zero"> 0</span> </a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="product-list-banner">
+
+        <div class="list-banner">
+            <img src="images/Natures-Script-Banner.png" id="product_image" alt="">
+           
+        </div>
+
+    </section>
+
+    <section class="list-detail-rate">
+        <div class="container">
+		  <span id="msgstatus"></span>
+            <div class="listing-detail-box">
+                <h6 id="product_name"></h6>
+            </div>
+            <div class="price-box">
+                <div class="price-iner-box">
+                    <p id="product_price"></p>
+                </div>
+                <div class="price-iner-box">
+                    <span class="add-list">
+                        <button type="button" onclick="addtocart()">add <span>+</span></button>
+                    </span>
+                </div>
+            </div>
+            <div class="list-unit" style="display:none;">
+                <div class="unit">
+                    <p>UNIT</p>
+                </div>
+                <div class="radio-box">
+                    <div class="request-selection">
+                        <label>
+                            <input type="radio" class="request-radio" name="test" value="small" checked="">
+                            <span class="request-check">
+
+                                100MG</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" class="request-radio" name="test" value="small" checked="">
+                            <span class="request-check">
+
+                                1000MG</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" class="request-radio" name="test" value="small" checked="">
+                            <span class="request-check">
+
+                                50MG</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-hilight">
+        <div class="container">
+            <div class="listing-detail-box">
+                <h6>Product Hilights</h6>
+            </div>
+        </div>
+    </section>
+
+    <section class="key-feture">
+        <div class="container">
+            <div class="key-feture-box">
+                <div class="listing-detail-box">
+                    <h6>Key Feature </h6>
+                </div>
+                <div class="key-feture-cont" >
+                    <p id="prodescription"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <div class="container">
+            <div class="foote-box">
+                <div class="add-total">
+                    <p>added Total</p>
+                </div>
+                <div class="add-total">
+                    <P><span class="pricehtml">$0</span> <span class="left-img" onclick="nextpage('my-cart.html')"><img src="images/left.jpg" alt=""></span></P>
+                </div>
+            </div>
+        </div>
+    </section>
+	<div class="loader" style="position: absolute;top: 20%;left: 21%;z-index:999; ">
+     <img  src="images/loading.gif" style="height: 115px;margin-top: 50%;
+    margin-left: 37%;" alt="">
+      </div>
+	  <div class="mask"></div>
+	  <style>
+	  .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+	  </style>
+	 <script type="text/javascript" src="cordova.js"></script>  
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+   
+</body>
+
+</html>

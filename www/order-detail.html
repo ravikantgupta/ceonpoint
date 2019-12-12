@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Pure CBD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=devanagari,latin-ext"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap&subset=latin-ext,vietnamese"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+	 <script type="text/javascript" src="js/functions.js"></script>
+
+</head>
+<body onload="setvalue()">
+<script>
+function setvalue()
+		{ 				
+		  var login_user_id= window.localStorage.getItem("login_user_id");
+           var order_id= window.localStorage.getItem("order_id"); 		  
+          
+		  if(order_id)
+		  {
+                
+			  jQuery('.loader').show();
+			  jQuery('.mask').show();	  
+			  $.ajax({	    	
+				   type:'POST',						
+					url:"https://purecbdgroup.com/api.php/order_details",
+					data:JSON.stringify({'order_id':order_id}),						
+					contentType: 'application/json',
+					success:function(data)
+					{                     
+					   
+					   var orderhtml='<tr>\
+                            <td class="billing-bdr-remove">product</td>\
+                            <td class="billing-bdr-remove">Total</td>\
+                             </tr>';
+                       $.each(data.ordered_data, function(index) {	
+                           orderhtml+='<tr><td>'+data.ordered_data[index].product_name+'x'+data.ordered_data[index].quantity+'</td>\
+                                   <td class="order-doler">'+data.currency+data.ordered_data[index].total+'</td>\
+                                    </tr>';
+                        });
+						orderhtml+='<tr>\
+                                     <td>SubTotal</td>\
+                                     <td>'+data.currency+data.order_subtotal+'</td>\
+							        </tr>\
+									<tr>\
+										<td>Total</td>\
+										<td>'+data.currency+data.order_total+'</td>\
+									</tr>';
+						
+						var billingaddress='<p>'+data.billaddrss.billing_first_name+' '+data.billaddrss.billing_last_name+'</p>\
+											<p>'+data.billaddrss.billing_address_1+'</p>\
+											<p>'+data.billaddrss.billing_city+'</p>\
+											<p>'+data.billaddrss.billing_state+'</p>\
+											<p>'+data.billaddrss.billing_postcode+','+ data.billaddrss.billing_country+'</p>';
+						
+					   jQuery('#orderdetail').html(orderhtml);	
+					   jQuery('#billingaddress').html(billingaddress);	
+                       var orderinfo='order #'+order_id+' was placed on '+data.order_date+'.';
+					   jQuery('#orderinfo').html(orderinfo);	
+					  jQuery('.loader').hide();
+					  jQuery('.mask').hide();
+					},
+					error: function(e) {						 
+						  jQuery('#orderdetail').html('No order list found');					  
+						  jQuery('.loader').hide();
+						  jQuery('.mask').hide();
+					}
+			});			
+		   
+	  }  
+  }
+  
+ 
+</script>
+    <div class="header">
+        <div class="container">
+            <div class="header-nave  detail-nave">
+                <span class="navbar-toggler-icon nav-logo">
+                    <a onclick="bakpage('my-orders.html')"><img src="images/left-arrow.png" alt=""><span class="my-cart">Order Detail</span></a>
+                </span>
+                <div class="header-icon">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="order-detail">
+        <div class="container">
+            <div class="order-heading">
+                <p id="orderinfo"></p>
+                <h3>Order details</h3>
+            </div>
+            <div class="billing-border">
+                <table class="table table-hover">
+
+                    <tbody id="orderdetail">
+                      
+                    </tbody>
+                </table>
+            </div>  
+            <div class="order-billing">
+                <div class="billing-heading">
+                    <h3>Billing Address</h3>
+                </div>
+                <div class="Billing-content" id="billingaddress">
+                  
+                </div>
+            </div>
+        </div>
+    </section>
+<div class="loader" style="position: absolute;top: 20%;left: 21%;z-index:999;display:none;">
+     <img  src="images/loading.gif" style="height: 115px;margin-top: 50%;
+    margin-left: 37%;" alt="">
+      </div>
+	  <div class="mask" style="display:none;"></div>
+	  <style>
+	  .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+	  </style>
+
+    <script type="text/javascript" src="cordova.js"></script>  
+    <script src="js/jquery-1.11.2.min.js"></script>
+   
+</body>
+
+</html>
