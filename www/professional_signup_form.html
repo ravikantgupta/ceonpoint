@@ -30,12 +30,19 @@
 			    {
 			     jQuery(".name-error").show();
 			     flag=1;
-			   }			
+			   }	
+               if(jQuery('#bamboo').is(':checked'))
+               {
+			    jQuery(".bamboo-error").show();
+			     flag=1;
+			   }			   
 			  if(flag==1)
 				{
 				  setTimeout(function(){ jQuery(".error").hide(); }, 4000);
 				  return false;
 				}
+				
+				
 			else
 			{		
                 jQuery('.mask').show();
@@ -43,14 +50,14 @@
 				
 				jQuery.ajax({					  
 								type:'POST', 
-                                datatype: 'JSON',								
+                                dataType: 'JSON',								
 								url:base_url+"/users/profession",
-								data: JSON.stringify({email: email,name: name,role:1}),								
+								data: JSON.stringify({email: email,name: name, profession:'tt', role:1}),								
 								success:function(data)
 									 {	 
 									     jQuery('.mask').hide();
 				                         jQuery('.loading').hide();
-										 console.log(data.success);
+									
                                         if(data.success=='true')
                                            {
 										     window.localStorage.setItem('successmsg', data.msg);
@@ -162,6 +169,7 @@
                             <span class="checkbox"></span>
                         </label>
 					</div>
+					<div class="error bamboo-error" style="color:red;display:none">Please checked terms.</div>
 	            </div>
 	            
 	            <div class="col-12">
