@@ -31,7 +31,7 @@
 			     jQuery(".name-error").show();
 			     flag=1;
 			   }	
-               if(jQuery('#bamboo').is(':checked'))
+               if(!jQuery('#bamboo').is(':checked'))
                {
 			    jQuery(".bamboo-error").show();
 			     flag=1;
@@ -165,7 +165,7 @@
 	            <div class="col-12">
 	                <div class="form-text">
 						<label for="bamboo" class="check-label">Terms & Condition
-                            <input id="bamboo" type="checkbox" name="checkbox">
+                            <input id="bamboo" type="checkbox" name="checkbox" value="1">
                             <span class="checkbox"></span>
                         </label>
 					</div>
