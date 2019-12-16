@@ -5,28 +5,81 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/owl.carousel.css">    
     <link rel="stylesheet" href="css/style.css">
-	<script type="text/javascript" src="js/functions.js"></script>
-   
-    
+	<script type="text/javascript" src="js/functions.js"></script>    
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     
 </head>
 <body>
-
+<script>	
+	function userRegister()
+            {	
+  	          var email=jQuery("#email").val();
+		      var name=jQuery("#name").val();
+		      var flag=0;
+			  if(email=='')
+				{
+				 jQuery(".email-error").show();
+				 flag=1;
+				}			
+			  if(name=='')
+			    {
+			     jQuery(".name-error").show();
+			     flag=1;
+			   }			
+			  if(flag==1)
+				{
+				  setTimeout(function(){ jQuery(".error").hide(); }, 4000);
+				  return false;
+				}
+			else
+			{		
+                jQuery('.mask').show();
+				jQuery('.loading').show();
+				
+				jQuery.ajax({					  
+								type:'POST', 
+                                datatype: 'JSON',								
+								url:base_url+"/users/profession",
+								data: JSON.stringify({email: email,name: name,role:1}),								
+								success:function(data)
+									 {	 
+									     jQuery('.mask').hide();
+				                         jQuery('.loading').hide();
+										 console.log(data.success);
+                                        if(data.success=='true')
+                                           {
+										     window.localStorage.setItem('successmsg', data.msg);
+												 window.plugins.nativepagetransitions.flip({
+														 'backgroundColor' : "#BBBBBB",
+														 'direction': 'right',										
+														 "href" : "login.html"
+														 });
+										   }else
+                                            {
+											jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.msg);
+											   
+											} 										   
+										 
+									}
+							   });	
+			   
+			     }		 
+	 
+	    }
+	   
+	</script>
     <header>
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="back-link-box pl-1">
-                       
+                    <div class="back-link-box pl-1">                       
                         <div class="back-link">
-                            <a href="sign.html">
+                            <a href="javascript:void(0)" onclick="bakpage('signup.html')">
                                 <img class="img-fluid" src="images/left.png" alt="">
                             </a>
                         </div>
@@ -52,7 +105,7 @@
 						<h6>Register</h6>
 					</div>
 				</div>
-				
+				<div class="col-12 px-4" id="msgstatus" style="font-size:15px;"></div>
 				<div class="col-4">
 				    <div class="sign-form-box">
 						<div class="sign-form-img">
@@ -89,17 +142,17 @@
             
 	            <div class="col-12">
 	                <div class="form-text">
-						<label for="email">Name</label>
-						<input id="email" type="text">
+						<label for="name">Name</label>
+						<input id="name" type="text">
 					</div>
-	            </div>
-	            
-	           
+					<div class="error name-error" style="color:red;display:none">Please enter name.</div>
+	            </div>           
 	            <div class="col-12">
 	                <div class="form-text">
 						<label for="email">Email ID</label>
 						<input id="email" type="email">
 					</div>
+					<div class="error email-error" style="color:red;display:none">Please enter email.</div>
 	            </div>
 	            
 	            <div class="col-12">
@@ -113,7 +166,7 @@
 	            
 	            <div class="col-12">
 	                <div class="continue-btn reg-btn">
-	                    <button class="btn">Register</button>
+	                    <button class="btn" onClick="userRegister()">Register</button>
 	                </div>
 	            </div>
 	            
@@ -126,7 +179,11 @@
 	        </div>
 	    </div>
 	</section>
-
+     <div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	<style>
+     .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
      <script type="text/javascript" src="cordova.js"></script>        
      <script src="js/jquery-1.11.2.min.js"></script>  
     <script src="js/bootstrap.min.js"></script>
