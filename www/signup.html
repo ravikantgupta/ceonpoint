@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CEONPOINT Screen1</title>
+    <title>Signup</title>
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -17,90 +17,6 @@
     
 </head>
 <body>
-<script>
-function register()
-{
-  var nickname=jQuery('#nickname').val();
-  var username=jQuery('#username').val();
-  var email=jQuery('#email').val();
-  var mobile=jQuery('#mobile').val();
-  var password=jQuery('#password').val();
-  var flag=0;
-  if(nickname=="")
-  {
-    jQuery('.nickname-error').show();
-    flag=1;
-  }
-  if(username=="")
-  {
-    jQuery('.username-error').show();
-    flag=1;
-  }
-  if(email=="")
-  {
-    jQuery('.email-error').show();
-    flag=1;
-  }
-  if(mobile=="")
-  {
-    jQuery('.mobile-error').show();
-    flag=1;
-  }
-  if(password=="")
-  {
-    jQuery('.password-error').show();
-    flag=1;
-  }
-  
-  if(flag==1)
-  {
-    setTimeout(function(){jQuery('.error').hide();},3000);
-	return false;
-  }else{
-      
-	       jQuery('.loader').show();
-		   jQuery('.mask').show();
-           jQuery.ajax({					  
-						type:'POST',  
-						url:"https://purecbdgroup.com/api.php/register",
-						data: JSON.stringify({user_login: username,
-						                      user_email:email,
-						                      user_pass: password,
-											  nickname:nickname,
-											  mobile:mobile											  
-											  }),	
-						contentType: 'application/json',					  
-						success:function(data)
-							 {
-                                 							 
-								  if(data.status)
-									  {
-										 window.localStorage.setItem('successmsg', data.message);
-										 window.plugins.nativepagetransitions.flip({
-												 'backgroundColor' : "#BBBBBB",
-												 'direction': 'right',										
-												 "href" : "login.html"
-												 });
-									  }else
-										 {
-											 jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.message);
-										 }
-
-                                jQuery('.loader').hide();
-		                        jQuery('.mask').hide();										 
-
-							},
-							error: function(e) {
-							alert('Error: ' + e.message);
-						}
-							
-			           });
-    }
-  
-}
-</script>
-  
-
     <header>
         <div class="container">
             <div class="row">
@@ -149,7 +65,7 @@ function register()
 				<div class="col-6">
 					<div class="sign-box">
 						<div class="sign-img">
-						    <a href="#">
+						    <a href="javascript:void(0)" onclick="nextpage('ceprovider_signup_form.html')">
 						        <img class="img-fluid" src="images/img-1.png" alt="">
 						    </a>
 						</div>
@@ -160,7 +76,7 @@ function register()
 				<div class="col-6">
 					<div class="sign-box">
 						<div class="sign-img">
-						    <a href="#">
+						    <a href="javascript:void(0)" onclick="nextpage('institutions_signup_form.html')">
 						        <img class="img-fluid" src="images/img-2.png" alt="">
 						    </a>
 						</div>
@@ -171,7 +87,7 @@ function register()
 				<div class="col-6">
 					<div class="sign-box">
 						<div class="sign-img">
-						    <a href="#">
+						    <a href="javascript:void(0)" onclick="nextpage('advertiser_signup_form.html')">
 						        <img class="img-fluid" src="images/img-3.png" alt="">
 						    </a>
 						</div>
