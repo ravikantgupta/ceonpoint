@@ -29,8 +29,16 @@ a:hover {
     color: #00f;
 }
 
+.bgblue {
+    background: #00f;
+}
+
 .lightblue {
     color: #2f91d3;
+}
+
+.green {
+	background: #116106;
 }
 
 
@@ -163,7 +171,7 @@ a:hover {
     color: #fff;
 }
 
-.owl-theme .owl-controls  {
+.header-slider-banner .owl-controls  {
     position: absolute;
     bottom: 150px;
     left: 0;
@@ -172,7 +180,7 @@ a:hover {
     text-align: center;
 }
 
-.owl-theme .owl-dots .owl-dot.active span {
+.header-slider-banner .owl-dots .owl-dot.active span {
     background: #fff;
 }
 
@@ -220,9 +228,9 @@ header {
 }
 
 .back-link {
-    width: 30px;
-    margin-right: 15px;
-    margin-top: -5px;
+    width: 25px;
+/*    margin-right: 15px;*/
+/*    margin-top: -5px;*/
 }
 
 .back-link img {
@@ -230,8 +238,9 @@ header {
 }
 
 .back-logo {
-    width: 180px;
-    margin-right: 35px;
+    width: 190px;
+/*    margin-right: 35px;*/
+	margin: 0 auto;
 }
 
 .back-logo span {
@@ -394,6 +403,10 @@ input[type="password"] {
     border-radius: 5px;
     margin: 10px 0px;
     padding: 13px 10px 15px;
+}
+
+.sign-box.active {
+    box-shadow: 0px 0px 6px 0px #00f;
 }
 
 .sign-img {
@@ -1019,19 +1032,17 @@ select:focus {
 
 		/* congarachulations css */
 
-
 		/* dasbord css */
 
 .dashboard-tab {
     display: flex;
     align-items: center;
     justify-content: center;
-	margin: 7px 0px 3px;
+	margin: 10px 0px 0px;
 }
 
 .dashbord-box {
 	width: 100%;
-    background: #00f;
     font-size: 12px;
     padding: 8px;
     color: #fff;
@@ -1039,14 +1050,14 @@ select:focus {
 }
 
 .dashboard-tab .dashbord-box:nth-child(2) {
-    margin: 0px 5px;
+    margin-left: 15px;
 }
 
 .dashboard-icon-title h6 {
 	border-top: 1.5px solid #2f91d5;
 	text-align: center;
 	margin-bottom: 22px;
-    padding-top: 20px;
+    padding-top: 10px;
 	margin-top: 6px;
 }
 
@@ -1077,9 +1088,7 @@ select:focus {
     text-align: center;
 }
 
-
 		/* dasbord css */
-
 
 .home-link-banner {
     position: fixed;
@@ -1122,8 +1131,6 @@ select:focus {
 	margin-top: 3px;
 }
 
-
-
         /* Header Css Start */
 
 .header-btn {
@@ -1160,6 +1167,7 @@ select:focus {
 .navbar-dark .navbar-toggler {
     padding: 2px 7px;
     border: none;
+	display: block;
 }
 
 .btn-box {
@@ -1228,6 +1236,20 @@ select:focus {
     border: 1px solid transparent;
     font-size: 12px;
     padding: 4px 5px;
+	padding-left: 22px;
+}
+
+.select-img {
+    position: absolute;
+    width: 13px;
+    height: 10px;
+    top: 0.5px;
+    left: 5px;
+}
+
+.select-img img {
+    width: 100%;
+    height: 100%;
 }
 
 .header-hero-banner {
@@ -1242,7 +1264,7 @@ select:focus {
 }
 
 .inner-hero-box {
-    padding: 48px 17px 32px 0;
+    padding: 55px 17px 28px 0px;
     color: #fff;
 	text-align: right;
 }
@@ -1251,49 +1273,85 @@ select:focus {
 	margin-bottom: 0;
 }
 
-.inner-hero-box p sup {
-    font-size: 9px;
-    top: -2px;
-    margin-left: 3px;
-	color: #efefef;
-}
-
-.inner-hero-box p span {
+.inner-hero-box .courses-price {
     color: #eeb722;
     font-size: 11px;
 }
 
 .courses-free {
-    font-size: 9px;
-    margin-top: -2px;
-    display: block;
+    font-size: 8px;
+	margin-top: 2px;
 }
 
 .inner-hero-box .courses-link {
-    font-size: 10px;
-    margin-top: 30px;
+    font-size: 9px;
+    margin-top: 20px;
 	color: #efefef;
 }
 
 .onlinehome-banner {
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
-	padding-left: 8px;
+	padding: 0px 8px;
 }
 
 .onlinehome-slider {
     background: #fff; 
     padding: 3px 0px;
+	position: relative;
+}
+
+.onlinehome-slider .owl-controls {
+    position: absolute;
+    width: 100%;
+    top: 7px;
+    z-index: 1;
+    left: 0;
+}
+
+.onlinehome-slider.owl-theme .owl-controls .owl-nav .owl-prev, .owl-theme .owl-controls .owl-nav .owl-next {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #4899d9;
+	color: #fff;
+	position: absolute;
+	top: 0;
+	text-align: left;
+}
+
+.onlinehome-slider.owl-theme .owl-controls .owl-nav .owl-prev {
+	padding-left: 5px;
+}
+
+.onlinehome-slider.owl-theme .owl-controls .owl-nav .owl-next {
+	right: 0;
+	padding-left: 8px;
+}
+
+.onlinehome-slider.owl-theme .owl-controls .owl-nav .owl-prev::after, .owl-theme .owl-controls .owl-nav .owl-next::after {
+	font-family: 'fontawesome';
+	line-height: 28px;
+}
+
+.onlinehome-slider.owl-theme .owl-controls .owl-nav .owl-prev::after {
+    content: '\f053';
+}
+
+.onlinehome-slider.owl-theme .owl-controls .owl-nav .owl-next::after {
+    content: '\f054';
 }
 
 .item-text {
     background: #fff;
-    margin: 4px 0px;
+    margin: 4px auto;
+	margin-right: 29px;
     border-radius: 50px;
     font-size: 11px;
     text-align: center;
     padding: 5px;
 	box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2);
-	margin-left: 6px;
+/*	margin-left: 6px;*/
+	width: 90px;
 }
 
 .item-text.active {
@@ -1588,3 +1646,136 @@ select:focus {
 .pay-main p {
     margin-bottom: 0;
 }
+
+			/* ceunit2 css */
+
+.dashboard-title {
+    display: flex;
+    align-items: center;
+	padding-top: 12px;
+}
+
+.dashboard-img {
+	width: 50px;
+    height: 50px;
+    /* margin: 0 auto; */
+    border: 2px solid #2f91d5;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: -20px;
+}
+
+.dashboard-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.dashboard-text-box p {
+    margin-bottom: 0;
+}
+
+.dashboard-text-box {
+    width: 45%;
+}
+
+.welcome-profile-text {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.welcome-profile-text .red {
+    font-size: 17px;
+	font-family: 'SCRIPTBL', sans-serif;
+}
+
+.notification-box {
+    margin-top: 5px;
+}
+
+.notification-icon {
+    width: 19px;
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.notification-icon img {
+    width: 100%;
+}
+
+.general-main-box {
+    width: 100px;
+	width: 40%;
+/*    height: 100px;*/
+    margin: 0 auto;
+    text-align: center;
+	border: 1px solid #000;
+}
+
+.need-box {
+    color: #fff;
+	font-size: 12px;
+    padding: 7px 0;
+}
+
+.need-box p {
+    margin-bottom: 0;
+}
+
+.specific-main-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.general-box, .specific-box {
+	display: inline-block;
+	width: 50%;
+	font-size: 8px;
+    padding: 8px 3px;
+}
+
+.general-box p, .specific-box p {
+	margin-bottom: 0;
+}
+
+.general-box {
+	background: #f8d30b;
+}
+
+.specific-box {
+	background: #d03314;
+}
+
+.table-banner {
+    margin: 10px 0;
+}
+
+table.table {
+	text-align: center;
+}
+
+table.table thead {
+    color: #fff;
+    font-size: 12px;
+}
+
+table.table tbody {
+    font-size: 12px;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #828282;
+}
+
+.table thead th {
+    border-bottom: 1px solid #828282;
+}
+
+table.table tbody tr td:first-child {
+    font-weight: 600;
+}
+
+table.table tbody tr td:nth-child(3) {
+    font-weight: 600;
+}
+			/* ceunit2 css */

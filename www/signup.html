@@ -52,8 +52,8 @@
 				</div>
 				
 				<div class="col-6">
-					<div class="sign-box">
-						<div class="sign-img">
+					<div class="sign-box" data-page="professional_signup_form.html">
+						<div class="sign-img" >
 						    <a href="javascript:void(0)" onclick="nextpage('professional_signup_form.html')">
 						        <img class="img-fluid" src="images/img.png" alt="">
 						    </a>
@@ -63,7 +63,7 @@
 				</div>
 				
 				<div class="col-6">
-					<div class="sign-box">
+					<div class="sign-box" data-page="ceprovider_signup_form.html">
 						<div class="sign-img">
 						    <a href="javascript:void(0)" onclick="nextpage('ceprovider_signup_form.html')">
 						        <img class="img-fluid" src="images/img-1.png" alt="">
@@ -74,7 +74,7 @@
 				</div>
 				
 				<div class="col-6">
-					<div class="sign-box">
+					<div class="sign-box" data-page="institutions_signup_form.html">
 						<div class="sign-img">
 						    <a href="javascript:void(0)" onclick="nextpage('institutions_signup_form.html')">
 						        <img class="img-fluid" src="images/img-2.png" alt="">
@@ -85,9 +85,9 @@
 				</div>
 				
 				<div class="col-6">
-					<div class="sign-box">
+					<div class="sign-box" data-page="advertiser_signup_form.html">
 						<div class="sign-img">
-						    <a href="javascript:void(0)" onclick="nextpage('advertiser_signup_form.html')">
+						    <a href="javascript:void(0)" >
 						        <img class="img-fluid" src="images/img-3.png" alt="">
 						    </a>
 						</div>
@@ -96,8 +96,8 @@
 				</div>
 				
 				<div class="col-12 mt-4">
-				    <div class="continue-btn">
-                        <button class="btn">CONTINUE</button>
+				    <div class="continue-btn" id="continuebtn">
+                        <button class="btn" disabled>CONTINUE</button>
 				    </div>
 				</div>
 				
@@ -111,7 +111,18 @@
   
     <script src="js/bootstrap.min.js"></script>
     
+  <script>
+  jQuery('.sign-box').click(function(){
   
+   jQuery('.sign-box').removeClass('active');   
+   jQuery(this).addClass('active'); 
+  
+   var pagename="'"+jQuery(this).attr('data-page')+"'";   
+   var continuebtnhtml='  <button class="btn" onclick="nextpage('+pagename+')" >CONTINUE</button>';
+   jQuery('#continuebtn').html(continuebtnhtml);
+  
+  });
+  </script>
 
 </body>
 
