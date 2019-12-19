@@ -1038,7 +1038,7 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-	margin: 10px 0px 0px;
+	margin: 10px 0px;
 }
 
 .dashbord-box {
@@ -1747,7 +1747,21 @@ select:focus {
 }
 
 .table-banner {
-    margin: 10px 0;
+    margin-bottom: 10px;
+}
+
+.table-title h6 {
+    font-size: 13px;
+    margin: 5px 0 12px;
+    font-weight: 600;
+}
+
+.pending-table table.table tbody tr td:first-child {
+    font-weight: 600;
+}
+
+.pending-table table.table tbody tr td:nth-child(3) {
+    font-weight: 600;
 }
 
 table.table {
@@ -1755,12 +1769,11 @@ table.table {
 }
 
 table.table thead {
-    color: #fff;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 table.table tbody {
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .table-bordered th, .table-bordered td {
@@ -1771,11 +1784,96 @@ table.table tbody {
     border-bottom: 1px solid #828282;
 }
 
-table.table tbody tr td:first-child {
-    font-weight: 600;
+.record-box {
+    padding: 8px;
 }
 
-table.table tbody tr td:nth-child(3) {
-    font-weight: 600;
+.title-btn-box {
+    display: flex;
+/*    align-items: center;*/
+/*    justify-content: center;*/
 }
+
+.ce-title, .ce-btn {
+    width: 100%;
+}
+
+.ce-title h6 {
+    color: #fff;
+	font-size: 14px;
+    margin-bottom: 0;
+    padding-top: 5px;
+}
+
+.ce-btn {
+    width: 60%;
+    text-align: right;
+}
+
+.ce-btn .btn {
+    background: #fff;
+    border-radius: 0;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 500;
+	color: #000;
+}
+
+.record-box table.table tbody tr:last-child {
+    font-weight: 700;
+}
+
+.view-plus-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view {
+    width: 20px;
+}
+
+.plus {
+    width: 14px;
+	margin-left: 12px;
+}
+
+.download {
+	width: 13px;
+	margin-right: 12px;
+}
+
+.view img, .plus img, .download img {
+    width: 100%;
+}
+
+.plus a {
+    color: #000;
+	font-size: 14px;
+}
+
+.all-box {
+    color: #fff;
+    display: block;
+    padding: 1px 6px;
+    width: 100%;
+    text-align: center;
+    background: #9f9f9f;
+    margin: 0 6px;
+    font-size: 11px;
+}
+
+.all-box.active {
+    background: #219a1b;
+}
+
+.upload-box {
+    padding: 8px;
+}
+
+.upload-box .ce-btn .btn {
+	background: #d03314;
+	color: #fff;
+}
+
 			/* ceunit2 css */

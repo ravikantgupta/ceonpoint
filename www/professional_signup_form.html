@@ -14,12 +14,39 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     
 </head>
-<body>
-<script>	
+<body onload="setvalue()">
+<script>
+function setvalue()
+	{ 
+	
+	  jQuery.ajax({					  
+						type:'GET',  
+						url:base_url+"/users/profession",
+						data: JSON.stringify({username: jQuery("#username").val(),password: jQuery("#password").val()}),										
+						contentType: 'application/json',
+						success:function(data)
+							 {
+							   var professionht='<option value="">Select</option>';
+							   if(data.success)
+							   {                                 
+
+                                 for (i in data.profession) {
+										
+										  professionht+='<option value="'+data.profession[i].id+'">'+data.profession[i].cat_name+'</option>';
+										}                                 
+									 jQuery('#profession').html(professionht);
+                                   										
+							   }    
+
+							}
+			           });
+       }	
 	function userRegister()
             {	
   	          var email=jQuery("#email").val();
-		      var name=jQuery("#name").val();
+		      var name=jQuery("#name").val(); 
+			  var profession=jQuery("#profession").val(); 
+			  var password=jQuery("#password").val();
 		      var flag=0;
 			  if(email=='')
 				{
@@ -30,7 +57,19 @@
 			    {
 			     jQuery(".name-error").show();
 			     flag=1;
-			   }	
+			   }
+			   
+			   if(profession=='')
+			    {
+			     jQuery(".profession-error").show();
+			     flag=1;
+			   }
+			   if(password=='')
+			    {
+			     jQuery(".password-error").show();
+			     flag=1;
+			   }
+			   
                if(!jQuery('#bamboo').is(':checked'))
                {
 			    jQuery(".bamboo-error").show();
@@ -52,7 +91,7 @@
 								type:'POST', 
                                 dataType: 'JSON',								
 								url:base_url+"/users/register",
-								data: JSON.stringify({email: email,name: name, role:1}),								
+								data: JSON.stringify({name: name, profession:profession, email: email,password:password,role:1}),								
 								success:function(data)
 									 {	 
 									     jQuery('.mask').hide();
@@ -64,7 +103,7 @@
 												 window.plugins.nativepagetransitions.flip({
 														 'backgroundColor' : "#BBBBBB",
 														 'direction': 'right',										
-														 "href" : "login.html"
+														 "href" : "welcome.html"
 														 });
 										   }else
                                             {
@@ -153,13 +192,32 @@
 						<input id="name" type="text">
 					</div>
 					<div class="error name-error" style="color:red;display:none">Please enter name.</div>
-	            </div>           
+	            </div>   
+                <div class="col-12">
+	                <div class="form-text">
+						<label for="email">Profession</label>
+						<div class="select-box">
+						    <select name="profession" id="profession">
+                                <option value="" selected="">select</option>
+                               
+                            </select>
+						</div>
+					</div>
+					<div class="error profession-error" style="color:red;display:none">Please select profession.</div>
+	            </div>				
 	            <div class="col-12">
 	                <div class="form-text">
 						<label for="email">Email ID</label>
 						<input id="email" type="email">
 					</div>
 					<div class="error email-error" style="color:red;display:none">Please enter email.</div>
+	            </div>
+	            <div class="col-12">
+	                <div class="form-text">
+						<label for="email">Password</label>
+						<input id="password" type="password">
+					</div>
+					<div class="error password-error" style="color:red;display:none">Please enter password.</div>
 	            </div>
 	            
 	            <div class="col-12">
@@ -191,6 +249,14 @@
 	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
 	<style>
      .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   .form-text input[type="password"] {
+    display: block;
+    width: 100%;
+    border: 1px solid #e3e3e3;
+    padding: 7px 5px;
+    background: transparent;
+    font-size: 12px;
+}
    </style>
      <script type="text/javascript" src="cordova.js"></script>        
      <script src="js/jquery-1.11.2.min.js"></script>  
