@@ -21,9 +21,8 @@ function setvalue()
 	
 	  jQuery.ajax({					  
 						type:'GET',  
-						url:base_url+"/users/profession",
-						data: JSON.stringify({username: jQuery("#username").val(),password: jQuery("#password").val()}),										
-						contentType: 'application/json',
+						url:base_url+"/users/profession",																
+						dataType: 'json',
 						success:function(data)
 							 {
 							   var professionht='<option value="">Select</option>';
