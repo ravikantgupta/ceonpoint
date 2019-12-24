@@ -20,8 +20,18 @@
  function setvalue()
 	{ 
 		var loggedIn=window.localStorage.getItem("loggedIn");       	
-		var userdata=JSON.parse(window.localStorage.getItem("userdata"));
-        jQuery('.usename').html(userdata.name); 		  
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));		
+		
+        jQuery('.usename').html(userdata.name); 	
+        jQuery('.profession').html('Profession : '+userdata.profession); 	
+        jQuery('.profession').html('Profession : '+userdata.profession); 	
+        jQuery('.needed').html(userdata.needed); 	
+        jQuery('.general').html(userdata.general); 	
+        jQuery('.specific').html(userdata.specific); 	
+        jQuery('.required').html(userdata.required+' : Required'); 	
+        jQuery('.obtained').html(userdata.obtained+' : Required'); 	
+
+		
 		  jQuery.ajax({					  
 						type:'GET',  
 						url:base_url+"/users/country",																
@@ -130,7 +140,7 @@
                     <div class="dashboard-title">
 
                         <div class="dashboard-img">
-                            <img src="images/user.png" id="usericon" alt="">
+                            <img src="images/user.png" id="userimage" alt="">
                         </div>
 
                         <div class="dashboard-text-box">
@@ -157,14 +167,14 @@
                         <div class="general-main-box">
                             <div class="need-box bgblue">
                                 <p>NEEDED</p>
-                                <div>13</div>
+                                <div class="needed">13</div>
                             </div>
                             <div class="specific-main-box">
                                 <div class="general-box">
-                                    <p>General : <b>06</b></p>
+                                    <p>General : <b class="general" >06</b></p>
                                 </div>
                                 <div class="specific-box">
-                                    <p>Specific : <b>12</b></p>
+                                    <p>Specific : <b class="specific">12</b></p>
                                 </div>
                             </div>
                         </div>
@@ -195,12 +205,13 @@
                     <div class="dashboard-tab">
 
                         <div class="dashbord-box bgblue">
-                            <span>18 : Required</span>
+                            <span class="required">40 : Required</span>
                         </div>
 
                         <div class="dashbord-box bgblue">
-                            <span>14 : Obtained</span>
+                            <span class="obtained">14 : Obtained</span>
                         </div>
+
 
                         <!--<div class="dashbord-box">
 				        	<span>0 : Needed</span>

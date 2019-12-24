@@ -24,9 +24,16 @@
  <script>
  function setvalue()
 	{ 
-		var loggedIn=window.localStorage.getItem("loggedIn");       	
-		var userdata=JSON.parse(window.localStorage.getItem("userdata"));
-        jQuery('.usename').html(userdata.name); 		  
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
+        jQuery('.usename').html(userdata.name); 	
+        jQuery('.profession').html('Profession : '+userdata.profession); 	
+        jQuery('.profession').html('Profession : '+userdata.profession); 	
+        jQuery('.needed').html(userdata.needed); 	
+        jQuery('.general').html(userdata.general); 	
+        jQuery('.specific').html(userdata.specific); 	
+        jQuery('.required').html(userdata.required+' : Required'); 	
+        jQuery('.obtained').html(userdata.obtained+' : Required'); 		
+		jQuery('#userimage').attr('src',userdata.image); 		  
 		
 	  
 	}
@@ -44,7 +51,7 @@
                 </a>
             </div>
             <div class="hero-link-box">
-                <a href="#">
+                <a href="javascript:void(0)" onclick="nextpage('onlinecourses.html')">
                     <div class="hero-link-img">
                         <img class="img-fluid" src="images/online-course.png" alt="">
                     </div>
@@ -54,7 +61,7 @@
                 </a>
             </div>
             <div class="hero-link-box">
-                <a href="#">
+                <a href="javascript:void(0)" onclick="nextpage('traingseminar.html')">
                     <div class="hero-link-img">
                         <img class="img-fluid" src="images/bord.png" alt="">
                     </div>
@@ -119,15 +126,16 @@
                 <div class="col-12">
                     <div class="dashboard-title">
 
-                        <div class="dashboard-img">
-                            <img src="images/user.png" alt="">
+                        
+                       <div class="dashboard-img">
+                            <img src="images/user.png" id="userimage" alt="">
                         </div>
 
                         <div class="dashboard-text-box">
                             <div class="welcome-profile-text">
                                 <p class="red">Welcome!</p>
-                                <p>Vaishnaw</p>
-                                <span>Profession : Accountant</span>
+                                <p class="usename">Vaishnaw</p>
+                                <span class="profession">Profession : Accountant</span>
                                 <div class="notification-box">
                                     <a href="#" class="notification-icon ml-0">
                                         <img class="img-fluid" src="images/notification.png" alt="">
@@ -147,14 +155,14 @@
                         <div class="general-main-box">
                             <div class="need-box bgblue">
                                 <p>NEEDED</p>
-                                <div>26</div>
+                                <div class="needed">13</div>
                             </div>
                             <div class="specific-main-box">
                                 <div class="general-box">
-                                    <p>General : <b>26</b></p>
+                                    <p>General : <b class="general" >06</b></p>
                                 </div>
                                 <div class="specific-box">
-                                    <p>Specific : <b>14</b></p>
+                                    <p>Specific : <b class="specific">12</b></p>
                                 </div>
                             </div>
                         </div>
@@ -185,11 +193,11 @@
                     <div class="dashboard-tab">
 
                         <div class="dashbord-box bgblue">
-                            <span>25 : Required</span>
+                            <span class="required">25 : Required</span>
                         </div>
 
                         <div class="dashbord-box bgblue">
-                            <span>14 : Obtained</span>
+                            <span class="obtained">14 : Obtained</span>
                         </div>
 
                         <!--<div class="dashbord-box">
@@ -218,7 +226,7 @@
 
                 
                 <div class="col-3 pr-0">
-			        <div class="accountant-icon-box">
+			        <div class="accountant-icon-box" onclick="nextpage('onlinecourses.html')">
 			            <div class="accountant-icon-img">
 			                <img class="img-fluid" src="images/certificates-icon.png" alt="">
 			            </div>
@@ -227,7 +235,7 @@
                 </div>
                 
                 <div class="col-3 p-0">
-			        <div class="accountant-icon-box">
+			        <div class="accountant-icon-box" onclick="nextpage('traingseminar.html')">
 			            <div class="accountant-icon-img">
 			                <img class="img-fluid" src="images/certificates-training.png" alt="">
 			            </div>
@@ -236,7 +244,7 @@
                 </div>
                 
                 <div class="col-3 p-0">
-			        <div class="accountant-icon-box">
+			        <div class="accountant-icon-box" onclick="nextpage('certficatuplod.html')">
 			            <div class="accountant-icon-img">
 			                <img class="img-fluid" src="images/certificates-clipboards.png" alt="">
 			            </div>
