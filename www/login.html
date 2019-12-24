@@ -62,21 +62,38 @@
 									 {	 
 									     jQuery('.mask').hide();
 				                         jQuery('.loading').hide();
-										 console.log(data.success);
+										
                                         if(data.error=='1')
                                            {
 										     jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.msg);
 										   }else
                                             {
-											   //window.localStorage.setItem("loggedIn", 1);
-												// window.localStorage.setItem('login_user_id', data.response_data.id);
-												// window.localStorage.setItem('login_user_email', data.response_data.user_email); 
-												// window.localStorage.setItem('login_user_name', data.response_data.user_nicename); 
+											   window.localStorage.setItem("loggedIn", 1);
+											   window.localStorage.setItem('userdata',  JSON.stringify(data.data));											   
+											 
+											  if(data.screen=='1')
+												 {							 
+												   nextpage('profile-screen1.html');
+												 }
+												 
+												 if(data.screen=='2')
+												 {							 
+												   nextpage('profile-screen2.html');
+												 }
+												 if(data.screen=='3')
+												 {							 
+												   nextpage('profile-screen3.html');
+												 }
+											   
+											   if(data.screen=='4')
+											   {
 												 window.plugins.nativepagetransitions.flip({
 														 'backgroundColor' : "#BBBBBB",
 														 'direction': 'right',										
 														 "href" : "dhasboard.html"
 														 });
+											  }
+											  
 											} 										   
 										 
 									}
@@ -100,7 +117,7 @@
                         </div>
                         
                         <div class="back-logo">
-                            <a nclick="bakpage('index.html')">
+                            <a onclick="bakpage('index.html')">
                                 <img class="img-fluid" src="images/logo-login.png" alt="">
                             </a>
                         </div>

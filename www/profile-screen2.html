@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile screen 2</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+        rel="stylesheet">
+<script type="text/javascript" src="js/functions.js"></script>
+</head>
+<body onload="setvalue()">
+ <script>
+ function setvalue()
+	{ 
+		var loggedIn=window.localStorage.getItem("loggedIn");       	
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+        jQuery('.usename').html(userdata.name); 		  
+		  jQuery.ajax({					  
+						type:'GET',  
+						url:base_url+"/users/country",																
+						dataType: 'json',
+						success:function(data)
+							 {
+							 
+							   var countryhtml='';
+							   if(data.success)
+							   {                                 
+
+                                 for (i in data.country) {
+										
+										  countryhtml+='<option value="'+data.country[i].countries_id+'">'+data.country[i].countries_name+'</option>';
+										}                                 
+									 jQuery('#nationality').html(countryhtml);
+                                   										
+							   }    
+
+							}
+			           });
+	  
+	}
+	
+	 
+	 function checkValidation()
+	 {
+	 
+	     jQuery('.mask').show();
+		 jQuery('.loading').show();
+		 var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+		 var formData = new FormData();
+		 formData.append('user_id', userdata.id);
+		 formData.append('nationality', $('#nationality').val());
+		 formData.append('address', $('#address').val());		
+		 formData.append('image', $('input[type=file]')[0].files[0]); 
+		
+				jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/users/profile_2",
+					data: formData,	
+					contentType: false,
+				    processData: false,
+					success:function(data)
+						 {	 
+							 jQuery('.mask').hide();
+							 jQuery('.loading').hide();
+						
+							if(data.success=='true')
+							   {
+							     window.localStorage.setItem('userdata',  JSON.stringify(data.data));
+								 nextpage('profile-screen3.html');
+							   }else
+								{
+								  jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.msg);
+								   
+								} 										   
+							 
+						}
+				   });
+	   return false;
+	 }
+ </script>
+    
+    <header class="header-btn p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="back-link-box pr-0">
+
+                        <div class="back-link">
+                            <a href="#">
+                                <img class="img-fluid" src="images/left.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="back-logo">
+                            <a href="#">
+                                <img class="img-fluid" src="images/logo-new.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="link-nav">
+                            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <div class="container pr-0">
+                                    <a href="#" class="navbar-toggler" onclick="openNav()">
+                                        <span class="navbar-toggler-icon"></span>
+                                        <span class="navbar-toggler-icon ml-1"></span>
+                                        <span class="navbar-toggler-icon"></span>
+                                    </a>
+                                </div>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="dashboard-title-banner input-select-banner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="dashboard-title">
+
+                        <div class="dashboard-img">
+                            <img src="images/user.png" id="usericon" alt="">
+                        </div>
+
+                        <div class="dashboard-text-box">
+                            <div class="welcome-profile-text">
+                                <p class="red">Welcome!</p>
+                                <p class="usename">Vaishnaw</p>
+                                <span class="profession">Profession : Accountant</span>
+                                <div class="notification-box">
+                                    <a href="#" class="notification-icon ml-0">
+                                        <img class="img-fluid" src="images/notification.png" alt="">
+                                    </a>
+
+                                    <a href="#" class="notification-icon">
+                                        <img class="img-fluid" src="images/megaphone.png" alt="">
+                                    </a>
+
+                                    <a href="#" class="notification-icon">
+                                        <img class="img-fluid" src="images/page.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="general-main-box">
+                            <div class="need-box bgblue">
+                                <p>NEEDED</p>
+                                <div>13</div>
+                            </div>
+                            <div class="specific-main-box">
+                                <div class="general-box">
+                                    <p>General : <b>06</b></p>
+                                </div>
+                                <div class="specific-box">
+                                    <p>Specific : <b>12</b></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="progress-banner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="progress mt-3">
+                        <div class="progress-bar bgred" style="width:25%;">25%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-icon-banner">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="dashboard-tab">
+
+                        <div class="dashbord-box bgblue">
+                            <span>18 : Required</span>
+                        </div>
+
+                        <div class="dashbord-box bgblue">
+                            <span>14 : Obtained</span>
+                        </div>
+
+                        <!--<div class="dashbord-box">
+				        	<span>0 : Needed</span>
+						</div>-->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-info">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <p class="profileinfo-title">PLEASE COMPLETE YOUR INFORMATION</p>
+
+                    <ul class="profile-infostap">
+                        <li class="active"><span class="active"><img src="images/check.png" alt=""></span></li>
+                        <li class="text-center active"><span class="active"><img src="images/check.png" alt=""></span>
+                        </li>
+                        <li class="text-right"><span>3</span></li>
+                    </ul>
+                    <form method="post" id="persoinalform" onsubmit="return checkValidation();">
+                    <div class="prosale-info">
+					
+                        <p class="profileinfo-title">PERSONAL INFORMATION</p>
+                        <div class="upload-box">
+                            <label>Nationality</label>
+                            <div class="select-box">
+                                <select name="nationality" id="nationality">
+                                   
+                                </select>
+                            </div>
+                        </div>
+                        <div class="upload-box">
+                            <label for="text">Address</label>
+                            <input id="address" name="address" type="text" required>
+                        </div>
+
+                        <div class="upload-box">
+                            <label for="text">Upload Photo</label>
+                            <input id="image" name="image" type="file" required>
+                        </div>
+
+                        
+                    </div>
+                  
+                    <div class="login-box text-center">
+                        <button type="submit" class="login-btn">SAVE</button>
+                    </div>
+					<div class="col-12 px-4" id="msgstatus" style="font-size:15px;"></div>
+                     </form>   
+                </div>
+            </div>
+    </section>
+
+
+<div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	
+	 <script type="text/javascript" src="cordova.js"></script>        
+     <script src="js/jquery-1.11.2.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>    
+   <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+</body>
+
+</html>
