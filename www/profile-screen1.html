@@ -82,12 +82,12 @@
         {		  
 			jQuery('.mask').show();
 			jQuery('.loading').show();
-			var user_id=1;
+			var userdata=JSON.parse(window.localStorage.getItem("userdata"));
 			jQuery.ajax({					  
 				type:'POST', 
 				dataType: 'JSON',								
 				url:base_url+"/users/profile_1",
-				data: JSON.stringify({user_id: user_id, total:total, gernal: gernal,specific:specific,from_date:from_date,to_date:to_date}),								
+				data: JSON.stringify({user_id: userdata.id, total:total, gernal: gernal,specific:specific,from_date:from_date,to_date:to_date}),								
 				success:function(data)
 					 {	 
 						 jQuery('.mask').hide();
