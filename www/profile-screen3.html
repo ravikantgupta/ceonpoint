@@ -45,17 +45,12 @@
 	     jQuery('.mask').show();
 		 jQuery('.loading').show();
 		 var userdata=JSON.parse(window.localStorage.getItem("userdata"));
-		 var formData = new FormData();
-		 formData.append('user_id', userdata.id);
-		 formData.append('licence_no', $('#licence_no').val());
-		 formData.append('validity', $('#validity').val());		
-		 formData.append('registering_body', $('#registering_body').val());		
-		 
+		
 				jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
 					url:base_url+"/users/profile_3",
-					data: formData,	
+					data: JSON.stringify({user_id: userdata.id,licence_no: $('#licence_no').val(),validity:$('#validity').val(), registering_body:$('#registering_body').val() }),	
 					contentType: false,
 				    processData: false,
 					success:function(data)
