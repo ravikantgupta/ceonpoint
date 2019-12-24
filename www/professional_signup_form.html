@@ -19,7 +19,7 @@
 function setvalue()
 	{ 
 	
-	  jQuery.ajax({					  
+	      jQuery.ajax({					  
 						type:'GET',  
 						url:base_url+"/users/profession",																
 						dataType: 'json',
@@ -31,7 +31,7 @@ function setvalue()
 
                                  for (i in data.profession) {
 										
-										  professionht+='<option value="'+data.profession[i].id+'">'+data.profession[i].cat_name+'</option>';
+										  professionht+='<option value="'+data.profession[i].cat_name+'">'+data.profession[i].cat_name+'</option>';
 										}                                 
 									 jQuery('#profession').html(professionht);
                                    										
