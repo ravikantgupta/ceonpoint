@@ -14,8 +14,27 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     
 </head>
-<body >
-
+<body onload="setvalue()">
+<script>
+ function setvalue()
+	{ 
+		    	
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
+        jQuery('.usename').html(userdata.name); 	
+        jQuery('.profession').html('Profession : '+userdata.profession); 	
+        jQuery('.profession').html('Profession : '+userdata.profession); 	
+        jQuery('.needed').html(userdata.needed); 	
+        jQuery('.general').html(userdata.general); 	
+        jQuery('.specific').html(userdata.specific); 	
+        jQuery('.required').html(userdata.required+' : Required'); 	
+        jQuery('.obtained').html(userdata.obtained+' : Required'); 		
+		jQuery('#userimage').attr('src',userdata.image); 	
+		
+		
+		
+	  
+	}
+</script>	
    <div class="home-link-banner">
 		<div class="main-link-box">
 			<div class="hero-link-box">
@@ -104,13 +123,13 @@
 					<div class="dashboard-title">
 			        
 				        <div class="dashboard-img">
-				        	<img src="images/user.png" alt="">
+				        	<img src="images/user.png" id="userimage"  alt="">
 				        </div>
 				        
 				        <div class="dashboard-text-box">
 				        	<div class="welcome-profile-text">
 				        		<p class="red">Welcome!</p>
-				        		<p>Vaishnaw</p>
+				        		<p class="usename">Vaishnaw</p>
 				        		<span>Profession : Accountant</span>
 								<div class="notification-box">
 									<a href="#" class="notification-icon ml-0">
@@ -131,14 +150,14 @@
 				        <div class="general-main-box">
 				        	<div class="need-box bgblue">
 				        		<p>NEEDED</p>
-				        		<div>13</div>
+				        		<div class="needed">13</div>
 				        	</div>
 				        	<div class="specific-main-box">
 				        		<div class="general-box">
-									<p>General : <b>06</b></p>
+									<p>General : <b class="general">06</b></p>
 								</div>
 								<div class="specific-box">
-									<p>Specific : <b>12</b></p>
+									<p>Specific : <b class="specific">12</b></p>
 								</div>
 				        	</div>	
 				        </div>
@@ -169,11 +188,11 @@
 					<div class="dashboard-tab">
 			        
 				        <div class="dashbord-box bgblue">
-				        	<span>25 : Required</span>
+				        	<span class="required">25 : Required</span>
 				        </div>
 				        
 				        <div class="dashbord-box bgblue">
-				        	<span>14 : Obtained</span>
+				        	<span class="obtained">14 : Obtained</span>
 				        </div>
 				        
 						<!--<div class="dashbord-box">
