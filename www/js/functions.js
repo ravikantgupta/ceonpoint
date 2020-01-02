@@ -207,3 +207,55 @@ function getCartDetail()
 		  
 	  }
 }
+
+function addfootermenu()
+{
+	
+	var footerhtml='<div class="home-link-banner">\
+		<div class="main-link-box">\
+			<div class="hero-link-box">\
+				<a href="#">\
+					<div class="hero-link-img">\
+						<img class="img-fluid" src="images/home.png" alt="">\
+					</div>\
+					<div class="hero-link-text">\
+						<span>HOME</span>\
+					</div>\
+				</a>\
+			</div>\
+			<div class="hero-link-box">\
+				<a href="#">\
+					<div class="hero-link-img">\
+						<img class="img-fluid" src="images/online-course.png" alt="">\
+					</div>\
+					<div class="hero-link-text">\
+						<span>Online Courses</span>\
+					</div>\
+				</a>\
+			</div>\
+			<div class="hero-link-box">\
+				<a href="#">\
+					<div class="hero-link-img">\
+						<img class="img-fluid" src="images/bord.png" alt="">\
+					</div>\
+					<div class="hero-link-text">\
+						<span>Training</span>\
+					</div>\
+				</a>\
+			</div>\
+			<div class="hero-link-box">\
+				<a href="#">\
+					<div class="hero-link-img">\
+						<img class="img-fluid" src="images/user-icon.png" alt="">\
+					</div>\
+					<div class="hero-link-text">\
+						<span>Account</span>\
+					</div>\
+				</a>\
+			</div>\
+		</div>\
+	</div>';
+	
+	$( "body" ).append(footerhtml);
+	
+}

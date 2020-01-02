@@ -9,56 +9,19 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">   
     <link rel="stylesheet" href="css/style.css">    
+	 <link rel="stylesheet" href="css/owl.carousel.css">
+    
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <script type="text/javascript" src="js/functions.js"></script>
 </head>
-<body>
-    
-    <div class="home-link-banner">
-		<div class="main-link-box">
-			<div class="hero-link-box">
-				<a href="#">
-					<div class="hero-link-img">
-						<img class="img-fluid" src="images/home.png" alt="">
-					</div>
-					<div class="hero-link-text">
-						<span>HOME</span>
-					</div>
-				</a>
-			</div>
-			<div class="hero-link-box">
-				<a href="#">
-					<div class="hero-link-img">
-						<img class="img-fluid" src="images/online-course.png" alt="">
-					</div>
-					<div class="hero-link-text">
-						<span>Online Courses</span>
-					</div>
-				</a>
-			</div>
-			<div class="hero-link-box">
-				<a href="#">
-					<div class="hero-link-img">
-						<img class="img-fluid" src="images/bord.png" alt="">
-					</div>
-					<div class="hero-link-text">
-						<span>Training</span>
-					</div>
-				</a>
-			</div>
-			<div class="hero-link-box">
-				<a href="#">
-					<div class="hero-link-img">
-						<img class="img-fluid" src="images/user-icon.png" alt="">
-					</div>
-					<div class="hero-link-text">
-						<span>Account</span>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
+<body onload="setvalue()">
+  <script>
+ function setvalue()
+	{
+	 addfootermenu()
+    }
 
+</script>	
     <header class="header-btn py-2">
         <div class="container-fluid">
             <div class="row">
@@ -78,7 +41,7 @@
                         <div class="link-nav">
                             <nav class="navbar navbar-expand-lg navbar-dark p-0">
                                 <div class="container pr-0">
-                                    <a href="#" class="navbar-toggler" onclick="openNav()">
+                                    <a href="javascript:void(0)" class="navbar-toggler" onclick="nextpage('menunew.html')">
                                         <span class="navbar-toggler-icon"></span>
                                         <span class="navbar-toggler-icon ml-1"></span>
                                         <span class="navbar-toggler-icon"></span>
@@ -125,15 +88,98 @@
 				</div>
     		</section>
     		
+    		<section class="header-hero-banner">
+    		
+				<div class="header-hero-img">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-6 px-0 offset-6">
+								<div class="inner-hero-box">
+									<!--<img class="img-fluid" src="images/banner.png" alt="">-->
+									<p class="courses-price">1,00,000+</p>
+									<p class="courses-free">ONLINE COURSES</p>
+									<p class="courses-link">Empower yourself towards</p>
+									<p class="courses-link mt-0 pr-4">excellent service!</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+   		
+    		</section>
+    		
     </section>
-    
+    		
+	<section class="onlinehome-banner">
+	
+		<div class="onlinehome-slider">
+
+			<div class="item">
+				<div class="item-text active">
+					<a href="#">Professional</a>
+				</div>
+			</div>
+
+			<div class="item">
+				<div class="item-text">
+					<a href="#">CHEMIST</a>
+				</div>
+			</div>
+
+			<div class="item">
+				<div class="item-text">
+					<a href="#">PHARMACY</a>
+				</div>
+			</div>
+
+			<div class="item">
+				<div class="item-text">
+					<a href="#">NURSING</a>
+				</div>
+			</div>
+
+		</div>
+		
+	</section>
+   
    	<section class="header-bottom-banner">
 		<div class="container-fluid">
 			<div class="row">
-							
+			
+				<div class="col-12">
+					<div class="onlineimg-title">
+						<h5>ADVERTISEMENT</h5>
+					</div>
+				</div>
+			
+				<div class="col-12 pr-0">
+					<div class="onlineimg-slider">
+		
+						<div class="item">
+							<div class="onlineimg-slider-box">
+								<img class="img-fluid" src="images/banner-1.png" alt="">
+							</div>
+						</div>
+
+						<div class="item">
+							<div class="onlineimg-slider-box">
+								<img class="img-fluid" src="images/banner-1.png" alt="">
+							</div>
+						</div>
+
+						<div class="item">
+							<div class="onlineimg-slider-box">
+								<img class="img-fluid" src="images/banner-1.png" alt="">
+							</div>
+						</div>
+
+					</div>
+				</div>
+				
 				<div class="col-12">
 					<div class="latest-box">
-						<h4>FEATURED COURSES</h4>
+						<h4>Latest Online Courses</h4>
+						<a href="onlinecourses.html" class="after-link pull-right mt-1">View All</a>
 					</div>
 				</div>
 				
@@ -146,39 +192,37 @@
 						<div class="care-title">
 							<h4>Fashion Designers</h4>
 							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
 							<div class="review-field-rating">
 								<div class="review-control-vote">
 								
 									<span>(512)</span>
 
-									<input type="radio" name="ratings[1]" id="Rating_1" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
+									<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
 
 									<label class="rating-1" for="Rating_1" id="Rating_1_label">
 									</label>
 
-									<input type="radio" name="ratings[1]" id="Rating_2" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
+									<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
 
 									<label class="rating-2" for="Rating_2" id="Rating_2_label">
 									</label>
 
-									<input type="radio" name="ratings[1]" id="Rating_3" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
+									<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
 
 									<label class="rating-3" for="Rating_3" id="Rating_3_label">
 									</label>
 
-									<input type="radio" name="ratings[1]" id="Rating_4" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
+									<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
 
 									<label class="rating-4" for="Rating_4" id="Rating_4_label">
 									</label>
 
-									<input type="radio" name="ratings[1]" id="Rating_5" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
+									<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
 
 									<label class="rating-5" for="Rating_5" id="Rating_5_label">
 									</label>
 								</div>
 							</div>
-							
 							<div class="price-box">
 								<span>$123</span>
 								<a href="#" class="pull-right">
@@ -199,40 +243,38 @@
 						<div class="care-title">
 							<h4>Bachelor of Laws (LLB)</h4>
 							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
 							<div class="review-field-rating">
 								<div class="review-control-vote">
 								
 									<span>(512)</span>
 
-									<input type="radio" name="ratings[2]" id="Rating_12" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
+									<input type="radio" name="ratings[3]" id="Rating_12" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
 
 									<label class="rating-1" for="Rating_12" id="Rating_12_label">
 									</label>
 
-									<input type="radio" name="ratings[2]" id="Rating_22" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
+									<input type="radio" name="ratings[3]" id="Rating_22" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
 
 									<label class="rating-2" for="Rating_22" id="Rating_22_label">
 									</label>
 
-									<input type="radio" name="ratings[2]" id="Rating_32" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
+									<input type="radio" name="ratings[3]" id="Rating_32" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
 
 									<label class="rating-3" for="Rating_32" id="Rating_32_label">
 									</label>
 
-									<input type="radio" name="ratings[2]" id="Rating_42" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
+									<input type="radio" name="ratings[3]" id="Rating_42" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
 
 									<label class="rating-4" for="Rating_42" id="Rating_42_label">
 									</label>
 
-									<input type="radio" name="ratings[2]" id="Rating_52" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
+									<input type="radio" name="ratings[3]" id="Rating_52" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
 
 									<label class="rating-5" for="Rating_52" id="Rating_52_label">
 									</label>
 									
 								</div>
 							</div>
-							
 							<div class="price-box">
 								<span>$120</span>
 								<a href="#" class="pull-right">
@@ -253,359 +295,37 @@
 						<div class="care-title">
 							<h4>Bachelor Of Computer Applications</h4>
 							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
 							<div class="review-field-rating">
 								<div class="review-control-vote">
 								
 									<span>(512)</span>
 
-									<input type="radio" name="ratings[3]" id="Rating_13" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
+									<input type="radio" name="ratings[2]" id="Rating_13" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
 
 									<label class="rating-1" for="Rating_13" id="Rating_13_label">
 									</label>
 
-									<input type="radio" name="ratings[3]" id="Rating_23" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
+									<input type="radio" name="ratings[2]" id="Rating_23" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
 
 									<label class="rating-2" for="Rating_23" id="Rating_23_label">
 									</label>
 
-									<input type="radio" name="ratings[3]" id="Rating_33" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
+									<input type="radio" name="ratings[2]" id="Rating_33" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
 
 									<label class="rating-3" for="Rating_33" id="Rating_33_label">
 									</label>
 
-									<input type="radio" name="ratings[3]" id="Rating_43" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
+									<input type="radio" name="ratings[2]" id="Rating_43" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
 
 									<label class="rating-4" for="Rating_43" id="Rating_43_label">
 									</label>
 
-									<input type="radio" name="ratings[3]" id="Rating_53" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
+									<input type="radio" name="ratings[2]" id="Rating_53" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
 
 									<label class="rating-5" for="Rating_53" id="Rating_53_label">
 									</label>
 								</div>
 							</div>
-							
-							<div class="price-box">
-								<span>$123</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="col-6 pl-1">
-				
-					<div class="care-box margin-box mb-0">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-5.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Human Resources</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[4]" id="Rating_14" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_14" id="Rating_14_label">
-									</label>
-
-									<input type="radio" name="ratings[4]" id="Rating_24" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_24" id="Rating_24_label">
-									</label>
-
-									<input type="radio" name="ratings[4]" id="Rating_34" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_34" id="Rating_34_label">
-									</label>
-
-									<input type="radio" name="ratings[4]" id="Rating_44" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_44" id="Rating_44_label">
-									</label>
-
-									<input type="radio" name="ratings[4]" id="Rating_54" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_54" id="Rating_54_label">
-									</label>
-								</div>
-							</div>
-							
-							<div class="price-box">
-								<span>$120</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="col-6 pr-1">
-				
-					<div class="care-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-2.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Fashion Designers</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[5]" id="Rating_15" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_15" id="Rating_15_label">
-									</label>
-
-									<input type="radio" name="ratings[5]" id="Rating_25" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_25" id="Rating_25_label">
-									</label>
-
-									<input type="radio" name="ratings[5]" id="Rating_35" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_35" id="Rating_35_label">
-									</label>
-
-									<input type="radio" name="ratings[5]" id="Rating_45" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_45" id="Rating_45_label">
-									</label>
-
-									<input type="radio" name="ratings[5]" id="Rating_55" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_55" id="Rating_55_label">
-									</label>
-								</div>
-							</div>
-							
-							<div class="price-box">
-								<span>$123</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="col-6 pl-1">
-				
-					<div class="care-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-3.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Bachelor of Laws (LLB)</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[6]" id="Rating_16" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_16" id="Rating_16_label">
-									</label>
-
-									<input type="radio" name="ratings[6]" id="Rating_26" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_26" id="Rating_26_label">
-									</label>
-
-									<input type="radio" name="ratings[6]" id="Rating_36" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_36" id="Rating_36_label">
-									</label>
-
-									<input type="radio" name="ratings[6]" id="Rating_46" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_46" id="Rating_46_label">
-									</label>
-
-									<input type="radio" name="ratings[6]" id="Rating_56" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_56" id="Rating_56_label">
-									</label>
-									
-								</div>
-							</div>
-							
-							<div class="price-box">
-								<span>$120</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="col-6 pr-1">
-				
-					<div class="care-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-2.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Fashion Designers</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[7]" id="Rating_17" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_7" id="Rating_17_label">
-									</label>
-
-									<input type="radio" name="ratings[7]" id="Rating_27" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_27" id="Rating_27_label">
-									</label>
-
-									<input type="radio" name="ratings[7]" id="Rating_37" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_37" id="Rating_37_label">
-									</label>
-
-									<input type="radio" name="ratings[7]" id="Rating_47" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_47" id="Rating_47_label">
-									</label>
-
-									<input type="radio" name="ratings[7]" id="Rating_57" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_57" id="Rating_57_label">
-									</label>
-								</div>
-							</div>
-							
-							<div class="price-box">
-								<span>$123</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="col-6 pl-1">
-				
-					<div class="care-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-3.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Bachelor of Laws (LLB)</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[8]" id="Rating_18" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_18" id="Rating_18_label">
-									</label>
-
-									<input type="radio" name="ratings[8]" id="Rating_28" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_28" id="Rating_28_label">
-									</label>
-
-									<input type="radio" name="ratings[8]" id="Rating_38" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_38" id="Rating_38_label">
-									</label>
-
-									<input type="radio" name="ratings[8]" id="Rating_48" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_42" id="Rating_48_label">
-									</label>
-
-									<input type="radio" name="ratings[8]" id="Rating_58" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_58" id="Rating_58_label">
-									</label>
-									
-								</div>
-							</div>
-							
-							<div class="price-box">
-								<span>$120</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="col-6 pr-1">
-				
-					<div class="care-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-2.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Fashion Designers</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[9]" id="Rating_9" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_9" id="Rating_9_label">
-									</label>
-
-									<input type="radio" name="ratings[9]" id="Rating_9" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_9" id="Rating_9_label">
-									</label>
-
-									<input type="radio" name="ratings[9]" id="Rating_9" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_9" id="Rating_9_label">
-									</label>
-
-									<input type="radio" name="ratings[9]" id="Rating_9" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_9" id="Rating_9_label">
-									</label>
-
-									<input type="radio" name="ratings[9]" id="Rating_9" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_9" id="Rating_9_label">
-									</label>
-								</div>
-							</div>
-							
 							<div class="price-box">
 								<span>$123</span>
 								<a href="#" class="pull-right">
@@ -621,46 +341,43 @@
 				
 					<div class="care-box margin-box">
 						<div class="care-img">
-							<img class="img-fluid" src="images/banner-3.png" alt="">
+							<img class="img-fluid" src="images/banner-5.png" alt="">
 						</div>
 						<div class="care-title">
-							<h4>Bachelor of Laws (LLB)</h4>
+							<h4>Human Resources</h4>
 							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							
 							<div class="review-field-rating">
 								<div class="review-control-vote">
 								
 									<span>(512)</span>
 
-									<input type="radio" name="ratings[10]" id="Rating_110" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
+									<input type="radio" name="ratings[1]" id="Rating_14" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
 
-									<label class="rating-1" for="Rating_110" id="Rating_110_label">
+									<label class="rating-1" for="Rating_14" id="Rating_14_label">
 									</label>
 
-									<input type="radio" name="ratings[10]" id="Rating_210" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
+									<input type="radio" name="ratings[1]" id="Rating_24" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
 
-									<label class="rating-2" for="Rating_210" id="Rating_210_label">
+									<label class="rating-2" for="Rating_24" id="Rating_24_label">
 									</label>
 
-									<input type="radio" name="ratings[10]" id="Rating_310" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
+									<input type="radio" name="ratings[1]" id="Rating_34" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
 
-									<label class="rating-3" for="Rating_310" id="Rating_310_label">
+									<label class="rating-3" for="Rating_34" id="Rating_34_label">
 									</label>
 
-									<input type="radio" name="ratings[10]" id="Rating_410" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
+									<input type="radio" name="ratings[1]" id="Rating_44" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
 
-									<label class="rating-4" for="Rating_410" id="Rating_410_label">
+									<label class="rating-4" for="Rating_44" id="Rating_44_label">
 									</label>
 
-									<input type="radio" name="ratings[10]" id="Rating_510" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
+									<input type="radio" name="ratings[1]" id="Rating_54" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
 
-									<label class="rating-5" for="Rating_510" id="Rating_510_label">
+									<label class="rating-5" for="Rating_54" id="Rating_54_label">
 									</label>
-									
 								</div>
 							</div>
-							
-							<div class="price-box mt-0">
+							<div class="price-box">
 								<span>$120</span>
 								<a href="#" class="pull-right">
 									<img class="img-fluid" src="images/right.png" alt="">
@@ -681,6 +398,67 @@
 	 <script type="text/javascript" src="cordova.js"></script>        
      <script src="js/jquery-1.11.2.min.js"></script>
      <script src="js/bootstrap.min.js"></script>    
+	 <script src="js/owl.carousel.js"></script>
+	
+	<script>
+        
+        $('.onlinehome-slider').owlCarousel({
+            loop: true,
+			margin: 10,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            dotsSpeed: 2000,
+            responsive: {
+
+                0: {
+                    items: 2
+                },
+				580: {
+                    items: 2
+                },
+                767: {
+                    items: 2
+                },
+                992: {
+                    items: 2
+                },
+                1000: {
+                    items: 2
+                }
+            }
+        });
+		
+		$('.onlineimg-slider').owlCarousel({
+            loop: true,
+			margin: 5,
+            nav: false,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 1500,
+            dotsSpeed: 1500,
+            responsive: {
+
+                0: {
+                    items: 2.5
+                },
+				580: {
+                    items: 2.5
+                },
+                767: {
+                    items: 2.5
+                },
+                992: {
+                    items: 2.5
+                },
+                1000: {
+                    items: 2.5
+                }
+            }
+        });
+		
+    </script>
    <style>
    .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
    </style>
