@@ -214,7 +214,7 @@ function addfootermenu()
 	var footerhtml='<div class="home-link-banner">\
 		<div class="main-link-box">\
 			<div class="hero-link-box">\
-				<a href="#">\
+				<a href="javascript:void(0)" onclick="nextpage(\'index.html\')">\
 					<div class="hero-link-img">\
 						<img class="img-fluid" src="images/home.png" alt="">\
 					</div>\
@@ -224,7 +224,7 @@ function addfootermenu()
 				</a>\
 			</div>\
 			<div class="hero-link-box">\
-				<a href="#">\
+				<a href="javascript:void(0)" onclick="nextpage(\'onlinecourses.html\')">\
 					<div class="hero-link-img">\
 						<img class="img-fluid" src="images/online-course.png" alt="">\
 					</div>\
@@ -234,7 +234,7 @@ function addfootermenu()
 				</a>\
 			</div>\
 			<div class="hero-link-box">\
-				<a href="#">\
+				<a href="javascript:void(0)" onclick="nextpage(\'traingseminar.html\')">\
 					<div class="hero-link-img">\
 						<img class="img-fluid" src="images/bord.png" alt="">\
 					</div>\
@@ -244,7 +244,7 @@ function addfootermenu()
 				</a>\
 			</div>\
 			<div class="hero-link-box">\
-				<a href="#">\
+				<a href="javascript:void(0)" onclick="nextpage(\'dhasboard.html\')">\
 					<div class="hero-link-img">\
 						<img class="img-fluid" src="images/user-icon.png" alt="">\
 					</div>\
