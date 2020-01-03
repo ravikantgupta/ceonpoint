@@ -26,82 +26,33 @@
         jQuery('.needed').html(userdata.needed); 	
         jQuery('.general').html(userdata.general); 	
         jQuery('.specific').html(userdata.specific); 	
-        jQuery('.required').html(userdata.required+' : Required'); 	
+        jQuery('.requiredpoint').html(userdata.required+' : Required'); 	
         jQuery('.obtained').html(userdata.obtained+' : Required'); 		
 		jQuery('#userimage').attr('src',userdata.image); 	
 		
 		
-		
+		addfootermenu();
 	  
 	}
 </script>	
-   <div class="home-link-banner">
-		<div class="main-link-box">
-			<div class="hero-link-box">
-				<a href="#">
-					<div class="hero-link-img">
-						<img class="img-fluid" src="images/home.png" alt="">
-					</div>
-					<div class="hero-link-text">
-						<span>HOME</span>
-					</div>
-				</a>
-			</div>
-			<div class="hero-link-box">
-				<a href="#">
-					<div class="hero-link-img">
-						<img class="img-fluid" src="images/online-course.png" alt="">
-					</div>
-					<div class="hero-link-text">
-						<span>Online Courses</span>
-					</div>
-				</a>
-			</div>
-			<div class="hero-link-box">
-				<a href="#">
-					<div class="hero-link-img">
-						<img class="img-fluid" src="images/bord.png" alt="">
-					</div>
-					<div class="hero-link-text">
-						<span>Training</span>
-					</div>
-				</a>
-			</div>
-			<div class="hero-link-box">
-				<a href="#">
-					<div class="hero-link-img">
-						<img class="img-fluid" src="images/user-icon.png" alt="">
-					</div>
-					<div class="hero-link-text">
-						<span>Account</span>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
-
-    <header class="header-btn p-0">
+  
+     <header class="header-btn p-0">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="back-link-box pr-0">
                        
-                        <div class="back-link">
-                            <a href="#">
-                                <img class="img-fluid" src="images/left.png" alt="">
-                            </a>
-                        </div>
-                        
                         <div class="back-logo">
                             <a href="#">
-                                <img class="img-fluid" src="images/logo-new.png" alt="">
+								<img class="img-fluid" src="images/logo-new.png" alt="">
+								<span>Continuing Education to all Professionals Worldwide</span>
                             </a>
                         </div>
                         
-                        <div class="link-nav">
+                        <div class="link-nav pull-right">
                             <nav class="navbar navbar-expand-lg navbar-dark p-0">
                                 <div class="container pr-0">
-                                    <a href="#" class="navbar-toggler" onclick="openNav()">
+                                    <a href="javascript:void(0)" onclick="nextpage('dhasboard-inner.html')" class="navbar-toggler" onclick="openNav()">
                                         <span class="navbar-toggler-icon"></span>
                                         <span class="navbar-toggler-icon ml-1"></span>
                                         <span class="navbar-toggler-icon"></span>
@@ -173,7 +124,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="progress mt-3">
-						<div class="progress-bar green" style="width:100%">100%</div>
+						<div class="progress-bar bggreen" style="width:100%">100%</div>
 					</div>
 				</div>
 			</div>
@@ -188,16 +139,12 @@
 					<div class="dashboard-tab">
 			        
 				        <div class="dashbord-box bgblue">
-				        	<span class="required">25 : Required</span>
+				        	<span class="requiredpoint">25 : Required</span>
 				        </div>
 				        
 				        <div class="dashbord-box bgblue">
 				        	<span class="obtained">14 : Obtained</span>
 				        </div>
-				        
-						<!--<div class="dashbord-box">
-				        	<span>0 : Needed</span>
-						</div>-->
 				        
 				    </div>
 				</div>
@@ -206,7 +153,7 @@
 		</div>
 	</section>
 	
-	<section class="table-banner">
+		<section class="table-banner">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12">
@@ -258,7 +205,7 @@
 		<div class="container-fluid">
 			<div class="record-box bgblue">
 			
-				<div class="row">
+				<div class="row">						
 			
 					<div class="col-12">
 						<div class="title-btn-box">
@@ -266,23 +213,24 @@
 								<h6>My CE Record</h6>
 							</div>
 							<div class="ce-btn">
-								<button class="btn">ADD CERTIFICATES</button>
+								<button class="btn" data-toggle="modal" data-target="#exampleModalCenter" data-whatever="@mdo">ADD CERTIFICATES</button>
 							</div>
 						</div>
 					</div>
 
 					<div class="col-12">
-						<div class="dashboard-tab">
+						
+						<div class="dashboard-tab pl-0">
 
-							<div class="all-box active">
+							<div class="all-box active" id="showall">
 								<span>All</span>
 							</div>
 
-							<div class="all-box">
-								<span>Specific</span>
+							<div class="all-box showSingle" target="1">
+								<span>SPECIFIC</span>
 							</div>
 
-							<div class="all-box">
+							<div class="all-box showSingle" target="2">
 								<span>GENERAL</span>
 							</div>
 
@@ -291,7 +239,9 @@
 					</div>
 					
 					<div class="col-12">
-						<table class="table table-bordered table-sm bg-white mb-1">
+
+						<table class="targettable table table-bordered table-sm bg-white mb-1" id="div1">
+
 							<thead>
 								<tr>
 									<th>SL. No.</th>
@@ -300,7 +250,9 @@
 									<th>Action</th>
 								</tr>
 							</thead>
+
 							<tbody>
+
 								<tr>
 									<td>01</td>
 									<td>ABC Interpretation</td>
@@ -308,12 +260,12 @@
 									<td>
 										<div class="view-plus-box">
 											<div class="view">
-												<a href="#">
+												<a href="certificate.html">
 													<img class="img-fluid" src="images/view.png" alt="">
 												</a>
 											</div>
 											<div class="plus">
-												<a href="#">
+												<a href="certificate.html">
 													<img class="img-fluid" src="images/plus.png" alt="">
 													<!--<i class="fa fa-plus"></i>-->
 												</a>
@@ -321,6 +273,7 @@
 										</div>
 									</td>
 								</tr>
+
 								<tr>
 									<td>02</td>
 									<td>ABC Interpretation</td>
@@ -341,6 +294,7 @@
 										</div>
 									</td>	
 								</tr>
+
 								<tr>
 									<td>03</td>
 									<td>ABC Interpretation</td>
@@ -361,6 +315,7 @@
 										</div>
 									</td>	
 								</tr>
+
 								<tr>
 									<td>04</td>
 									<td>ABC Interpretation</td>
@@ -381,14 +336,147 @@
 										</div>
 									</td>	
 								</tr>
+
 								<tr>
 									<td></td>
 									<td>Total</td>
 									<td>34</td>
 									<td></td>
 								</tr>
+
 							</tbody>
+
 						</table>
+
+						<table class="targettable table table-bordered table-sm bg-white mb-1" id="div2">
+
+							<thead>
+								<tr>
+									<th>SL. No.</th>
+									<th>Course Title</th>
+									<th>Units</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+
+							<tbody>
+
+								<tr>
+									<td>01</td>
+									<td>ABC Interpretation</td>
+									<td>14</td>
+									<td>
+										<div class="view-plus-box">
+											<div class="view">
+												<a href="#">
+													<img class="img-fluid" src="images/view.png" alt="">
+												</a>
+											</div>
+											<div class="plus">
+												<a href="#">
+													<img class="img-fluid" src="images/plus.png" alt="">
+													<!--<i class="fa fa-plus"></i>-->
+												</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td>02</td>
+									<td>ABC Interpretation</td>
+									<td>04</td>
+									<td>
+										<div class="view-plus-box">
+											<div class="view">
+												<a href="#">
+													<img class="img-fluid" src="images/view.png" alt="">
+												</a>
+											</div>
+											<div class="plus">
+												<a href="#">
+													<img class="img-fluid" src="images/plus.png" alt="">
+													<!--<i class="fa fa-plus"></i>-->
+												</a>
+											</div>
+										</div>
+									</td>	
+								</tr>
+
+								<tr>
+									<td>03</td>
+									<td>ABC Interpretation</td>
+									<td>04</td>
+									<td>
+										<div class="view-plus-box">
+											<div class="view">
+												<a href="#">
+													<img class="img-fluid" src="images/view.png" alt="">
+												</a>
+											</div>
+											<div class="plus">
+												<a href="#">
+													<img class="img-fluid" src="images/plus.png" alt="">
+													<!--<i class="fa fa-plus"></i>-->
+												</a>
+											</div>
+										</div>
+									</td>	
+								</tr>
+
+								<tr>
+									<td>04</td>
+									<td>ABC Interpretation</td>
+									<td>12</td>
+									<td>
+										<div class="view-plus-box">
+											<div class="view">
+												<a href="#">
+													<img class="img-fluid" src="images/view.png" alt="">
+												</a>
+											</div>
+											<div class="plus">
+												<a href="#">
+													<img class="img-fluid" src="images/plus.png" alt="">
+													<!--<i class="fa fa-plus"></i>-->
+												</a>
+											</div>
+										</div>
+									</td>	
+								</tr>
+
+								<tr>
+									<td>05</td>
+									<td>ABC Interpretation</td>
+									<td>12</td>
+									<td>
+										<div class="view-plus-box">
+											<div class="view">
+												<a href="#">
+													<img class="img-fluid" src="images/view.png" alt="">
+												</a>
+											</div>
+											<div class="plus">
+												<a href="#">
+													<img class="img-fluid" src="images/plus.png" alt="">
+													<!--<i class="fa fa-plus"></i>-->
+												</a>
+											</div>
+										</div>
+									</td>	
+								</tr>
+
+								<tr>
+									<td></td>
+									<td>Total</td>
+									<td>46</td>
+									<td></td>
+								</tr>
+
+							</tbody>
+
+						</table>
+						
 					</div>
 					
 				</div>
@@ -399,7 +487,7 @@
 	
 	<section class="table-banner mb-5">
 		<div class="container-fluid">
-			<div class="upload-box bgblue">
+			<div class="upload-card-box bgblue">
 			
 				<div class="row">
 			
@@ -459,7 +547,81 @@
 			</div>
 		</div>
 	</section>
+	
+	<!--Link Modal Start-->
+	
+		<div class="modal fade certificate-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true" class="line"></span>
+						  <span aria-hidden="true" class="line-one"></span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<section class="profile-info pb-0 pt-3">
+							<div class="container-fluid px-2">
+								<div class="row">
+									<div class="col-12">
+										<div class="congratulations-info">
+											<p class="profileinfo-title">ADD CERTIFICATES</p>
+										</div>
+									</div>
 
+									<div class="col-3 pr-0">
+										<div class="accountant-icon-box">
+											<a href="onlinehome.html">
+												<div class="accountant-icon-img">
+													<img class="img-fluid" src="images/certificates-icon.png" alt="">
+												</div>
+												<span>Online Courses</span>
+											</a>
+										</div>
+									</div>
+
+									<div class="col-3 p-0">
+										<div class="accountant-icon-box">
+											<a href="hometraing.html">
+												<div class="accountant-icon-img">
+													<img class="img-fluid" src="images/certificates-training.png" alt="">
+												</div>
+												<span>Training</span>
+											</a>
+										</div>
+									</div>
+
+									<div class="col-3 p-0">
+										<div class="accountant-icon-box">
+											<a href="#">
+												<div class="accountant-icon-img">
+													<img class="img-fluid" src="images/certificates-clipboards.png" alt="">
+												</div>
+												<span>Upload Certificates</span>
+											</a>
+										</div>
+									</div>
+
+									<div class="col-3 pl-0">
+										<div class="accountant-icon-box">
+											<a href="#">
+												<div class="accountant-icon-img">
+													<img class="img-fluid" src="images/certificates-university.png" alt="">
+												</div>
+												<span>Institutions CE Webpage</span>
+											</a>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<!--Link Modal End-->
 	
 	
 	<div class="mask" style="display:none;"></div>	
@@ -471,6 +633,42 @@
    <style>
    .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
    </style>
+   
+   <script>
+   $(function() {
+			$('#showall').click(function() {
+				$('.targettable').show();
+				jQuery('.all-box').removeClass('active');
+				jQuery(this).addClass('active');
+			});
+
+			$('.showSingle').click(function() {
+				$('.targettable').hide();
+				$('#div' + $(this).attr('target')).show();
+				jQuery('.all-box').removeClass('active');
+				jQuery(this).addClass('active');
+			});
+
+		});
+		
+		jQuery(document).ready(function($) {
+			// auto timer
+			setTimeout(function() {
+				$("#lab-slide-bottom-popup").modal("show");
+				}, 5000); // optional - automatically opens in xxxx milliseconds
+
+			$(document).ready(function() {
+				$(".lab-slide-up")
+					.find("a")
+					.attr("data-toggle", "modal");
+				$(".lab-slide-up")
+					.find("a")
+					.attr("data-target", "#lab-slide-bottom-popup");
+			});
+		});
+
+        
+	</script>
 </body>
 
 </html>
