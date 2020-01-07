@@ -19,7 +19,20 @@
 function setvalue()
 		{
 		   /********Get Bnner list***************/
-		   
+		  
+		   var loggedIn=window.localStorage.getItem("loggedIn");
+		    
+		   if(loggedIn)
+			 {
+			   jQuery('.loginsection').html('');
+			 }else
+			 {
+			 
+			   jQuery('.loginsection').html('<div class="login-box">\
+				<a onclick="nextpage(\'login.html\')" href="javascript:void(0)" class="login-btn">LOG IN</a>\
+			</div><div class="login-box text-right">\
+				<a  onclick="nextpage(\'signup.html\')" href="javascript:void(0)" class="login-btn">SIGN UP</a></div>');
+			 }
 		  
 		}
 		
@@ -203,13 +216,8 @@ function setvalue()
         </div>
 
     </section>
-      <div class="main-admin">
-			<div class="login-box">
-				<a onclick="nextpage('login.html')" href="javascript:void(0)" class="login-btn">LOG IN</a>
-			</div>
-			<div class="login-box text-right">
-				<a  onclick="nextpage('signup.html')" href="javascript:void(0)" class="login-btn">SIGN UP</a>
-			</div>
+      <div class="main-admin loginsection">
+			
 		</div>
     <div class="modal fade videoModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

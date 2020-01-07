@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CEONPOINT Screen1</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    
+    <section class="blue-banner">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="profile-link">
+                        <div class="profile-back">
+                            <a href="profile.html">
+                                <img class="img-fluid" src="images/left.png" alt="">
+                            </a>
+                        </div>
+                        <div class="profile-headtext">
+                            <span>Profile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="profile-box">
+						<div class="profile-img">
+							<a href="#">
+								<img class="img-fluid" src="images/profile.png" alt="">
+							</a>
+							<div class="profile-camera-box">
+								<a href="#">
+									<div class="profile-camera">
+										<img class="img-fiuld" src="images/camera.png" alt="">
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="profile-text">
+							<p>Vishnaw</p>
+						</div>
+                    </div>
+                </div>
+			</div>
+		</div>
+    </section>
+    
+    <section class="form-box">
+        <div class="container-fluid">
+            <div class="row">
+               
+                <div class="col-12">
+                    <div class="form-control">
+                        <i class="fa fa-user"></i>
+                        <input type="text" placeholder="Name">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-control">
+                        <i class="fa fa-envelope-o"></i>
+                        <input type="email" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-control">
+                        <i class="fa fa-mobile"></i>
+                        <input type="tel" placeholder="Mobile Number">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-control">
+                        <i class="fa fa-map-marker"></i>
+                        <input type="text" placeholder="Address">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-control">
+                        <i class="fa fa-unlock-alt"></i>
+                        <input type="password" placeholder="Change Password">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="d-flex">
+                        <div class="radio-title">
+                        	<span>Are you under institution ?</span>
+                        </div>
+						<div class="radio-text">
+							<label for="yes" class="label" id="show">YES
+								<input id="yes" type="radio" name="radio">
+								<span class="checkmark"></span>
+							</label>
+							<label for="no" class="label ml-3" id="hide">NO
+								<input id="no" type="radio" checked="checked" name="radio">
+								<span class="checkmark"></span>
+							</label>
+						</div>
+                    </div>
+                </div>
+
+				<div class="col-12 targetform">
+					<div class="form-control">
+						<div class="ceon-icon">
+							<img class="img-fluid" src="images/ceonpoint-icon.png" alt="">
+						</div>
+						<input type="text" placeholder="Ceonpoint.com">
+					</div>
+				</div>
+
+				<div class="col-12 targetform">
+					<div class="form-control">
+						<div class="ceon-icon">
+							<img class="img-fluid" src="images/ceonpoint-icon.png" alt="">
+						</div>
+						<input type="text" placeholder="CEON201952854POINT">
+					</div>
+				</div>
+
+                <div class="col-12">
+                    <button class="btn profile-btn">SAVE</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="js/jquery-3.4.0.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.js"></script>
+	
+	<script>
+        
+        $('.header-slider-banner').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            dotsSpeed: 2000,
+            responsive: {
+
+                0: {
+                    items: 1
+                },
+				580: {
+                    items: 1
+                },
+                767: {
+                    items: 1
+                },
+                992: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        });
+		
+		$(document).ready(function(){
+			$("#hide").click(function(){
+				$(".targetform").hide(01000);
+			});
+			
+			$("#show").click(function(){
+				$(".targetform").show(01000);
+			});
+		});
+        
+    </script>
+	
+</body>
+</html>

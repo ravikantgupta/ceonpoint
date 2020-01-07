@@ -21,7 +21,7 @@ function bakpage(page) {
 		   
 function nextpage(page) {
 
-
+         window.localStorage.setItem("page", page);
 		 window.plugins.nativepagetransitions.slide({
 			 "direction" : "left",
 			 "href" : page
@@ -37,7 +37,11 @@ function bakpagedwn(page) {
 		 });
 	   }
 
-
+function backscreen()
+{
+	  var page=window.localStorage.getItem("page");
+	bakpage(page);
+}
 
 function main()
 {	
@@ -154,59 +158,12 @@ function openNav() {
 function logout() {
 
   window.localStorage.removeItem("loggedIn");
-  window.localStorage.removeItem("login_user_id");  
-  window.localStorage.removeItem("login_user_email");  
-  window.localStorage.removeItem("login_user_name");  
-  nextpage('login.html');
+  window.localStorage.removeItem("userdata");    
+  nextpage('index.html');
 
 }
 
-function getCartDetail()
-{
-	var login_user_id= window.localStorage.getItem("login_user_id");
-    
-	  if(login_user_id)
-	  {
-		  
-		  $.ajax({	    	
-				   type:'POST',						
-					url:"https://purecbdgroup.com/api.php/cart_total_detail",
-					data:JSON.stringify({'user_id':login_user_id}),						
-					contentType: 'application/json',
-					success:function(data)
-					{		  
-					 				  
-					  var carthtml='';						
-						if(data.status)
-						{
-						  jQuery('.zero').html(data.total_cart_item);
-						  
-						if (jQuery('.pricehtml').length) {
-                            jQuery('.pricehtml').html(data.currency+parseFloat(data.total_price).toFixed(2));
-						  }	
-						  
-						  if (jQuery('.totitem').length) {
-                            jQuery('.totitem').html(data.total_cart_item);
-						  }
 
-                          if (jQuery('.taxhtml').length) {
-                            jQuery('.taxhtml').html(data.currency+parseFloat(data.total_tax).toFixed(2));
-						  }	
-						  
-						  if (jQuery('.payablepricehtml').length) {
-                            jQuery('.payablepricehtml').html(data.currency+parseFloat(data.payableamount).toFixed(2));
-						  }	
-						  
-						}				
-					  
-					},
-					error: function(e) {
-						alert('Error: ' + e.message);
-					}
-			});	
-		  
-	  }
-}
 
 function addfootermenu()
 {
@@ -244,7 +201,7 @@ function addfootermenu()
 				</a>\
 			</div>\
 			<div class="hero-link-box">\
-				<a href="javascript:void(0)" onclick="nextpage(\'dhasboard.html\')">\
+				<a href="javascript:void(0)" onclick="nextpage(\'profile.html\')">\
 					<div class="hero-link-img">\
 						<img class="img-fluid" src="images/user-icon.png" alt="">\
 					</div>\
