@@ -38,10 +38,17 @@
 					data: JSON.stringify({user_id: userdata.id }),	
 					
 					success:function(data)
-						 {	 
+						 {	 							
+							  var course_list='';                             
+                               for (i in data.course_list) {							  								
+							     course_list+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.course_list[i].course_title+'</td><td>'+data.course_list[i].units+'</td>\
+												<td><a href="javascript:void(0)" onclick="viewcourse('+data.course_list[i].id+')">View</a></td></tr>';
+										
+								} 							
+							jQuery('#course_list').html(course_list);	
+
 							
-							console.log(data.card);
-							var specific_course='';
+							 var specific_course='';
                                var count=0;
                                for (i in data.specific_ce_record) {
 							   count++;										
@@ -86,7 +93,8 @@
 								cardlist='';
 								count=0;
 								for (i in data.card) {
-								cardlist+'<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.card[i].card_no+'</td><td>'+data.card[i].card_name+'</td>\
+							
+								cardlist+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.card[i].card_no+'</td><td>'+data.card[i].card_name+'</td>\
 									<td>\
 										<div class="view-plus-box">\
 											<div class="download">\
@@ -106,6 +114,8 @@
 													</div></div></td></tr>';
                                     }													
                                 jQuery('#cardlist').html(cardlist);
+								
+							
 										
 							 
 						}
@@ -258,25 +268,8 @@
 									<th>Action</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>EFG Courses</td>
-									<td>10</td>
-									<td>View</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>EFG Courses</td>
-									<td>20</td>
-									<td>View</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>ABC Training</td>
-									<td>05</td>
-									<td>View</td>
-								</tr>
+							<tbody id="course_list">
+							
 							</tbody>
 						</table>
 					</div>

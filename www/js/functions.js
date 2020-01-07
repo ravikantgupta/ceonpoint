@@ -43,8 +43,12 @@ function backscreen()
 	  var page=window.localStorage.getItem("page");
 	  
 	  alert(page);
-	  
-	bakpage(page);
+	  window.history.back()
+
+		window.navigator.app.backHistory();
+
+		
+
 }
 
 function main()

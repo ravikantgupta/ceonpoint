@@ -17,7 +17,19 @@
  function setvalue()
 	{
         var courserid=window.localStorage.getItem("courserid");	
-		alert(courserid);
+		
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/certificate_details",
+					data: JSON.stringify({id: courserid }),	
+					
+					success:function(data)
+						 {	
+						  						
+							jQuery('#certificate').attr('src',data.certificat);
+						 }
+			      });
 	}
 </script>	
     <header>
@@ -28,7 +40,7 @@
                        
                         <div class="back-link">
                             <a href="javascript:void(0)" onclick="bakpage('dhasboard.html')">
-                                <img class="img-fluid" src="images/left.png" alt="">
+                                <img class="img-fluid"  src="images/left.png" alt="">
                             </a>
                         </div>
                         
@@ -77,7 +89,7 @@
             
             	<div class="col-12">
 					<div class="text-center mt-3">
-				        <img class="img-fluid" src="images/certificate.png" alt="">
+				        <img class="img-fluid" id="certificate" src="images/certificate.png" alt="">
 				    </div>
 				</div>
              
