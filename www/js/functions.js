@@ -40,15 +40,8 @@ function bakpagedwn(page) {
 
 function backscreen()
 {
-	  var page=window.localStorage.getItem("page");
-	  
-	  alert(page);
-	  window.history.back()
-
-		window.navigator.app.backHistory();
-
-		
-
+	  var page=window.localStorage.getItem("page");	 
+	  window.history.back();
 }
 
 function main()
