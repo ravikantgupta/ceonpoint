@@ -22,6 +22,7 @@ function bakpage(page) {
 function nextpage(page) {
 
          window.localStorage.setItem("page", page);
+		 
 		 window.plugins.nativepagetransitions.slide({
 			 "direction" : "left",
 			 "href" : page
@@ -40,6 +41,9 @@ function bakpagedwn(page) {
 function backscreen()
 {
 	  var page=window.localStorage.getItem("page");
+	  
+	  alert(page);
+	  
 	bakpage(page);
 }
 

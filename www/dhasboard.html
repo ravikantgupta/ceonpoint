@@ -28,12 +28,97 @@
         jQuery('.specific').html(userdata.specific); 	
         jQuery('.requiredpoint').html(userdata.required+' : Required'); 	
         jQuery('.obtained').html(userdata.obtained+' : Required'); 		
-		jQuery('#userimage').attr('src',userdata.image); 	
-		
-		
+		jQuery('#userimage').attr('src',userdata.image); 			
 		addfootermenu();
+		
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/dashboard",
+					data: JSON.stringify({user_id: userdata.id }),	
+					
+					success:function(data)
+						 {	 
+							
+							console.log(data.card);
+							var specific_course='';
+                               var count=0;
+                               for (i in data.specific_ce_record) {
+							   count++;										
+							     specific_course+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.specific_ce_record[i].course_name+'</td><td>'+data.specific_ce_record[i].units+'</td>\
+												<td>\
+													<div class="view-plus-box">\
+														<div class="view">\
+															<a href="javascript:void(0)" onclick="viewcourse('+data.specific_ce_record[i].id+')">\
+																<img class="img-fluid" src="images/view.png" alt="">\
+															</a>\
+														</div>\
+														<div class="plus">\
+															<a href="javascript:void(0)" onclick="viewcourse('+data.specific_ce_record[i].id+')">\
+																<img class="img-fluid" src="images/plus.png" alt="">\
+															</a></div></div></td></tr>';
+										
+								} 
+								
+								specific_course+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								jQuery('#specific_course').html(specific_course);								
+								var general_ce_record='';
+								count=0;
+								for (i in data.general_ce_record) {
+										  count++;	
+										  general_ce_record+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.general_ce_record[i].course_name+'</td><td>'+data.general_ce_record[i].units+'</td>\
+															<td>\
+																<div class="view-plus-box">\
+																	<div class="view">\
+																		<a href="javascript:void(0)" onclick="viewcourse('+data.general_ce_record[i].id+')">\
+																			<img class="img-fluid" src="images/view.png" alt="">\
+																		</a>\
+																	</div>\
+																	<div class="plus">\
+																		<a href="javascript:void(0)" onclick="viewcourse('+data.general_ce_record[i].id+')">\
+																			<img class="img-fluid" src="images/plus.png" alt="">\
+																		</a></div></div></td></tr>';
+										
+								}								
+								general_ce_record+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								jQuery('#general_ce_record').html(general_ce_record);
+								
+								cardlist='';
+								count=0;
+								for (i in data.card) {
+								cardlist+'<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.card[i].card_no+'</td><td>'+data.card[i].card_name+'</td>\
+									<td>\
+										<div class="view-plus-box">\
+											<div class="download">\
+												<a href="#">\
+													<img class="img-fluid" src="images/download.png" alt="">\
+												</a>\
+											</div>\
+											<div class="view">\
+												<a href="#">\
+													<img class="img-fluid" src="images/view.png" alt="">\
+												</a>\
+											</div>\
+											<div class="plus">\
+												<a href="#">\
+													<img class="img-fluid" src="images/delete.png" alt="">\
+													</a>\
+													</div></div></td></tr>';
+                                    }													
+                                jQuery('#cardlist').html(cardlist);
+										
+							 
+						}
+				   });
 	  
 	}
+	
+ function viewcourse(courserid)
+	{
+      window.localStorage.setItem("courserid", courserid);
+      nextpage('certificate.html');
+
+	} 
 </script>	
   
      <header class="header-btn p-0">
@@ -251,98 +336,9 @@
 								</tr>
 							</thead>
 
-							<tbody>
+							<tbody id="specific_course">
 
-								<tr>
-									<td>01</td>
-									<td>ABC Interpretation</td>
-									<td>14</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="javascript:void(0)" onclick="nextpage('certificate.html')">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="javascript:void(0)" onclick="nextpage('certificate.html')">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td>02</td>
-									<td>ABC Interpretation</td>
-									<td>04</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>	
-								</tr>
-
-								<tr>
-									<td>03</td>
-									<td>ABC Interpretation</td>
-									<td>04</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>	
-								</tr>
-
-								<tr>
-									<td>04</td>
-									<td>ABC Interpretation</td>
-									<td>12</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>	
-								</tr>
-
-								<tr>
-									<td></td>
-									<td>Total</td>
-									<td>34</td>
-									<td></td>
-								</tr>
+							
 
 							</tbody>
 
@@ -359,119 +355,9 @@
 								</tr>
 							</thead>
 
-							<tbody>
+							<tbody id="general_ce_record"> 
 
-								<tr>
-									<td>01</td>
-									<td>ABC Interpretation</td>
-									<td>14</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td>02</td>
-									<td>ABC Interpretation</td>
-									<td>04</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>	
-								</tr>
-
-								<tr>
-									<td>03</td>
-									<td>ABC Interpretation</td>
-									<td>04</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>	
-								</tr>
-
-								<tr>
-									<td>04</td>
-									<td>ABC Interpretation</td>
-									<td>12</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>	
-								</tr>
-
-								<tr>
-									<td>05</td>
-									<td>ABC Interpretation</td>
-									<td>12</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/plus.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>	
-								</tr>
-
-								<tr>
-									<td></td>
-									<td>Total</td>
-									<td>46</td>
-									<td></td>
-								</tr>
+								
 
 							</tbody>
 
@@ -512,32 +398,8 @@
 									<th>Action</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>01</td>
-									<td>217536</td>
-									<td>BLS</td>
-									<td>
-										<div class="view-plus-box">
-											<div class="download">
-												<a href="#">
-													<img class="img-fluid" src="images/download.png" alt="">
-												</a>
-											</div>
-											<div class="view">
-												<a href="#">
-													<img class="img-fluid" src="images/view.png" alt="">
-												</a>
-											</div>
-											<div class="plus">
-												<a href="#">
-													<img class="img-fluid" src="images/delete.png" alt="">
-													<!--<i class="fa fa-plus"></i>-->
-												</a>
-											</div>
-										</div>
-									</td>
-								</tr>
+							<tbody id="cardlist">
+								
 							</tbody>
 						</table>
 					</div>
