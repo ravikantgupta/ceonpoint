@@ -1502,13 +1502,17 @@ select:focus {
 .item-text {
     background: #fff;
     margin: 4px auto;
-	margin-right: 29px;
-    border-radius: 50px;
+    margin-right: 29px;
+    border-radius: 26px;
     font-size: 11px;
     text-align: center;
     padding: 5px;
-	box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2);
-	width: 90px;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2);
+    width: 90px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
 }
 
 .item-text.active {
@@ -1781,6 +1785,7 @@ select:focus {
     border-radius: 3px;
 	background: transparent;
 }
+
 
 .pay-main span {
     font-size: 12px;
@@ -2394,6 +2399,75 @@ input.datalist {
     padding: 0;
     margin: 0;
 }
+/************tabing-css-start********/
+.tabing-box .nav-link {
+    border: none;
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: -1px;
+  
+}
+.tabing-box .nav-link.active{
+    border-bottom:3px solid #478bca;
+}
+.tabing-box .nav-tabs {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tabing-box p {
+    font-size: 13px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+.lesson-panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+}
+.panel-heading h4 {
+    font-size: 14px;
+    margin: 0;
+}
+.panel-heading h4 a{
+    color: #333;
+} 
+.lesson-panel .panel-body {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+.lesson-details video{
+    width: 100%;
+}
+.unit-text {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px!important;
+}
+.unit-text span {
+    font-size: 13px;
+    font-weight: 500;
+    padding-left: 10px;
+}
+/************tabing-css-end********/
+
+
+
 
 /*
 .certificate-modal button.close:focus {
