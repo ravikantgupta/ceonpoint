@@ -42,11 +42,11 @@
                                      if(data.current_cat==data.category[i].id)
                                       {		
                                         curcat=data.current_cat;									  
-							           category+='<div class="item"><div class="item-text active">\
+							           category+='<div class="item"><div class="item-text active ctlist" id="cat'+data.category[i].id+'">\
 												<a href="javascript:void(0)" onclick="searchBycat('+data.category[i].id+')">'+data.category[i].cat_name+'</a></div></div>';								
 								      }else
 									  {
-									    category+='<div class="item"><div class="item-text">\
+									    category+='<div class="item"><div class="item-text ctlist" id="cat'+data.category[i].id+'">\
 												<a href="javascript:void(0)" onclick="searchBycat('+data.category[i].id+')">'+data.category[i].cat_name+'</a></div></div>';
 									  }
 									  
@@ -173,6 +173,11 @@
 	     jQuery('.loading').show();
 	     jQuery('.mask').show();
 	     curcat=cat_id;
+		 
+		 jQuery('.ctlist').removeClass('active');
+		 
+		 jQuery('#cat'+cat_id).addClass('active');
+		 
 	     jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
