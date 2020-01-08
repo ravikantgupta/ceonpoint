@@ -16,10 +16,299 @@
 </head>
 <body onload="setvalue()">
   <script>
+  
+  var curcat=0;
  function setvalue()
 	{
-	 addfootermenu()
+	   addfootermenu();
+	  var userdata=JSON.parse(window.localStorage.getItem("userdata"));	
+	   jQuery('.loading').show();
+	   jQuery('.mask').show();
+	   
+	   
+	   jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/course_list",
+					data: JSON.stringify({user_id: userdata.id }),	
+					
+					success:function(data)
+						 {	 
+
+                             var category='';
+                              
+                               for (i in data.category) {
+							  							
+                                     if(data.current_cat==data.category[i].id)
+                                      {		
+                                        curcat=data.current_cat;									  
+							           category+='<div class="item"><div class="item-text active">\
+												<a href="javascript:void(0)" onclick="searchBycat('+data.category[i].id+')">'+data.category[i].cat_name+'</a></div></div>';								
+								      }else
+									  {
+									    category+='<div class="item"><div class="item-text">\
+												<a href="javascript:void(0)" onclick="searchBycat('+data.category[i].id+')">'+data.category[i].cat_name+'</a></div></div>';
+									  }
+									  
+								}
+								jQuery('.category').html(category);	
+								  
+								$('.onlinehome-slider').owlCarousel({
+									loop: true,
+									margin: 0,
+									nav: true,
+									dots: false,
+									autoplay: true,
+									autoplaySpeed: 2000,
+									dotsSpeed: 2000,
+									responsive: {
+
+										0: {
+											items: 2
+										},
+										580: {
+											items: 2
+										},
+										767: {
+											items: 2
+										},
+										992: {
+											items: 2
+										},
+										1000: {
+											items: 2
+										}
+									}
+								});
+								
+								
+								
+							/*************Courses List*************/	
+								
+		                      var courses='';
+                              
+                               for (i in data.courses) {
+							  							
+                                     courses+='<div class="col-6 pr-1">\
+				                     <div class="care-box">\
+									<div class="care-img">\
+										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
+									</div>\
+										<div class="care-title">\
+											<h4>'+data.courses[i].course_title+'</h4>\
+											<p>By :  '+data.courses[i].by+'</p>\
+											<div class="review-field-rating">\
+												<div class="review-control-vote">\
+													<span>(512)</span>\
+													<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">\
+													<label class="rating-1" for="Rating_1" id="Rating_1_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio"  aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">\
+													<label class="rating-2" for="Rating_2" id="Rating_2_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio"  aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">\
+													<label class="rating-3" for="Rating_3" id="Rating_3_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio"  aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">\
+													<label class="rating-4" for="Rating_4" id="Rating_4_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio"  aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">\
+													<label class="rating-5" for="Rating_5" id="Rating_5_label">\
+													</label>\
+												</div>\
+											</div>\
+											<div class="price-box">\
+												<span>$123</span>\
+												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
+													<img class="img-fluid" src="images/right.png" alt="">\
+												</a>\
+											</div>\
+										</div>\
+									</div>\
+								</div>';
+									
+									  
+								}
+								if(courses!='')
+								{
+								jQuery('.courses').html(courses);	
+								}else
+								{
+								
+								jQuery('.courses').html('<div class="col-12"><center> No Course list found.</center></div>');
+								}
+                                									
+							 
+						}
+				   });
+	   
+	  jQuery.ajax({					  
+					type:'GET',  
+					url:base_url+"/users/country",																
+					dataType: 'json',
+					success:function(data)
+						 {
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();
+						 
+						   var countryhtml='<option value="">Select</option>';
+						   if(data.success)
+						   {                                 
+
+							 for (i in data.country) {
+									
+									  countryhtml+='<option value="'+data.country[i].countries_id+'">'+data.country[i].countries_name+'</option>';
+									}                                 
+								 jQuery('#country').html(countryhtml);
+																	
+						   }    
+
+						}
+			           });
+	 
     }
+	
+	function searchBycat(cat_id)
+	{
+	     jQuery('.loading').show();
+	     jQuery('.mask').show();
+	     curcat=cat_id;
+	     jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/course_list",
+					data: JSON.stringify({cat_id: cat_id}),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();								
+							/*************Courses List*************/							
+		                      var courses='';                              
+                               for (i in data.courses) {							  							
+                                     courses+='<div class="col-6 pr-1">\
+				                     <div class="care-box">\
+									<div class="care-img">\
+										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
+									</div>\
+										<div class="care-title">\
+											<h4>'+data.courses[i].course_title+'</h4>\
+											<p>By :  '+data.courses[i].by+'</p>\
+											<div class="review-field-rating">\
+												<div class="review-control-vote">\
+													<span>(512)</span>\
+													<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">\
+													<label class="rating-1" for="Rating_1" id="Rating_1_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio"  aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">\
+													<label class="rating-2" for="Rating_2" id="Rating_2_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio"  aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">\
+													<label class="rating-3" for="Rating_3" id="Rating_3_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio"  aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">\
+													<label class="rating-4" for="Rating_4" id="Rating_4_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio"  aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">\
+													<label class="rating-5" for="Rating_5" id="Rating_5_label">\
+													</label>\
+												</div>\
+											</div>\
+											<div class="price-box">\
+												<span>$123</span>\
+												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
+													<img class="img-fluid" src="images/right.png" alt="">\
+												</a>\
+											</div>\
+										</div>\
+									</div>\
+								</div>';									  
+								}
+								if(courses!='')
+								{
+								jQuery('.courses').html(courses);	
+								}else
+								{
+								
+								jQuery('.courses').html('<div class="col-12"><center> No Course list found.</center></div>');
+								}
+                                									
+							 
+						}
+				   });
+	
+	}
+	
+	function viewAllCourse()
+	{
+	  
+	     jQuery('.loading').show();
+	     jQuery('.mask').show();
+	    
+	     jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/all_course_list",
+					data: JSON.stringify({cat_id: curcat}),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();								
+							/*************Courses List*************/							
+		                      var courses='';                              
+                               for (i in data.courses) {							  							
+                                     courses+='<div class="col-6 pr-1">\
+				                     <div class="care-box">\
+									<div class="care-img">\
+										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
+									</div>\
+										<div class="care-title">\
+											<h4>'+data.courses[i].course_title+'</h4>\
+											<p>By :  '+data.courses[i].by+'</p>\
+											<div class="review-field-rating">\
+												<div class="review-control-vote">\
+													<span>(512)</span>\
+													<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">\
+													<label class="rating-1" for="Rating_1" id="Rating_1_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio"  aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">\
+													<label class="rating-2" for="Rating_2" id="Rating_2_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio"  aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">\
+													<label class="rating-3" for="Rating_3" id="Rating_3_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio"  aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">\
+													<label class="rating-4" for="Rating_4" id="Rating_4_label">\
+													</label>\
+													<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio"  aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">\
+													<label class="rating-5" for="Rating_5" id="Rating_5_label">\
+													</label>\
+												</div>\
+											</div>\
+											<div class="price-box">\
+												<span>$123</span>\
+												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
+													<img class="img-fluid" src="images/right.png" alt="">\
+												</a>\
+											</div>\
+										</div>\
+									</div>\
+								</div>';									  
+								}
+								if(courses!='')
+								{
+								jQuery('.courses').html(courses);	
+								}else
+								{
+								
+								jQuery('.courses').html('<div class="col-12"><center> No Course list found.</center></div>');
+								}
+                                								
+							 
+						}
+				   });
+	}
 
 </script>	
     <header class="header-btn">
@@ -69,12 +358,8 @@
 								<span class="select-img">
 									<img class="img-fluid" src="images/india.png" alt="">
 								</span>
-								<select name="" id="">
-									<option value="" selected>India</option>
-									<option value="">01</option>
-									<option value="">02</option>
-									<option value="">03</option>
-									<option value="">04</option>
+								<select name="country" id="country">
+									
 								</select>
 							</div>
 						</div>
@@ -106,31 +391,9 @@
     		
 	<section class="onlinehome-banner">
 	
-		<div class="onlinehome-slider">
+		<div class="onlinehome-slider category">
 
-			<div class="item">
-				<div class="item-text active">
-					<a href="#">Professional</a>
-				</div>
-			</div>
-
-			<div class="item">
-				<div class="item-text">
-					<a href="#">CHEMIST</a>
-				</div>
-			</div>
-
-			<div class="item">
-				<div class="item-text">
-					<a href="#">PHARMACY</a>
-				</div>
-			</div>
-
-			<div class="item">
-				<div class="item-text">
-					<a href="#">NURSING</a>
-				</div>
-			</div>
+			
 
 		</div>
 		
@@ -173,216 +436,12 @@
 				<div class="col-12">
 					<div class="latest-box">
 						<h4>Latest Online Courses</h4>
-						<a href="onlinecourses.html" class="after-link pull-right mt-1">View All</a>
+						<a href="javascript:void(0)" onclick="viewAllCourse()" class="after-link pull-right mt-1">View All</a>
 					</div>
 				</div>
-				
-				<div class="col-6 pr-1">
-				
-					<div class="care-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-2.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Fashion Designers</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_1" id="Rating_1_label">
-									</label>
-
-									<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_2" id="Rating_2_label">
-									</label>
-
-									<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_3" id="Rating_3_label">
-									</label>
-
-									<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_4" id="Rating_4_label">
-									</label>
-
-									<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_5" id="Rating_5_label">
-									</label>
-								</div>
-							</div>
-							<div class="price-box">
-								<span>$123</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
 				</div>
-				
-				<div class="col-6 pl-1">
-				
-					<div class="care-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-3.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Bachelor of Laws (LLB)</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[3]" id="Rating_12" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_12" id="Rating_12_label">
-									</label>
-
-									<input type="radio" name="ratings[3]" id="Rating_22" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_22" id="Rating_22_label">
-									</label>
-
-									<input type="radio" name="ratings[3]" id="Rating_32" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_32" id="Rating_32_label">
-									</label>
-
-									<input type="radio" name="ratings[3]" id="Rating_42" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_42" id="Rating_42_label">
-									</label>
-
-									<input type="radio" name="ratings[3]" id="Rating_52" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_52" id="Rating_52_label">
-									</label>
-									
-								</div>
-							</div>
-							<div class="price-box">
-								<span>$120</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="col-6 pr-1">
-				
-					<div class="care-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-4.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Bachelor Of Computer Applications</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[2]" id="Rating_13" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_13" id="Rating_13_label">
-									</label>
-
-									<input type="radio" name="ratings[2]" id="Rating_23" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_23" id="Rating_23_label">
-									</label>
-
-									<input type="radio" name="ratings[2]" id="Rating_33" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_33" id="Rating_33_label">
-									</label>
-
-									<input type="radio" name="ratings[2]" id="Rating_43" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_43" id="Rating_43_label">
-									</label>
-
-									<input type="radio" name="ratings[2]" id="Rating_53" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_53" id="Rating_53_label">
-									</label>
-								</div>
-							</div>
-							<div class="price-box">
-								<span>$123</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="col-6 pl-1">
-				
-					<div class="care-box margin-box">
-						<div class="care-img">
-							<img class="img-fluid" src="images/banner-5.png" alt="">
-						</div>
-						<div class="care-title">
-							<h4>Human Resources</h4>
-							<p>By :  Intensive Care Unit - Princess Margaret</p>
-							<div class="review-field-rating">
-								<div class="review-control-vote">
-								
-									<span>(512)</span>
-
-									<input type="radio" name="ratings[1]" id="Rating_14" value="16" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">
-
-									<label class="rating-1" for="Rating_14" id="Rating_14_label">
-									</label>
-
-									<input type="radio" name="ratings[1]" id="Rating_24" value="17" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
-
-									<label class="rating-2" for="Rating_24" id="Rating_24_label">
-									</label>
-
-									<input type="radio" name="ratings[1]" id="Rating_34" value="18" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
-
-									<label class="rating-3" for="Rating_34" id="Rating_34_label">
-									</label>
-
-									<input type="radio" name="ratings[1]" id="Rating_44" value="19" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
-
-									<label class="rating-4" for="Rating_44" id="Rating_44_label">
-									</label>
-
-									<input type="radio" name="ratings[1]" id="Rating_54" value="20" class="radio" data-validate="{'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
-
-									<label class="rating-5" for="Rating_54" id="Rating_54_label">
-									</label>
-								</div>
-							</div>
-							<div class="price-box">
-								<span>$120</span>
-								<a href="#" class="pull-right">
-									<img class="img-fluid" src="images/right.png" alt="">
-								</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
+				<div class="row courses">				
+			    </div>
 		</div>
     </section> 
 	
@@ -395,35 +454,7 @@
 	 <script src="js/owl.carousel.js"></script>
 	
 	<script>
-        
-        $('.onlinehome-slider').owlCarousel({
-            loop: true,
-			margin: 10,
-            nav: true,
-            dots: false,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            dotsSpeed: 2000,
-            responsive: {
-
-                0: {
-                    items: 2
-                },
-				580: {
-                    items: 2
-                },
-                767: {
-                    items: 2
-                },
-                992: {
-                    items: 2
-                },
-                1000: {
-                    items: 2
-                }
-            }
-        });
-		
+      
 		$('.onlineimg-slider').owlCarousel({
             loop: true,
 			margin: 5,

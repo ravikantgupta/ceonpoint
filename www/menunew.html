@@ -12,16 +12,35 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <script type="text/javascript" src="js/functions.js"></script>
 </head>
-<body>
+<body onload="setvalue()">
+ <script>
+ function setvalue()
+	{ 
+		    	
+		 var loggedIn=window.localStorage.getItem("loggedIn");
+		    
+		   if(loggedIn)
+			 {
+			   jQuery('.loginsection').html('');
+			 }else
+			 {
+			 
+			   jQuery('.loginsection').html('<div class="login-box">\
+				<a onclick="nextpage(\'login.html\')" href="javascript:void(0)" class="login-btn">LOG IN</a>\
+			</div><div class="login-box text-right">\
+				<a  onclick="nextpage(\'signup.html\')" href="javascript:void(0)" class="login-btn">SIGN UP</a></div>');
+			 }
+	  
+	}
+</script>	
 
     <header>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="back-link-box fashion-link">
-                       
+                    <div class="back-link-box fashion-link">                       
                         <div class="back-link">
-                            <a href="javascript:void(0)" onclick="backpage('index.html')">
+                            <a href="javascript:void(0)" onclick="backscreen()">
                                 <img class="img-fluid" src="images/left.png" alt="">
                             </a>
                         </div>
@@ -177,7 +196,7 @@
             
 	            
 	            <div class="col-12">
-	                <div class="d-flex">
+	                <div class="d-flex loginsection">
                         <div class="login-box">
                             <a href="javascript:void(0)" onclick="nextpage('login.html')" class="login-btn">LOG IN</a>
                         </div>

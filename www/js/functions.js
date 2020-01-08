@@ -172,7 +172,7 @@ function addfootermenu()
 	var footerhtml='<div class="home-link-banner">\
 		<div class="main-link-box">\
 			<div class="hero-link-box">\
-				<a href="javascript:void(0)" onclick="nextpage(\'index.html\')">\
+				<a href="javascript:void(0)" onclick="nextpage(\'dhasboard.html\')">\
 					<div class="hero-link-img">\
 						<img class="img-fluid" src="images/home.png" alt="">\
 					</div>\
