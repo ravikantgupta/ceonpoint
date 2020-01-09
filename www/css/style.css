@@ -2407,10 +2407,12 @@ input.datalist {
     font-weight: 500;
     margin-right: 10px;
     margin-bottom: -1px;
+    color:#212529;
   
 }
 .tabing-box .nav-link.active{
     border-bottom:3px solid #478bca;
+    color:#478bca;
 }
 .tabing-box .nav-tabs {
     margin-bottom: 15px;
@@ -2464,10 +2466,87 @@ input.datalist {
     font-weight: 500;
     padding-left: 10px;
 }
+.tabing-box {
+    padding-bottom: 20px;
+}
 /************tabing-css-end********/
-
-
-
+.lesson-wrapper {
+    margin: 1em 0px;
+    border: 5px solid #f8f8f8;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px #ededed;
+    padding: 0px 10px;
+}
+.lesson-wrapper .panel {
+    margin-bottom: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}  
+.lesson-wrapper .panel h4 {
+    font-size: 13px;
+    font-weight: 500;
+}
+.lesson-wrapper .panel label {
+    font-size: 13px;
+    margin-bottom: 0;
+    margin-right: 8px;
+}
+.lesson-wrapper .panel label input{
+    width: 12px;
+    vertical-align: middle;
+}
+.exampassed {
+    text-align: center;
+    border: none!important;
+    padding: 0!important;
+}
+.exampassed .panel-heading {
+    background: #fff;
+}
+.exampassed h4 {
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    margin-bottom: 22px;
+}
+.exampassed .fa {
+    padding: 5px;
+    border: 1px solid #eee;
+    margin: 0 2px;
+    color: #808080;
+}
+.rating {
+    border: none;
+    float: right;
+    margin-bottom: 15px;
+}
+.rating > input {
+    display: none;
+}
+.rating > label {
+    color: #fff;
+    float: right;
+    margin: 4px 1px 0px 0px;
+    background-color: #D8D8D8;
+    border-radius: 15px;
+    height: 25px;
+}
+.rating > label:before {
+    margin-top: 2px;
+    padding: 0px 5px 0px 5px;
+    font-size: 15px;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+.rating > input:checked + label:hover, .rating > label:hover ~ input:checked ~ label, .rating > input:checked ~ label:hover ~ label {
+    background-color: #7ED321 !important;
+    cursor: pointer;
+}
 
 /*
 .certificate-modal button.close:focus {

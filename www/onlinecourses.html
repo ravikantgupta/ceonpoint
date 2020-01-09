@@ -88,37 +88,39 @@
 		                      var courses='';
                               
                                for (i in data.courses) {
-							  							
+							  				
+	                              var ratinghtml='';										
                                      courses+='<div class="col-6 pr-1">\
-				                     <div class="care-box">\
-									<div class="care-img">\
+				                      <div class="care-box">\
+									  <div class="care-img">\
 										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
-									</div>\
+									  </div>\
 										<div class="care-title">\
 											<h4>'+data.courses[i].course_title+'</h4>\
 											<p>By :  '+data.courses[i].by+'</p>\
 											<div class="review-field-rating">\
 												<div class="review-control-vote">\
-													<span>(512)</span>\
-													<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">\
-													<label class="rating-1" for="Rating_1" id="Rating_1_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio"  aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">\
-													<label class="rating-2" for="Rating_2" id="Rating_2_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio"  aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">\
-													<label class="rating-3" for="Rating_3" id="Rating_3_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio"  aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">\
-													<label class="rating-4" for="Rating_4" id="Rating_4_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio"  aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">\
-													<label class="rating-5" for="Rating_5" id="Rating_5_label">\
-													</label>\
-												</div>\
+													<span>('+data.courses[i].total_revew+')</span>';
+									for(j=5;j>=1;j--)
+                                     {
+									    if(j<= parseInt(data.courses[i].rating ))
+										{
+									      ratinghtml+='<input type="radio" checked name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label">\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}else
+                                        {
+										  ratinghtml+='<input type="radio" name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label" >\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}										
+									 
+									 }									
+								    courses+=ratinghtml;			
+							        courses+='</div>\
 											</div>\
 											<div class="price-box">\
-												<span>$123</span>\
+												<span>'+data.currency+data.courses[i].price+'</span>\
 												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
 													<img class="img-fluid" src="images/right.png" alt="">\
 												</a>\
@@ -191,43 +193,45 @@
 							/*************Courses List*************/							
 		                      var courses='';                              
                                for (i in data.courses) {							  							
+                                     var ratinghtml='';										
                                      courses+='<div class="col-6 pr-1">\
-				                     <div class="care-box">\
-									<div class="care-img">\
+				                      <div class="care-box">\
+									  <div class="care-img">\
 										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
-									</div>\
+									  </div>\
 										<div class="care-title">\
 											<h4>'+data.courses[i].course_title+'</h4>\
 											<p>By :  '+data.courses[i].by+'</p>\
 											<div class="review-field-rating">\
 												<div class="review-control-vote">\
-													<span>(512)</span>\
-													<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">\
-													<label class="rating-1" for="Rating_1" id="Rating_1_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio"  aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">\
-													<label class="rating-2" for="Rating_2" id="Rating_2_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio"  aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">\
-													<label class="rating-3" for="Rating_3" id="Rating_3_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio"  aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">\
-													<label class="rating-4" for="Rating_4" id="Rating_4_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio"  aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">\
-													<label class="rating-5" for="Rating_5" id="Rating_5_label">\
-													</label>\
-												</div>\
+													<span>('+data.courses[i].total_revew+')</span>';
+									for(j=5;j>=1;j--)
+                                     {
+									    if(j<= parseInt(data.courses[i].rating ))
+										{
+									      ratinghtml+='<input type="radio" checked name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label">\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}else
+                                        {
+										  ratinghtml+='<input type="radio" name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label" >\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}										
+									 
+									 }									
+								    courses+=ratinghtml;			
+							        courses+='</div>\
 											</div>\
 											<div class="price-box">\
-												<span>$123</span>\
+												<span>'+data.currency+data.courses[i].price+'</span>\
 												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
 													<img class="img-fluid" src="images/right.png" alt="">\
 												</a>\
 											</div>\
 										</div>\
 									</div>\
-								</div>';									  
+								</div>';								  
 								}
 								if(courses!='')
 								{
@@ -263,43 +267,45 @@
 							/*************Courses List*************/							
 		                      var courses='';                              
                                for (i in data.courses) {							  							
+                                      var ratinghtml='';										
                                      courses+='<div class="col-6 pr-1">\
-				                     <div class="care-box">\
-									<div class="care-img">\
+				                      <div class="care-box">\
+									  <div class="care-img">\
 										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
-									</div>\
+									  </div>\
 										<div class="care-title">\
 											<h4>'+data.courses[i].course_title+'</h4>\
 											<p>By :  '+data.courses[i].by+'</p>\
 											<div class="review-field-rating">\
 												<div class="review-control-vote">\
-													<span>(512)</span>\
-													<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">\
-													<label class="rating-1" for="Rating_1" id="Rating_1_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio"  aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">\
-													<label class="rating-2" for="Rating_2" id="Rating_2_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio"  aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">\
-													<label class="rating-3" for="Rating_3" id="Rating_3_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio"  aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">\
-													<label class="rating-4" for="Rating_4" id="Rating_4_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio"  aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">\
-													<label class="rating-5" for="Rating_5" id="Rating_5_label">\
-													</label>\
-												</div>\
+													<span>('+data.courses[i].total_revew+')</span>';
+									for(j=5;j>=1;j--)
+                                     {
+									    if(j<= parseInt(data.courses[i].rating ))
+										{
+									      ratinghtml+='<input type="radio" checked name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label">\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}else
+                                        {
+										  ratinghtml+='<input type="radio" name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label" >\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}										
+									 
+									 }									
+								    courses+=ratinghtml;			
+							        courses+='</div>\
 											</div>\
 											<div class="price-box">\
-												<span>$123</span>\
+												<span>'+data.currency+data.courses[i].price+'</span>\
 												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
 													<img class="img-fluid" src="images/right.png" alt="">\
 												</a>\
 											</div>\
 										</div>\
 									</div>\
-								</div>';									  
+								</div>';								  
 								}
 								if(courses!='')
 								{
@@ -348,43 +354,45 @@
 							/*************Courses List*************/							
 		                      var courses='';                              
                                for (i in data.courses) {							  							
+                                      var ratinghtml='';										
                                      courses+='<div class="col-6 pr-1">\
-				                     <div class="care-box">\
-									<div class="care-img">\
+				                      <div class="care-box">\
+									  <div class="care-img">\
 										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
-									</div>\
+									  </div>\
 										<div class="care-title">\
 											<h4>'+data.courses[i].course_title+'</h4>\
 											<p>By :  '+data.courses[i].by+'</p>\
 											<div class="review-field-rating">\
 												<div class="review-control-vote">\
-													<span>(512)</span>\
-													<input type="radio" name="ratings[4]" id="Rating_1" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true" checked="">\
-													<label class="rating-1" for="Rating_1" id="Rating_1_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_2" value="17" class="radio"  aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">\
-													<label class="rating-2" for="Rating_2" id="Rating_2_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_3" value="18" class="radio"  aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">\
-													<label class="rating-3" for="Rating_3" id="Rating_3_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_4" value="19" class="radio"  aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">\
-													<label class="rating-4" for="Rating_4" id="Rating_4_label">\
-													</label>\
-													<input type="radio" name="ratings[4]" id="Rating_5" value="20" class="radio"  aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">\
-													<label class="rating-5" for="Rating_5" id="Rating_5_label">\
-													</label>\
-												</div>\
+													<span>('+data.courses[i].total_revew+')</span>';
+									for(j=5;j>=1;j--)
+                                     {
+									    if(j<= parseInt(data.courses[i].rating ))
+										{
+									      ratinghtml+='<input type="radio" checked name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label">\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}else
+                                        {
+										  ratinghtml+='<input type="radio" name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label" >\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}										
+									 
+									 }									
+								    courses+=ratinghtml;			
+							        courses+='</div>\
 											</div>\
 											<div class="price-box">\
-												<span>$123</span>\
+												<span>'+data.currency+data.courses[i].price+'</span>\
 												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
 													<img class="img-fluid" src="images/right.png" alt="">\
 												</a>\
 											</div>\
 										</div>\
 									</div>\
-								</div>';									  
+								</div>';							  
 								}
 								if(courses!='')
 								{
@@ -401,9 +409,9 @@
 	
 	}
 	
-	function viewCourse(courseid)
+	function viewCourse(course_id)
 	{
-	     window.localStorage.setItem("course_id", course_id);
+	      window.localStorage.setItem("course_id", course_id);
 	      nextpage('course-detail.html');
 	  
 	}
