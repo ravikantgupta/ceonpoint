@@ -13,20 +13,16 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
 		rel="stylesheet">
 		<script type="text/javascript" src="js/functions.js"></script>
-   
+         <script type="text/javascript" src="js/course-detail.js"></script>
 </head>
 
 <body onload="setvalue()">
-<script>
+<script>   
  function setvalue()
 	{
 	    addfootermenu();
 	   var course_id=window.localStorage.getItem("course_id");	 
-	   var userdata=JSON.parse(window.localStorage.getItem("userdata"));	
-	   jQuery('.loading').show();
-	   jQuery('.mask').show();
-	   
-	   
+	   var userdata=JSON.parse(window.localStorage.getItem("userdata"));	   
 	   jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
@@ -54,7 +50,7 @@
 								jQuery('.total_revew').html('('+data.course_details.total_revew+')');
 							    jQuery('.price1').html('PRICE : '+data.currency+data.course_details.price);
 							    jQuery('.units').html('<strong>Units : </strong>'+data.course_details.units);
-							    jQuery('.price1').html('<strong>Price : </strong>'+data.currency+data.course_details.price);
+							    jQuery('.price').html('<strong>Price : </strong>'+data.currency+data.course_details.price);
 							    jQuery('.course_acceditation_number').html('<strong>Acceditation No : </strong>'+data.course_details.course_acceditation_number);
 							    jQuery('.course_validity').html('<strong>Course Validity : </strong>'+data.course_details.course_validity);
 							    jQuery('.couser_description').html(data.course_details.couser_description);
@@ -83,9 +79,7 @@
 								jQuery('.ratingre').append(ratinghtml);	 
 							 
 							 }
-                            console.log(data);
-                                									
-							 
+                           
 						}
 				   });
 	
@@ -115,7 +109,7 @@ function placeorder()
 		  jQuery('.mask').show();	  
         $.ajax({	    	
 				   type:'POST',						
-					url:base_url+"/professional/course_order",
+					url:base_url+"/professional/payment",
 					data:JSON.stringify({'user_id':userdata.id,
 					                     'course_id':course_id,
 										 'price':price
@@ -143,10 +137,13 @@ function placeorder()
    
 }	 
 	 
-	 function cancelpayment()
-		{
-		  alert('paymentcancel');
-		}
+function cancelpayment()
+{
+  alert('paymentcancel');
+}
+
+
+
 </script>	
 
 	<header class="header-btn p-0">
@@ -215,13 +212,15 @@ function placeorder()
 						<ul id="tabs" class="nav nav-tabs">
 							<li class="nav-item"><a href="" data-target="#Overview" data-toggle="tab"
 									class="nav-link active">Overview</a></li>
-							<li class="nav-item"><a href="" data-target="#Lesson" data-toggle="tab"
-									class="nav-link ">Lesson</a></li>
-							<li class="nav-item"><a href="" data-target="#Exam" data-toggle="tab"
+							<li class="nav-item">
+							<a href="javascript:void(0)" onclick="viewlession()" data-target="#Lesson" data-toggle="tab"
+									class="nav-link ">Lesson</a>
+						     </li>
+							<li class="nav-item"><a href="javascript:void(0)" onclick="viewexam()" data-target="#Exam" data-toggle="tab"
 									class="nav-link">Exam</a></li>
-							<li class="nav-item"><a href="" data-target="#Certificate" data-toggle="tab"
+							<li class="nav-item"><a href="javascript:void(0)" onclick="viewCertificate()" id="certfct" data-target="#Certificate" data-toggle="tab"
 									class="nav-link">Certificate</a></li>
-							<li class="nav-item"><a href="" data-target="#Evaluation" data-toggle="tab"
+							<li class="nav-item"><a href="javascript:void(0)"  data-target="#Evaluation" data-toggle="tab"
 									class="nav-link">Evaluation</a></li>
 						</ul>
 
@@ -239,206 +238,42 @@ function placeorder()
 							</div>
 
 							<div id="Lesson" class="tab-pane fade">
-								<div class="panel-group" id="accordion">
-									<div class="lesson-panel">
-										<div class="panel-heading">
-											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#accordion" href="#lesson1">
-													<i class="fa fa-unlock"></i>
-													Lesson No 1 : Lesson 1 : The skin</a>
-											</h4>
-										</div>
-										<div id="lesson1" class="panel-collapse collapse">
-											<div class="panel-body">
-												<div class="lesson-details">
-													<p><strong>Description</strong></p>
-													<p>Layer sof the skin and their composition and functions</p>
-
-													<p><strong>Case Study</strong></p>
-													<p>tis is a case study for skin breakdown</p>
-
-
-													<p><strong>Course Video</strong></p>
-													<p><video width="700" height="300" controls="controls" autoplay=""
-															preload="auto">
-															<source src="https://ceonpoint.com//assets/images/uploads/"
-																type="video/mp4">
-															
-														</video>
-													</p>
-
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="lesson-panel">
-										<div class="panel-heading">
-											<h4 class="panel-title">
-												<a data-toggle1="collapse" data-parent="#accordion" href="#lesson2">
-
-													<i class="fa fa-lock"></i>
-													Lesson No 2 : Lesson 2: Ulcer - The break in the skin</a>
-
-											</h4>
-										</div>
-										<div id="#lesson2" class="panel-collapse collapse">
-											<div class="panel-body">
-
-												<div class="lesson-details">
-													<p><strong>Description</strong></p>
-													<p></p>
-
-													<p><strong>Case Study</strong></p>
-													<p></p>
-
-
-													<p><strong>Course Video</strong></p>
-													<p> <video width="700" height="300" controls="controls" autoplay=""
-															preload="auto" poster="path-to-poster.jpg">
-															<source src="https://ceonpoint.com//assets/images/uploads/"
-																type="video/mp4">
-															<source src="path-to-webm.webm" type="video/webm">
-															<source src="path-to-ogv.ogv" type="video/ogg">
-														</video>
-													</p>
-
-												</div>
-											</div>
-										</div>
-									</div>
+								<div class="panel-group course_lesson" id="accordion">
+								
 								</div>
 
 
 							</div>
 
-							<div id="Exam" class="tab-pane fade">
+							<div id="Exam" onclick="viewexam" class="tab-pane fade">
 								<div class="lesson-wrapper p-20">
-
-
-
+								    <p class="premsg"></p>
 									<p></p>
 									<p>Choose the right answer</p>
 									<p></p>
-
-
-									<form>
-										<input type="hidden" name="cid" value="1">
-
-
-
-										<div class="panel panel-default">
-											<div class="panel-body">
-												<h4 class="mt-0">what is the fourth letter of the alphabet <span
-														class="required"> * </span></h4>
-												<div class="">
-													<label class="radio-inline">
-														<input name="ans-42" size="20" type="radio" value="1">
-														a </label>
-													<label class="radio-inline">
-														<input name="ans-42" size="20" type="radio" value="2">
-														b </label>
-													<label class="radio-inline">
-														<input name="ans-42" size="20" type="radio" value="3">
-														c </label>
-													<label class="radio-inline">
-														<input name="ans-42" size="20" type="radio" value="4">
-														d </label>
-												</div>
-											</div>
+									<form id="questionfrm">
+									  <div class="pre_exam_qus"></div>
+									   <div class="coursehtml">
+									   
+									   </div>
+										<input type="hidden" name="id" id="course_id" value="">
+										<input type="hidden" name="user_id" id="user_id" value="">									
+										<div class="form-group subbtn">
+											<input class="btn btn-primary btn-sm" onclick="saveexam()" value="Submit Answers"
+												type="button" name="save">
 										</div>
-
-
-										<div class="panel panel-default">
-											<div class="panel-body">
-												<h4 class="mt-0">what is the fourth letter of the alphabet <span
-														class="required"> * </span></h4>
-												<div class="">
-													<label class="radio-inline">
-														<input name="ans-43" size="20" type="radio" value="1">
-														a </label>
-													<label class="radio-inline">
-														<input name="ans-43" size="20" type="radio" value="2">
-														b </label>
-													<label class="radio-inline">
-														<input name="ans-43" size="20" type="radio" value="3">
-														c </label>
-													<label class="radio-inline">
-														<input name="ans-43" size="20" type="radio" value="4">
-														d </label>
-												</div>
-											</div>
+										
+										<div class="form-group retakebtn" style="display:none;">
+											<input class="btn btn-primary btn-sm" onclick="retake()" value="Retake"
+												type="button" name="save">
 										</div>
-
-
-										<div class="panel panel-default">
-											<div class="panel-body">
-												<h4 class="mt-0">what is the fourth letter of the alphabet <span
-														class="required"> * </span></h4>
-												<div class="">
-													<label class="radio-inline">
-														<input name="ans-71" size="20" type="radio" value="1">
-														a </label>
-													<label class="radio-inline">
-														<input name="ans-71" size="20" type="radio" value="2">
-														b </label>
-													<label class="radio-inline">
-														<input name="ans-71" size="20" type="radio" value="3">
-														c </label>
-													<label class="radio-inline">
-														<input name="ans-71" size="20" type="radio" value="4">
-														d </label>
-												</div>
-											</div>
+										
+										<div class="form-group checkquestion" style="display:none;">
+											<input class="btn btn-primary btn-sm" onclick="checkcertificate()" value="Click here to view your Certificate"
+												type="button" name="save">
 										</div>
-
-
-										<div class="panel panel-default">
-											<div class="panel-body">
-												<h4 class="mt-0">what is the firs letter of the alphabet <span
-														class="required"> * </span></h4>
-												<div class="">
-													<label class="radio-inline">
-														<input name="ans-72" size="20" type="radio" value="1">
-														a </label>
-													<label class="radio-inline">
-														<input name="ans-72" size="20" type="radio" value="2">
-														b </label>
-													<label class="radio-inline">
-														<input name="ans-72" size="20" type="radio" value="3">
-														c </label>
-													<label class="radio-inline">
-														<input name="ans-72" size="20" type="radio" value="4">
-														d </label>
-												</div>
-											</div>
-										</div>
-
-
-										<div class="panel panel-default">
-											<div class="panel-body">
-												<h4 class="mt-0">what is the second letter of the alphabet <span
-														class="required"> * </span></h4>
-												<div class="">
-													<label class="radio-inline">
-														<input name="ans-73" size="20" type="radio" value="1">
-														a </label>
-													<label class="radio-inline">
-														<input name="ans-73" size="20" type="radio" value="2">
-														b </label>
-													<label class="radio-inline">
-														<input name="ans-73" size="20" type="radio" value="3">
-														c </label>
-													<label class="radio-inline">
-														<input name="ans-73" size="20" type="radio" value="4">
-														d </label>
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<input class="btn btn-primary btn-sm" value="Submit Answers"
-												type="submit" name="save">
-										</div>
+										
+										
 									</form>
 
 
@@ -524,11 +359,15 @@ function placeorder()
 	<script type="text/javascript" src="js/paypal-mobile-js-helper.js"></script>
      	 
      <script src="js/jquery-1.11.2.min.js"></script>
-     <script src="js/bootstrap.min.js"></script>    
+     <script src="js/bootstrap.min.js"></script> 
+        	 
 	  <style>
    .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
    </style>
-
+    <script>
+	 jQuery('.loading').show();
+  jQuery('.mask').show();
+	</script>
 </body>
 
 </html>
