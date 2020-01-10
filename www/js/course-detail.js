@@ -2,13 +2,22 @@ function viewlession()
 {
     var course_id=window.localStorage.getItem("course_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+	
+	if(userdata)
+           {
+		    var user_id=userdata.id;
+		   }else
+            {
+			  var user_id=0;
+			
+			}
    jQuery('.loading').show();
    jQuery('.mask').show();
    jQuery.ajax({					  
 				type:'POST', 
 				dataType: 'JSON',                   			
 				url:base_url+"/professional/course_lesson",
-				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
+				data: JSON.stringify({id: course_id,user_id:user_id }),				
 				success:function(data)
 					 {	 
 						jQuery('.loading').hide();
@@ -71,6 +80,18 @@ function viewexam()
 	var course_id=window.localStorage.getItem("course_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));
 	
+	var loggedIn=window.localStorage.getItem("loggedIn");
+		    
+		   if(!loggedIn)
+			 {
+			   jQuery('#Exam').html('<div class="login-box">\
+				<a onclick="nextpage(\'login.html\')" href="javascript:void(0)" class="login-btn">LOG IN</a>\
+			</div><div class="login-box text-right">\
+				<a  onclick="nextpage(\'signup.html\')" href="javascript:void(0)" class="login-btn">SIGN UP</a></div>');
+			  
+			   return false;
+			 }
+	
 	jQuery('#course_id').val(course_id);
 	jQuery('#user_id').val(userdata.id);
 	
@@ -86,7 +107,14 @@ function viewexam()
 					 {	 
 						jQuery('.loading').hide();
 						jQuery('.mask').hide();						
-						console.log(data);	
+							
+						if(data.purchase=="0")
+						{
+							
+							jQuery('#Exam').html('<div class="alert alert-info">Please purchase this Online Course to be opened for you.</div>');			  
+			                return false;
+							
+						}							
                         if(data.success=="true")
 						 {
 							 if(data.pre_attempt=="1")
@@ -96,63 +124,66 @@ function viewexam()
                                for (i in data.pre_exam_qus) {								   
 								    pre_exam_qus+='<div class="panel panel-default">\
 											<div class="panel-body">\
-												<h4 class="mt-0">'+data.exam_qus[i].question_title+'<span\
+												<h4 class="mt-0">'+data.pre_exam_qus[i].question_title+'<span\
 														class="required"> * </span></h4>\
-												<div class="">';												
-												if(data.exam_qus[i].selected_option=='1')
+												<div class="">';
+												
+												if(data.pre_exam_qus[i].selected_option=='1')
                                                     {
 													   pre_exam_qus+='<label class="radio-inline">\
-														<input name="ans-'+data.exam_qus[i].id+'" size="20" type="radio" value="1" checked>\
-														'+data.exam_qus[i].option1+' </label>';
+														<input name="ans-'+data.pre_exam_qus[i].id+'" size="20" type="radio" value="1" checked>\
+														'+data.pre_exam_qus[i].option1+' </label>';
 													}else
 													{													
 														pre_exam_qus+='<label class="radio-inline">\
-														<input name="ans-'+data.exam_qus[i].id+'" size="20" type="radio" value="1">\
-														'+data.exam_qus[i].option1+' </label>';
+														<input name="ans-'+data.pre_exam_qus[i].id+'" size="20" type="radio" value="1">\
+														'+data.pre_exam_qus[i].option1+' </label>';
 													}
 													
-													if(data.exam_qus[i].selected_option=='2')
+													if(data.pre_exam_qus[i].selected_option=='2')
                                                     {														
 													 pre_exam_qus+='<label class="radio-inline">\
-														<input name="ans-'+data.exam_qus[i].id+'" size="20" type="radio" value="2" checked>\
-														'+data.exam_qus[i].option2+' </label>';
+														<input name="ans-'+data.pre_exam_qus[i].id+'" size="20" type="radio" value="2" checked>\
+														'+data.pre_exam_qus[i].option2+' </label>';
 													}else
 													{													
  													  pre_exam_qus+='<label class="radio-inline">\
-														<input name="ans-'+data.exam_qus[i].id+'" size="20" type="radio" value="2">\
-														'+data.exam_qus[i].option2+' </label>';														
+														<input name="ans-'+data.pre_exam_qus[i].id+'" size="20" type="radio" value="2">\
+														'+data.pre_exam_qus[i].option2+' </label>';														
 													}
-													if(data.exam_qus[i].selected_option=='3')
+													if(data.pre_exam_qus[i].selected_option=='3')
                                                     {
 													  pre_exam_qus+='<label class="radio-inline">\
-														<input name="ans-'+data.exam_qus[i].id+'" size="20" type="radio" value="3" checked>\
-														'+data.exam_qus[i].option3+' </label>';
+														<input name="ans-'+data.pre_exam_qus[i].id+'" size="20" type="radio" value="3" checked>\
+														'+data.pre_exam_qus[i].option3+' </label>';
 														
 													}else
 													{
 														
 													 pre_exam_qus+='<label class="radio-inline">\
-														<input name="ans-'+data.exam_qus[i].id+'" size="20" type="radio" value="3" >\
-														'+data.exam_qus[i].option3+' </label>';
+														<input name="ans-'+data.pre_exam_qus[i].id+'" size="20" type="radio" value="3" >\
+														'+data.pre_exam_qus[i].option3+' </label>';
 													}
-													if(data.exam_qus[i].selected_option=='4')
+													if(data.pre_exam_qus[i].selected_option=='4')
                                                     {
 													  pre_exam_qus+='<label class="radio-inline">\
-														<input name="ans-'+data.exam_qus[i].id+'" size="20" type="radio" value="4" checked>\
-														'+data.exam_qus[i].option4+'</label>';
+														<input name="ans-'+data.pre_exam_qus[i].id+'" size="20" type="radio" value="4" checked>\
+														'+data.pre_exam_qus[i].option4+'</label>';
 													}else
 													{
 													   pre_exam_qus+='<label class="radio-inline">\
-														<input name="ans-'+data.exam_qus[i].id+'" size="20" type="radio" value="4">\
-														'+data.exam_qus[i].option4+'</label>';
+														<input name="ans-'+data.pre_exam_qus[i].id+'" size="20" type="radio" value="4">\
+														'+data.pre_exam_qus[i].option4+'</label>';
 														
-													}	
-													if(data.exam_qus[i].ansewer=='Incorrect')
+													}
+
+													
+													if(data.pre_exam_qus[i].ansewer=='Incorrect')
                                                     {
-														pre_exam_qus+='<label class="radio-inline"> <span style="color:red;">'+data.exam_qus[i].ansewer+'</span></label>';
+														pre_exam_qus+='<label class="radio-inline"> <span style="color:red;">'+data.pre_exam_qus[i].ansewer+'</span></label>';
 													}else
                                                     {														
-												      pre_exam_qus+='<label class="radio-inline"> <span style="color:green;">'+data.exam_qus[i].ansewer+'</span></label>';
+												      pre_exam_qus+='<label class="radio-inline"> <span style="color:green;">'+data.pre_exam_qus[i].ansewer+'</span></label>';
 													}
 												  pre_exam_qus+='</div></div></div>';							   
 							   								   
@@ -255,13 +286,69 @@ function checkcertificate()
 
 function viewCertificate()
 {
-	
+	 var loggedIn=window.localStorage.getItem("loggedIn");
+		    
+		   if(!loggedIn)
+			 {
+			   jQuery('#Certificate').html('<div class="login-box">\
+				<a onclick="nextpage(\'login.html\')" href="javascript:void(0)" class="login-btn">LOG IN</a>\
+			</div><div class="login-box text-right">\
+				<a  onclick="nextpage(\'signup.html\')" href="javascript:void(0)" class="login-btn">SIGN UP</a></div>');
+			 return false;
+			 }
+
+    var course_id=window.localStorage.getItem("course_id");	 
+	var userdata=JSON.parse(window.localStorage.getItem("userdata"));			 
+			 
+		jQuery('.loading').show();
+		jQuery('.mask').show();
+       jQuery.ajax({					  
+				type:'POST', 
+				dataType: 'JSON',                   			
+				url:base_url+"/professional/couser_certificate",
+				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
+				success:function(data)
+					 {	 
+						jQuery('.loading').hide();
+						jQuery('.mask').hide();						
+							
+						if(data.purchase=="0")
+						{				
+							jQuery('#Certificate').html('<div class="alert alert-info">Please purchase this Online Course to be opened for you.</div>');			  
+			                return false;
+							
+						}
+						if(data.pre_exam_res=="0")
+						{				
+							jQuery('#Certificate').html('<div class="alert alert-info">Please pass the exam.</div>');			  
+			                return false;
+							
+						}							
+                        
+					}
+				   }); 
 	
 }
+
 function viewEvaluation()
 {
+	
+	var loggedIn=window.localStorage.getItem("loggedIn");
+		    
+		   if(!loggedIn)
+			 {
+			   jQuery('#Evaluation').html('<div class="login-box">\
+				<a onclick="nextpage(\'login.html\')" href="javascript:void(0)" class="login-btn">LOG IN</a>\
+			</div><div class="login-box text-right">\
+				<a  onclick="nextpage(\'signup.html\')" href="javascript:void(0)" class="login-btn">SIGN UP</a></div>');
+			  return false;
+			 }
+}
+
+function saveEvaluation()
+{
    var star_mark= jQuery('input[name="rating89"]:checked').val();	
-   var comments=jQuery('.evaluation').val();	
+   var comments=jQuery('#evaluation').val();	
    var course_id=window.localStorage.getItem("course_id");	 
    var userdata=JSON.parse(window.localStorage.getItem("userdata"));
    jQuery('.loading').show();
@@ -269,8 +356,8 @@ function viewEvaluation()
    jQuery.ajax({					  
 				type:'POST', 
 				dataType: 'JSON',                   			
-				url:base_url+"/professional/couser_evaluation",
-				data: JSON.stringify({id: course_id,user_id:userdata.id,star_mark:star_mark,comments:comments}),				
+				url:base_url+"/professional/course_evaluation",
+				data: JSON.stringify({course_id: course_id,user_id:userdata.id,star_mark:star_mark,comments:comments}),				
 				success:function(data)
 					 {	 
 						jQuery('.loading').hide();
@@ -278,10 +365,12 @@ function viewEvaluation()
 						
                         if(data.success=="true")
 						 {
-							   
+							  jQuery('.mesg').html(data.msg); 
 						 }  							 
 						 
 					}
 				   });	
+				   
+	return false;			   
 	
 }

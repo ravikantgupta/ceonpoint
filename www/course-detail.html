@@ -22,12 +22,20 @@
 	{
 	    addfootermenu();
 	   var course_id=window.localStorage.getItem("course_id");	 
-	   var userdata=JSON.parse(window.localStorage.getItem("userdata"));	   
+	   var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+         if(userdata)
+           {
+		    var user_id=userdata.id;
+		   }else
+            {
+			  var user_id=0;
+			
+			}		   
 	   jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
 					url:base_url+"/professional/course_overview",
-					data: JSON.stringify({id: course_id,user_id:userdata.id }),	
+					data: JSON.stringify({id: course_id,user_id:user_id }),	
 					
 					success:function(data)
 						 {	 
@@ -112,7 +120,10 @@ function placeorder()
 					url:base_url+"/professional/payment",
 					data:JSON.stringify({'user_id':userdata.id,
 					                     'course_id':course_id,
-										 'price':price
+										 'price':price,
+										 txn_id:'4564d5646ds7',
+										 txn_status:'Completed',
+										 quantity:1
 					                    }),						
 					contentType: 'application/json',
 					success:function(data)
@@ -120,7 +131,7 @@ function placeorder()
 					  jQuery('.loader').hide();
 			          jQuery('.mask').hide();	  
 					  
-					  if(data.status)
+					  if(data.success=="true")
 						{
 						
 						  nextpage('thanku.html')
@@ -220,7 +231,7 @@ function cancelpayment()
 									class="nav-link">Exam</a></li>
 							<li class="nav-item"><a href="javascript:void(0)" onclick="viewCertificate()" id="certfct" data-target="#Certificate" data-toggle="tab"
 									class="nav-link">Certificate</a></li>
-							<li class="nav-item"><a href="javascript:void(0)"  data-target="#Evaluation" data-toggle="tab"
+							<li class="nav-item"><a href="javascript:void(0)" onclick="viewEvaluation()"  data-target="#Evaluation" data-toggle="tab"
 									class="nav-link">Evaluation</a></li>
 						</ul>
 
@@ -305,11 +316,10 @@ function cancelpayment()
 								<div class="lesson-wrapper p-20">
 									<p></p>
 									<p>Evaluation note here.</p>
-									<p></p>
+									<p class="mesg"></p>
 
-									<form>
-										<input type="hidden" name="questionid[]" value="89">
-										<input type="hidden" name="cid" value="1">
+									<form onsubmit="return saveEvaluation();">
+										
 										<h6><strong>1. How will you rate the course?</strong></h6>
 									
 										<div class="rating">
