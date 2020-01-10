@@ -22,6 +22,15 @@
 	{
 	   addfootermenu();
 	  var userdata=JSON.parse(window.localStorage.getItem("userdata"));	
+	   if(userdata)
+           {
+		    var user_id=userdata.id;
+		   }else
+            {
+			  var user_id=0;
+			
+			}	
+	  
 	   jQuery('.loading').show();
 	   jQuery('.mask').show();
 	   
@@ -30,7 +39,7 @@
 					type:'POST', 
 					dataType: 'JSON',                   			
 					url:base_url+"/professional/course_list",
-					data: JSON.stringify({user_id: userdata.id }),	
+					data: JSON.stringify({user_id: user_id }),	
 					
 					success:function(data)
 						 {	 
