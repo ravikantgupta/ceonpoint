@@ -337,25 +337,7 @@ function viewCertificate()
 function downloadCertificate()
 {
 	 var loggedIn=window.localStorage.getItem("loggedIn");
-		    
-		alert('shreeram');   
-     pdf.htmlToPDF({
-            data: '<html> <h1>  Hello World q </h1> </html>',
-            documentSize: 'A4',
-            landscape: 'portrait',
-            type: 'base64' //use share to open the open-with-menu.
-        }, this.success, this.failure);
- 
-	  pdf.htmlToPDF({
-            url: 'http://www.google.es',
-            documentSize: 'A4',
-            landscape: 'portrait',
-            type: 'base64'
-        }, this.success, this.failure);
-	alert('shreeram1');
 	
-	
-	return false;
     var course_id=window.localStorage.getItem("course_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));			 
 			 
@@ -368,14 +350,11 @@ function downloadCertificate()
 				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
 				success:function(data)
 					 {	 
-					 window.open('data:application/pdf,', escape(data.replace('\n', '')))
+					   console.log(data.data);
+					// window.open(data.data)
 					   jQuery('.loading').hide();
 						jQuery('.mask').hide();	
-					   var fileName='certificate.pdf';
-					  var blob = new Blob([data], {
-								type: "application/pdf",
-							});
-						saveAs(blob, fileName);														
+					  													
                         
 					}
 				   }); 
