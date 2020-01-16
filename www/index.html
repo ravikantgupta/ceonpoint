@@ -24,7 +24,10 @@ function setvalue()
 		    
 		   if(loggedIn)
 			 {
-			   jQuery('.loginsection').html('');
+			   jQuery('.loginsection').html('<div class="login-box">\
+				<a onclick="logout()" href="javascript:void(0)" class="login-btn">LOG OUT</a>\
+			</div><div class="login-box text-right">\
+				<a  onclick="nextpagewithback(\'index.html\',\'profile.html\')" href="javascript:void(0)" class="login-btn">MY ACCOUNT</a></div>');
 			 }else
 			 {
 			 

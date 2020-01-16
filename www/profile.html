@@ -19,9 +19,7 @@
 		    	
 		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
         jQuery('.usename').html(userdata.name); 	
-        jQuery('.profession').html('Profession : '+userdata.profession); 	
-       	
-	
+        jQuery('.profession').html('Profession : '+userdata.profession); 
 	  
 	}
 </script>	
@@ -47,7 +45,7 @@
                         <div class="link-nav">
                             <nav class="navbar navbar-expand-lg navbar-dark p-0">
                                 <div class="container pr-0">
-                                    <a href="#" class="navbar-toggler">
+                                    <a href="javascript:void(0)" onclick="nextpagewithback('profile.html','menunew.html')" class="navbar-toggler">
                                         <span class="navbar-toggler-icon"></span>
                                         <span class="navbar-toggler-icon ml-1"></span>
                                         <span class="navbar-toggler-icon"></span>
@@ -108,7 +106,7 @@
                     <div class="profile-para">
                         <ul>
 				            <li><a href="#">View Public Profile</a></li>
-				            <li><a href="javascript:void(0)" onclick="nextpage('editprofile.html')">Profile</a></li>
+				            <li><a href="javascript:void(0)" onclick="nextpagewithback('profile.html','editprofile.html')">Profile</a></li>
 				            <li><a href="#">Photo</a></li>
 				            <li><a href="#">Account</a></li>
 				            <li><a href="#">Privacy</a></li>

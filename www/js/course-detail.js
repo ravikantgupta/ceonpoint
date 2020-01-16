@@ -1,3 +1,4 @@
+var ispurchase=0;
 function viewlession()
 {
     var course_id=window.localStorage.getItem("course_id");	 
@@ -334,7 +335,7 @@ function viewEvaluation()
 {
 	
 	var loggedIn=window.localStorage.getItem("loggedIn");
-		    
+		   
 		   if(!loggedIn)
 			 {
 			   jQuery('#Evaluation').html('<div class="login-box">\
@@ -342,6 +343,13 @@ function viewEvaluation()
 			</div><div class="login-box text-right">\
 				<a  onclick="nextpage(\'signup.html\')" href="javascript:void(0)" class="login-btn">SIGN UP</a></div>');
 			  return false;
+			 }
+			 
+			 if(ispurchase=="0")
+			 {				
+				jQuery('#Evaluation').html('<div class="alert alert-info">Please purchase this Online Course to be opened for you.</div>');			  
+				return false;
+				
 			 }
 }
 
