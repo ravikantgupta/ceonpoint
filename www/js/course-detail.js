@@ -344,7 +344,7 @@ function downloadCertificate()
             documentSize: 'A4',
             landscape: 'portrait',
             type: 'share' //use share to open the open-with-menu.
-        }, success, failure);
+        }, this.success, this.failure);
  
 	  pdf.htmlToPDF({
             url: 'http://www.google.es',
@@ -354,6 +354,24 @@ function downloadCertificate()
         }, this.success, this.failure);
 	alert('shreeram1');
 	
+	function success(msg) {
+
+ alert('r');
+  
+    window.open('data:application/pdf,', escape(msg.replace('\n', '')))
+    
+   
+
+}
+function failure(msg) {
+
+ alert('fr');
+  
+  
+    
+   
+
+}
 	//return false;
     var course_id=window.localStorage.getItem("course_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));			 
@@ -433,12 +451,3 @@ function saveEvaluation()
 	
 }
 
-function success(msg) {
-
- alert('r');
-  
-    window.open('data:application/pdf,', escape(msg.replace('\n', '')))
-    
-   
-
-}
