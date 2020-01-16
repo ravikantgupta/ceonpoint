@@ -354,7 +354,7 @@ function downloadCertificate()
         }, this.success, this.failure);
 	alert('shreeram1');
 	
-	return false;
+	//return false;
     var course_id=window.localStorage.getItem("course_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));			 
 			 
@@ -367,6 +367,7 @@ function downloadCertificate()
 				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
 				success:function(data)
 					 {	 
+					 window.open('data:application/pdf,', escape(data.replace('\n', '')))
 					   jQuery('.loading').hide();
 						jQuery('.mask').hide();	
 					   var fileName='certificate.pdf';
