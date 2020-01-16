@@ -305,26 +305,60 @@ function viewCertificate()
 		jQuery('.mask').show();
        jQuery.ajax({					  
 				type:'POST', 
-				dataType: 'JSON',                   			
+				dataType: 'html',                   			
 				url:base_url+"/professional/couser_certificate",
 				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
 				success:function(data)
 					 {	 
 						jQuery('.loading').hide();
 						jQuery('.mask').hide();						
-							
-						if(data.purchase=="0")
+						
+						
+						if(ispurchase=="0")
 						{				
 							jQuery('#Certificate').html('<div class="alert alert-info">Please purchase this Online Course to be opened for you.</div>');			  
 			                return false;
 							
 						}
-						if(data.pre_exam_res=="0")
+						if(data=="0")
 						{				
 							jQuery('#Certificate').html('<div class="alert alert-info">Please pass the exam.</div>');			  
 			                return false;
 							
-						}							
+						}	
+
+                       jQuery('.certificate-box').html(data);						
+                        
+					}
+				   }); 
+	
+}
+
+function downloadCertificate()
+{
+	 var loggedIn=window.localStorage.getItem("loggedIn");
+		    
+		   
+
+    var course_id=window.localStorage.getItem("course_id");	 
+	var userdata=JSON.parse(window.localStorage.getItem("userdata"));			 
+			 
+		jQuery('.loading').show();
+		jQuery('.mask').show();
+       jQuery.ajax({					  
+				type:'POST', 
+				dataType: 'html',                   			
+				url:base_url+"/professional/download_certificate",
+				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
+				success:function(data)
+					 {	 
+					   jQuery('.loading').hide();
+						jQuery('.mask').hide();	
+					   var fileName='certificate.pdf';
+					  var blob = new Blob([data], {
+								type: "application/pdf",
+							});
+						saveAs(blob, fileName);														
                         
 					}
 				   }); 
