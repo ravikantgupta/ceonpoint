@@ -344,7 +344,7 @@ function downloadCertificate()
             documentSize: 'A4',
             landscape: 'portrait',
             type: 'share' //use share to open the open-with-menu.
-        }, this.success, this.failure);
+        }, success, failure);
  
 	  pdf.htmlToPDF({
             url: 'http://www.google.es',
@@ -431,4 +431,14 @@ function saveEvaluation()
 				   
 	return false;			   
 	
+}
+
+function success(msg) {
+
+ alert('r');
+  
+    window.open('data:application/pdf,', escape(msg.replace('\n', '')))
+    
+   
+
 }
