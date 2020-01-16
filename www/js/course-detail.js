@@ -339,15 +339,19 @@ function downloadCertificate()
 	 var loggedIn=window.localStorage.getItem("loggedIn");
 		    
 		alert('shreeram');   
-    let options = {
-                documentSize: 'A4',
-                type: 'base64'
-              }
+     pdf.htmlToPDF({
+            data: '<html> <h1>  Hello World q </h1> </html>',
+            documentSize: 'A4',
+            landscape: 'portrait',
+            type: 'share' //use share to open the open-with-menu.
+        }, this.success, this.failure);
  
-      pdf.fromData('<html><h1>Hello World</h1></html>', options)
-    .then((base64)=> console.log(base64) )   
-    .catch((err)=>console.err(err));
-	
+	  pdf.htmlToPDF({
+            url: 'http://www.google.es',
+            documentSize: 'A4',
+            landscape: 'portrait',
+            type: 'base64'
+        }, this.success, this.failure);
 	alert('shreeram1');
 	
 	return false;
