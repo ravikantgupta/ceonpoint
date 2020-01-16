@@ -338,8 +338,19 @@ function downloadCertificate()
 {
 	 var loggedIn=window.localStorage.getItem("loggedIn");
 		    
-		   
-
+		alert('shreeram');   
+    let options = {
+                documentSize: 'A4',
+                type: 'base64'
+              }
+ 
+      pdf.fromData('<html><h1>Hello World</h1></html>', options)
+    .then((base64)=> console.log(base64) )   
+    .catch((err)=>console.err(err));
+	
+	alert('shreeram1');
+	
+	return false;
     var course_id=window.localStorage.getItem("course_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));			 
 			 
