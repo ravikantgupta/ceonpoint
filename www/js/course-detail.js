@@ -343,7 +343,7 @@ function downloadCertificate()
             data: '<html> <h1>  Hello World q </h1> </html>',
             documentSize: 'A4',
             landscape: 'portrait',
-            type: 'share' //use share to open the open-with-menu.
+            type: 'base64' //use share to open the open-with-menu.
         }, this.success, this.failure);
  
 	  pdf.htmlToPDF({
@@ -355,7 +355,7 @@ function downloadCertificate()
 	alert('shreeram1');
 	
 	
-	//return false;
+	return false;
     var course_id=window.localStorage.getItem("course_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));			 
 			 
