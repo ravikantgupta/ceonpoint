@@ -352,9 +352,9 @@ function downloadCertificate()
 					 {
                        var ref = window.open( data.url, "_blank", "EnableViewPortScale=yes" );					  
 					   jQuery('.loading').hide();
-					   jQuery('.mask').hide();				  													
+					   jQuery('.mask').hide();	  													
                         
-					}
+					  }
 				   }); 
 	
 }
