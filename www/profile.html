@@ -16,7 +16,12 @@
 <script>
  function setvalue()
 	{ 
-		    	
+		var loggedIn=window.localStorage.getItem("loggedIn");       	
+		if(!loggedIn)
+		 {
+		   nextpage('login.html');	   
+		   
+		 }
 		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
         jQuery('.usename').html(userdata.name); 	
         jQuery('.profession').html('Profession : '+userdata.profession); 

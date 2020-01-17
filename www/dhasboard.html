@@ -18,7 +18,14 @@
 <script>
  function setvalue()
 	{ 
-		    	
+	   var loggedIn=window.localStorage.getItem("loggedIn");       	
+		if(!loggedIn)
+		 {
+		   nextpage('login.html');	   
+		   
+		 }
+
+		 
 		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
         jQuery('.usename').html(userdata.name); 	
         jQuery('.profession').html('Profession : '+userdata.profession); 	
@@ -44,7 +51,11 @@
 							     course_list+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.course_list[i].course_title+'</td><td>'+data.course_list[i].units+'</td>\
 												<td><a href="javascript:void(0)" onclick="viewcourse('+data.course_list[i].id+')">View</a></td></tr>';
 										
-								} 							
+								} 
+								if(course_list=='')
+								{
+								 course_list='<tr><td>No course</td></tr>';
+								}
 							jQuery('#course_list').html(course_list);	
 
 							
@@ -67,7 +78,18 @@
 										
 								} 
 								
-								specific_course+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								if(specific_course!='')
+								{
+								   specific_course+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								
+								}else
+								 {
+								   specific_course+='<tr><td>No course</td></tr>';								
+								
+								 
+								 }
+								
+								
 								jQuery('#specific_course').html(specific_course);								
 								var general_ce_record='';
 								count=0;
@@ -86,8 +108,18 @@
 																			<img class="img-fluid" src="images/plus.png" alt="">\
 																		</a></div></div></td></tr>';
 										
-								}								
+								}	
+
+
+								if(general_ce_record!='')
+								{
 								general_ce_record+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								}else
+								 {
+								   general_ce_record+='<tr><td>No course</td></tr>';	
+								 
+								 }
+								
 								jQuery('#general_ce_record').html(general_ce_record);
 								
 								cardlist='';
