@@ -54,7 +54,7 @@
 								} 
 								if(course_list=='')
 								{
-								 course_list='<tr><td>No course</td></tr>';
+								 course_list='<tr><td colspan="4">No course</td></tr>';
 								}
 							jQuery('#course_list').html(course_list);	
 
@@ -84,7 +84,7 @@
 								
 								}else
 								 {
-								   specific_course+='<tr><td>No course</td></tr>';								
+								   specific_course+='<tr><td colspan="4">No course</td></tr>';								
 								
 								 
 								 }
@@ -116,7 +116,7 @@
 								general_ce_record+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
 								}else
 								 {
-								   general_ce_record+='<tr><td>No course</td></tr>';	
+								   general_ce_record+='<tr><td colspan="4">No course</td></tr>';	
 								 
 								 }
 								
@@ -396,11 +396,11 @@
 		</div>
 	</section>
 	
-	<section class="table-banner mb-5">
-		<div class="container-fluid">
+	<section class="table-banner mb-5" >
+		<div class="container-fluid" style="display:none;">
 			<div class="upload-card-box bgblue">
 			
-				<div class="row">
+				<div class="row" >
 			
 					<div class="col-12 mb-2">
 						<div class="title-btn-box">
