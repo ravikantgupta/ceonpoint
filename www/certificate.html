@@ -35,7 +35,17 @@
 	
 	function downCertificate()
 		{
-			 var ref = window.open('http://docs.google.com/viewer?url='+jQuery('#certificate').attr('src'), '_system', 'location=yes');
+		   window.imagedownloader
+		 	.download(
+				jQuery('#certificate').attr('src'),
+				function successFn() {
+					alert('Image was downloaded');
+				},
+				function failureFn() {
+					alert('Fail to download image');
+				}
+			);
+			 //var ref = window.open(jQuery('#certificate').attr('src'), '_system', 'location=yes');
 			
 		}
 function printDiv() 

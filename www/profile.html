@@ -24,12 +24,36 @@
 		 {
 		   flippageup('login.html');	   
 		   
-		 }		 
-		var userdata=JSON.parse(window.localStorage.getItem("userdata"));
-        console.log(userdata);		
+		 }		
+		 
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));       		
         jQuery('.usename').html(userdata.name); 	
         jQuery('.profession').html('Profession : '+userdata.profession);        	
-		jQuery('#userimage').attr('src',userdata.image); 			
+		jQuery('#userimage').attr('src',userdata.image); 
+         
+		 jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/get_profile",
+					data: JSON.stringify({user_id: userdata.id }),					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+					       jQuery('.mask').hide();	
+                           jQuery('.user_name').html(data.data.name);
+						   jQuery('.user_profession').html(data.data.profession);						   
+						   jQuery('.user_email').html(data.data.email);						   
+						   jQuery('.user_location').html(data.data.location);						   
+						   jQuery('.user_added_on').html(data.data.added_on);
+
+                            jQuery('#name').val(data.data.name);
+							jQuery('#role').val(data.data.role);
+							jQuery('#email').val(data.data.email);
+							jQuery('#category').val(data.data.profession);						   
+						  
+						 }
+			      });
+		
 		//addfootermenu();
    }
 function changepage(pagesec)
@@ -127,23 +151,23 @@ function changepage(pagesec)
                                     <tbody>
                                         <tr>
                                             <td width="30%">Name</td>
-                                            <td>Robertos Rolle</td>
+                                            <td class="user_name">Robertos Rolle</td>
                                         </tr>
                                         <tr>
                                             <td>Profession</td>
-                                            <td>Nursing</td>
+                                            <td class="user_profession">Nursing</td>
                                         </tr>
                                         <tr>
                                             <td>Username</td>
-                                            <td>p@gmail.com</td>
+                                            <td class="user_email">p@gmail.com</td>
                                         </tr>
                                         <tr>
                                             <td>Location</td>
-                                            <td>United States</td>
+                                            <td class="user_location">United States</td>
                                         </tr>
                                         <tr>
                                             <td>Registered Date</td>
-                                            <td>2018-07-17</td>
+                                            <td class="user_added_on">2018-07-17</td>
                                         </tr>
 
 
@@ -153,8 +177,8 @@ function changepage(pagesec)
 
                                 <div class="upload-box">
                                     <label>Name <span class="required"> * </span> </label>
-                                    <input name="name" class="form-control" size="20" type="text"
-                                        value="Robertos Rolle">
+                                    <input name="name" id="name" class="form-control" size="20" type="text"
+                                        value="">
                                     <span class="error"></span>
                                 </div>
 
@@ -173,10 +197,10 @@ function changepage(pagesec)
                                 <div class="upload-box">
                                     <label>Role <sup>*</sup></label>
                                     <div class="select-box">
-                                        <select name="" id="">
+                                        <select name="" id="role">
                                             <option value="0" selected="" disabled="">Select</option>
-                                            <option value="01">Professional</option>
-                                            <option value="02">CPD Provider </option>
+                                            <option value="1">Professional</option>
+                                            <option value="2">CPD Provider </option>
                                         </select>
                                     </div>
                                 </div>
@@ -538,7 +562,7 @@ function changepage(pagesec)
 
                                 <div class="upload-box">
                                     <label for="email">Username (email) <sup>*</sup></label>
-                                    <input id="username" size="20" type="text" value="p@gmail.com">
+                                    <input name="email" id="email" size="20" type="text" value="">
                                 </div>
 
 
@@ -1607,6 +1631,10 @@ function changepage(pagesec)
    <style>
    .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
    </style>
+    <script>
+	 jQuery('.loading').show();
+  jQuery('.mask').show();
+	</script>
 </body>
 
 </html>
