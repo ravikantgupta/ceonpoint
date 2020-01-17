@@ -340,7 +340,7 @@ function downloadCertificate()
 	
     var course_id=window.localStorage.getItem("course_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));			 
-			 
+		var ref = window.open('http://docs.google.com/viewer?url=https://ceonpoint.com/assets/upload/course-pdf/course1579246109-certificate.pdf', '_system', 'location=yes');	 
 		jQuery('.loading').show();
 		jQuery('.mask').show();
        jQuery.ajax({					  
@@ -350,7 +350,7 @@ function downloadCertificate()
 				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
 				success:function(data)
 					 {
-                       var ref = window.open( data.url, "_blank", "EnableViewPortScale=yes" );					  
+                       var ref = window.open( data.url, '_system', 'location=yes' );					  
 					   jQuery('.loading').hide();
 					   jQuery('.mask').hide();	  													
                         
