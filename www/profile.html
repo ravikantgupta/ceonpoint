@@ -40,16 +40,56 @@
 						 {	
 						   jQuery('.loading').hide();
 					       jQuery('.mask').hide();	
-                           jQuery('.user_name').html(data.data.name);
-						   jQuery('.user_profession').html(data.data.profession);						   
-						   jQuery('.user_email').html(data.data.email);						   
-						   jQuery('.user_location').html(data.data.location);						   
-						   jQuery('.user_added_on').html(data.data.added_on);
+                           jQuery('.user_name').html(data.data.user.name);
+						   jQuery('.user_profession').html(data.data.user.profession);						   
+						   jQuery('.user_email').html(data.data.user.email);						   
+						   jQuery('.user_location').html(data.data.user.location);						   
+						   jQuery('.user_added_on').html(data.data.user.added_on);
 
-                            jQuery('#name').val(data.data.name);
-							jQuery('#role').val(data.data.role);
-							jQuery('#email').val(data.data.email);
-							jQuery('#category').val(data.data.profession);						   
+                            jQuery('#name').val(data.data.user.name);
+							jQuery('#role').val(data.data.user.role);
+							jQuery('#email').val(data.data.user.email);
+							jQuery('#profession').val(data.data.user.profession);	
+							jQuery('#licence').val(data.data.user.licence);
+							jQuery('#email').val(data.data.user.username_email);
+							jQuery('#under_insititution').val(data.data.user.under_insititution);
+
+                            var countryhtml='<option value="">Select Country</option>';
+							  for (i in data.data.countries) {
+										
+										if(data.data.user.location==data.data.countries[i].countries_name)
+										{
+										 
+										  countryhtml+='<option selected value="'+data.data.countries[i].countries_id+'">'+data.data.countries[i].countries_name+'</option>';
+										  
+										}else
+										  {
+										  
+										  countryhtml+='<option value="'+data.data.countries[i].countries_id+'">'+data.data.countries[i].countries_name+'</option>';
+										  
+										  }
+										
+										}                                 
+									 jQuery('#location').html(countryhtml);
+									 
+									 
+								var professionhtml='<option value="">Select</option>';
+							  for (i in data.data.countries) {
+										
+										if(data.data.user.profession==data.data.professions[i].cat_name)
+										{
+										 
+										  professionhtml+='<option selected value="'+data.data.professions[i].cat_name+'">'+data.data.professions[i].cat_name+'</option>';
+										  
+										}else
+										  {
+										  
+										  professionhtml+='<option value="'+data.data.professions[i].cat_name+'">'+data.data.professions[i].cat_name+'</option>';
+										  
+										  }
+										
+										}                                 
+									 jQuery('#profession').html(professionhtml);	 
 						  
 						 }
 			      });
@@ -61,6 +101,51 @@ function changepage(pagesec)
   jQuery('.pagesection').hide();  
   jQuery('.'+pagesec).show();
 } 
+function updateprofile()
+{
+
+         jQuery('.mask').show();
+		 jQuery('.loading').show();
+		 var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+		 var formData = new FormData();
+		 formData.append('user_id', userdata.id);
+		 formData.append('name', $('#name').val());
+		 formData.append('role', $('#role').val());
+         formData.append('location', $('#location').val());
+         formData.append('licence', $('#licence').val()); 
+		 formData.append('profession', $('#profession').val());
+         formData.append('under_insititution', $('#under_insititution').val()); 
+       	 if(jQuery('#image').val()!='')
+		 {
+		   formData.append('image', $('input[type=file]')[0].files[0]); 
+		 }
+				jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/update_profile",
+					data: formData,	
+					contentType: false,
+				    processData: false,
+					success:function(data)
+						 {	 
+							 jQuery('.mask').hide();
+							 jQuery('.loading').hide();
+						
+							if(data.success=='true')
+							   {
+							     jQuery("#msgstatus").addClass("alert-success").fadeIn(10).text(data.msg);
+							   }else
+								{
+								  jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.msg);
+								   
+								} 			   
+							 
+						}
+				   });
+	   return false;
+
+}
+
 </script>		
     <header class="header-btn p-0">
         <div class="container-fluid">
@@ -128,7 +213,7 @@ function changepage(pagesec)
             <div class="row">
 
                 <div class="col-12">
-                        <form action="">
+                        <form method="post" onsubmit="return updateprofile();">
                             <div class="upload-box">
                             <div class="select-box mb-4">
                                 <select name="" id="" onchange="changepage(this.value)">
@@ -146,6 +231,7 @@ function changepage(pagesec)
                             <div class="profile-infobox mt-3 pagesection profile">
                                 <div class="login-title mb-3">
                                     <h6>Profile</h6>
+									<p id="msgstatus"></p>
                                 </div>
                                 <table class="table table-striped">
                                     <tbody>
@@ -184,13 +270,13 @@ function changepage(pagesec)
 
                                 <div class="upload-box">
                                     <label>Licence <span class="required"> * </span> </label>
-                                    <input name="licence" class="form-control" size="20" type="text" value="TYUOP890">
+                                    <input name="licence" id="licence" class="form-control" size="20" type="text" value="">
                                     <span class="error"></span>
                                 </div>
 
                                 <div class="upload-box">
                                     <label>Profile Image </label>
-                                    <input class="form-control" name="image" size="20" type="file">
+                                    <input class="form-control" name="image" id="image" size="20" type="file">
                                     <span class="error"></span>
                                 </div>
 
@@ -209,98 +295,8 @@ function changepage(pagesec)
                                 <div class="upload-box">
                                     <label>Profession <sup>*</sup></label>
                                     <div class="select-box">
-                                        <select name="category" id="category">
-                                            <option value="">Select</option>
-                                            <option value="Accountancy">Accountancy</option>
-                                            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
-                                            <option value="Agricultural &amp; Biosystems Engineering">Agricultural &amp;
-                                                Biosystems Engineering</option>
-                                            <option value="Agriculture">Agriculture</option>
-                                            <option value="Architecture   -70 yrs old &amp; above">Architecture -70 yrs
-                                                old &amp; above</option>
-                                            <option value="Architecture - Between 60-69 yrsold">Architecture - Between
-                                                60-69 yrsold</option>
-                                            <option value="Architecture -Below 60 yrs old">Architecture -Below 60 yrs
-                                                old</option>
-                                            <option value="Certified Plant Mechanic">Certified Plant Mechanic</option>
-                                            <option value="Chemical Engineering">Chemical Engineering</option>
-                                            <option value="Chemist">Chemist</option>
-                                            <option value="Chemistry - Chemist">Chemistry - Chemist</option>
-                                            <option value="Chemistry- Chemical Laboratory Technician">Chemistry-
-                                                Chemical Laboratory Technician</option>
-                                            <option value="Civil Engineering">Civil Engineering</option>
-                                            <option value="Criminology">Criminology</option>
-                                            <option value="Customs Brokers">Customs Brokers</option>
-                                            <option value="Dentistry - Dental Technologist">Dentistry - Dental
-                                                Technologist</option>
-                                            <option value="Dentistry - Dentist">Dentistry - Dentist</option>
-                                            <option value="Dentristry - Dental Hygeinist">Dentristry - Dental Hygeinist
-                                            </option>
-                                            <option value="Doctor">Doctor</option>
-                                            <option value="Electrical Engineering - Professional Electric Engineer">
-                                                Electrical Engineering - Professional Electric Engineer</option>
-                                            <option value="Electrical Engineering - Registered Electrical Engineer">
-                                                Electrical Engineering - Registered Electrical Engineer</option>
-                                            <option value="Electrical Engineering - Registered Master Electrician">
-                                                Electrical Engineering - Registered Master Electrician</option>
-                                            <option value="Electronics Teahnician">Electronics Teahnician</option>
-                                            <option value="Environmental Planning">Environmental Planning</option>
-                                            <option value="Fisheries">Fisheries</option>
-                                            <option value="Forestry">Forestry</option>
-                                            <option value="Geodetic Engineering">Geodetic Engineering</option>
-                                            <option value="Geology">Geology</option>
-                                            <option value="Guidance &amp; Counselling">Guidance &amp; Counselling
-                                            </option>
-                                            <option value="Interior Design -70 yrs old &amp; above">Interior Design -70
-                                                yrs old &amp; above</option>
-                                            <option value="Interior Design -below 60 yrs old">Interior Design -below 60
-                                                yrs old</option>
-                                            <option value="Interior Design -Between 60-69 yrs old">Interior Design
-                                                -Between 60-69 yrs old</option>
-                                            <option value="Landscape Architecture">Landscape Architecture</option>
-                                            <option value="Librarian">Librarian</option>
-                                            <option value="Master Pl;umbing">Master Pl;umbing</option>
-                                            <option value="Medical Laboratory Technician">Medical Laboratory Technician
-                                            </option>
-                                            <option value="Medical Technologist">Medical Technologist</option>
-                                            <option value="Medicine">Medicine</option>
-                                            <option value="Metallurgical Engineering">Metallurgical Engineering</option>
-                                            <option value="Midwifery">Midwifery</option>
-                                            <option value="Mining Architecture">Mining Architecture</option>
-                                            <option value="Naval Architecture">Naval Architecture</option>
-                                            <option selected="" value="Nursing">Nursing</option>
-                                            <option value="Nutrition &amp; Dietetics">Nutrition &amp; Dietetics</option>
-                                            <option value="Occupational Therapy">Occupational Therapy</option>
-                                            <option value="Optometry">Optometry</option>
-                                            <option value="Pharmacy">Pharmacy</option>
-                                            <option value="Physical Therapy">Physical Therapy</option>
-                                            <option value="Professional Electronics Engineer">Professional Electronics
-                                                Engineer</option>
-                                            <option value="Professional Mechanical Engineer">Professional Mechanical
-                                                Engineer</option>
-                                            <option value="Professional Teachers">Professional Teachers</option>
-                                            <option value="Psychologist">Psychologist</option>
-                                            <option value="Psychometrician">Psychometrician</option>
-                                            <option value="Radiologic Technologist">Radiologic Technologist</option>
-                                            <option value="Real Estate Services - Appraisers">Real Estate Services -
-                                                Appraisers</option>
-                                            <option value="Real Estate Services - Broker">Real Estate Services - Broker
-                                            </option>
-                                            <option value="Real Estate Services - Consultant">Real Estate Services -
-                                                Consultant</option>
-                                            <option value="Real Estate Services - Salesperson">Real Estate Services -
-                                                Salesperson</option>
-                                            <option value="REgistered Electronics Engineer">REgistered Electronics
-                                                Engineer</option>
-                                            <option value="REgistered Mechinical Engineer">REgistered Mechinical
-                                                Engineer</option>
-                                            <option value="Respiratory Therapy">Respiratory Therapy</option>
-                                            <option value="Sanitary Engineering">Sanitary Engineering</option>
-                                            <option value="Social Work">Social Work</option>
-                                            <option value="Teacher">Teacher</option>
-                                            <option value="Veterinary Medicine">Veterinary Medicine</option>
-                                            <option value="X-ray Technician">X-ray Technician</option>
-                                        </select>
+                                        <select name="profession" id="profession">
+                                          	</select>
                                     </div>
                                 </div>
 
@@ -309,253 +305,8 @@ function changepage(pagesec)
                                     <label>Country of Location <sup>*</sup></label>
                                     <div class="select-box">
                                         <select name="location" id="location" class="form-control">
-                                            <option value="">Select Country</option>
-                                            <option value="1">Afghanistan</option>
-                                            <option value="2">Albania</option>
-                                            <option value="3">Algeria</option>
-                                            <option value="4">American Samoa</option>
-                                            <option value="5">Andorra</option>
-                                            <option value="6">Angola</option>
-                                            <option value="7">Anguilla</option>
-                                            <option value="8">Antarctica</option>
-                                            <option value="9">Antigua and Barbuda</option>
-                                            <option value="10">Argentina</option>
-                                            <option value="11">Armenia</option>
-                                            <option value="12">Aruba</option>
-                                            <option value="13">Australia</option>
-                                            <option value="14">Austria</option>
-                                            <option value="15">Azerbaijan</option>
-                                            <option value="16">Bahamas</option>
-                                            <option value="17">Bahrain</option>
-                                            <option value="18">Bangladesh</option>
-                                            <option value="19">Barbados</option>
-                                            <option value="20">Belarus</option>
-                                            <option value="21">Belgium</option>
-                                            <option value="22">Belize</option>
-                                            <option value="23">Benin</option>
-                                            <option value="24">Bermuda</option>
-                                            <option value="25">Bhutan</option>
-                                            <option value="26">Bolivia</option>
-                                            <option value="27">Bosnia and Herzegowina</option>
-                                            <option value="28">Botswana</option>
-                                            <option value="29">Bouvet Island</option>
-                                            <option value="30">Brazil</option>
-                                            <option value="31">British Indian Ocean Territory</option>
-                                            <option value="32">Brunei Darussalam</option>
-                                            <option value="33">Bulgaria</option>
-                                            <option value="34">Burkina Faso</option>
-                                            <option value="35">Burundi</option>
-                                            <option value="36">Cambodia</option>
-                                            <option value="37">Cameroon</option>
-                                            <option value="38">Canada</option>
-                                            <option value="39">Cape Verde</option>
-                                            <option value="40">Cayman Islands</option>
-                                            <option value="41">Central African Republic</option>
-                                            <option value="42">Chad</option>
-                                            <option value="43">Chile</option>
-                                            <option value="44">China</option>
-                                            <option value="45">Christmas Island</option>
-                                            <option value="46">Cocos (Keeling) Islands</option>
-                                            <option value="47">Colombia</option>
-                                            <option value="48">Comoros</option>
-                                            <option value="49">Congo Democratic Republic of</option>
-                                            <option value="50">Cook Islands</option>
-                                            <option value="51">Costa Rica</option>
-                                            <option value="52">Cote D'Ivoire</option>
-                                            <option value="53">Croatia</option>
-                                            <option value="54">Cuba</option>
-                                            <option value="55">Cyprus</option>
-                                            <option value="56">Czech Republic</option>
-                                            <option value="57">Denmark</option>
-                                            <option value="58">Djibouti</option>
-                                            <option value="59">Dominica</option>
-                                            <option value="60">Dominican Republic</option>
-                                            <option value="61">Timor-Leste</option>
-                                            <option value="62">Ecuador</option>
-                                            <option value="63">Egypt</option>
-                                            <option value="64">El Salvador</option>
-                                            <option value="65">Equatorial Guinea</option>
-                                            <option value="66">Eritrea</option>
-                                            <option value="67">Estonia</option>
-                                            <option value="68">Ethiopia</option>
-                                            <option value="69">Falkland Islands (Malvinas)</option>
-                                            <option value="70">Faroe Islands</option>
-                                            <option value="71">Fiji</option>
-                                            <option value="72">Finland</option>
-                                            <option value="73">France</option>
-                                            <option value="75">French Guiana</option>
-                                            <option value="76">French Polynesia</option>
-                                            <option value="77">French Southern Territories</option>
-                                            <option value="78">Gabon</option>
-                                            <option value="79">Gambia</option>
-                                            <option value="80">Georgia</option>
-                                            <option value="81">Germany</option>
-                                            <option value="82">Ghana</option>
-                                            <option value="83">Gibraltar</option>
-                                            <option value="84">Greece</option>
-                                            <option value="85">Greenland</option>
-                                            <option value="86">Grenada</option>
-                                            <option value="87">Guadeloupe</option>
-                                            <option value="88">Guam</option>
-                                            <option value="89">Guatemala</option>
-                                            <option value="90">Guinea</option>
-                                            <option value="91">Guinea-bissau</option>
-                                            <option value="92">Guyana</option>
-                                            <option value="93">Haiti</option>
-                                            <option value="94">Heard Island and McDonald Islands</option>
-                                            <option value="95">Honduras</option>
-                                            <option value="96">Hong Kong</option>
-                                            <option value="97">Hungary</option>
-                                            <option value="98">Iceland</option>
-                                            <option selected="" value="99">India</option>
-                                            <option value="100">Indonesia</option>
-                                            <option value="101">Iran (Islamic Republic of)</option>
-                                            <option value="102">Iraq</option>
-                                            <option value="103">Ireland</option>
-                                            <option value="104">Israel</option>
-                                            <option value="105">Italy</option>
-                                            <option value="106">Jamaica</option>
-                                            <option value="107">Japan</option>
-                                            <option value="108">Jordan</option>
-                                            <option value="109">Kazakhstan</option>
-                                            <option value="110">Kenya</option>
-                                            <option value="111">Kiribati</option>
-                                            <option value="112">Korea, Democratic People's Republic of</option>
-                                            <option value="113">South Korea</option>
-                                            <option value="114">Kuwait</option>
-                                            <option value="115">Kyrgyzstan</option>
-                                            <option value="116">Lao People's Democratic Republic</option>
-                                            <option value="117">Latvia</option>
-                                            <option value="118">Lebanon</option>
-                                            <option value="119">Lesotho</option>
-                                            <option value="120">Liberia</option>
-                                            <option value="121">Libya</option>
-                                            <option value="122">Liechtenstein</option>
-                                            <option value="123">Lithuania</option>
-                                            <option value="124">Luxembourg</option>
-                                            <option value="125">Macao</option>
-                                            <option value="126">Macedonia, The Former Yugoslav Republic of</option>
-                                            <option value="127">Madagascar</option>
-                                            <option value="128">Malawi</option>
-                                            <option value="129">Malaysia</option>
-                                            <option value="130">Maldives</option>
-                                            <option value="131">Mali</option>
-                                            <option value="132">Malta</option>
-                                            <option value="133">Marshall Islands</option>
-                                            <option value="134">Martinique</option>
-                                            <option value="135">Mauritania</option>
-                                            <option value="136">Mauritius</option>
-                                            <option value="137">Mayotte</option>
-                                            <option value="138">Mexico</option>
-                                            <option value="139">Micronesia, Federated States of</option>
-                                            <option value="140">Moldova</option>
-                                            <option value="141">Monaco</option>
-                                            <option value="142">Mongolia</option>
-                                            <option value="143">Montserrat</option>
-                                            <option value="144">Morocco</option>
-                                            <option value="145">Mozambique</option>
-                                            <option value="146">Myanmar</option>
-                                            <option value="147">Namibia</option>
-                                            <option value="148">Nauru</option>
-                                            <option value="149">Nepal</option>
-                                            <option value="150">Netherlands</option>
-                                            <option value="151">Netherlands Antilles</option>
-                                            <option value="152">New Caledonia</option>
-                                            <option value="153">New Zealand</option>
-                                            <option value="154">Nicaragua</option>
-                                            <option value="155">Niger</option>
-                                            <option value="156">Nigeria</option>
-                                            <option value="157">Niue</option>
-                                            <option value="158">Norfolk Island</option>
-                                            <option value="159">Northern Mariana Islands</option>
-                                            <option value="160">Norway</option>
-                                            <option value="161">Oman</option>
-                                            <option value="162">Pakistan</option>
-                                            <option value="163">Palau</option>
-                                            <option value="164">Panama</option>
-                                            <option value="165">Papua New Guinea</option>
-                                            <option value="166">Paraguay</option>
-                                            <option value="167">Peru</option>
-                                            <option value="168">Philippines</option>
-                                            <option value="169">Pitcairn</option>
-                                            <option value="170">Poland</option>
-                                            <option value="171">Portugal</option>
-                                            <option value="172">Puerto Rico</option>
-                                            <option value="173">Qatar</option>
-                                            <option value="174">Reunion</option>
-                                            <option value="175">Romania</option>
-                                            <option value="176">Russian Federation</option>
-                                            <option value="177">Rwanda</option>
-                                            <option value="178">Saint Kitts and Nevis</option>
-                                            <option value="179">Saint Lucia</option>
-                                            <option value="180">Saint Vincent and the Grenadines</option>
-                                            <option value="181">Samoa</option>
-                                            <option value="182">San Marino</option>
-                                            <option value="183">Sao Tome and Principe</option>
-                                            <option value="184">Saudi Arabia</option>
-                                            <option value="185">Senegal</option>
-                                            <option value="186">Seychelles</option>
-                                            <option value="187">Sierra Leone</option>
-                                            <option value="188">Singapore</option>
-                                            <option value="189">Slovakia (Slovak Republic)</option>
-                                            <option value="190">Slovenia</option>
-                                            <option value="191">Solomon Islands</option>
-                                            <option value="192">Somalia</option>
-                                            <option value="193">South Africa</option>
-                                            <option value="194">South Georgia and the South Sandwich Islands</option>
-                                            <option value="195">Spain</option>
-                                            <option value="196">Sri Lanka</option>
-                                            <option value="197">Saint Helena, Ascension and Tristan da Cunha</option>
-                                            <option value="198">St. Pierre and Miquelon</option>
-                                            <option value="199">Sudan</option>
-                                            <option value="200">Suriname</option>
-                                            <option value="201">Svalbard and Jan Mayen Islands</option>
-                                            <option value="202">Swaziland</option>
-                                            <option value="203">Sweden</option>
-                                            <option value="204">Switzerland</option>
-                                            <option value="205">Syrian Arab Republic</option>
-                                            <option value="206">Taiwan</option>
-                                            <option value="207">Tajikistan</option>
-                                            <option value="208">Tanzania, United Republic of</option>
-                                            <option value="209">Thailand</option>
-                                            <option value="210">Togo</option>
-                                            <option value="211">Tokelau</option>
-                                            <option value="212">Tonga</option>
-                                            <option value="213">Trinidad and Tobago</option>
-                                            <option value="214">Tunisia</option>
-                                            <option value="215">Turkey</option>
-                                            <option value="216">Turkmenistan</option>
-                                            <option value="217">Turks and Caicos Islands</option>
-                                            <option value="218">Tuvalu</option>
-                                            <option value="219">Uganda</option>
-                                            <option value="220">Ukraine</option>
-                                            <option value="221">United Arab Emirates</option>
-                                            <option value="222">United Kingdom</option>
-                                            <option value="223">United States</option>
-                                            <option value="224">United States Minor Outlying Islands</option>
-                                            <option value="225">Uruguay</option>
-                                            <option value="226">Uzbekistan</option>
-                                            <option value="227">Vanuatu</option>
-                                            <option value="228">Vatican City State (Holy See)</option>
-                                            <option value="229">Venezuela</option>
-                                            <option value="230">Vietnam</option>
-                                            <option value="231">Virgin Islands (British)</option>
-                                            <option value="232">Virgin Islands (U.S.)</option>
-                                            <option value="233">Wallis and Futuna Islands</option>
-                                            <option value="234">Western Sahara</option>
-                                            <option value="235">Yemen</option>
-                                            <option value="236">Serbia</option>
-                                            <option value="238">Zambia</option>
-                                            <option value="239">Zimbabwe</option>
-                                            <option value="240">Aaland Islands</option>
-                                            <option value="241">Palestine</option>
-                                            <option value="242">Montenegro</option>
-                                            <option value="243">Guernsey</option>
-                                            <option value="244">Isle of Man</option>
-                                            <option value="245">Jersey</option>
-                                            <option value="247">Curaçao</option>
-                                            <option value="248">Ivory Coast</option>
-                                            <option value="249">Kosovo</option>
+                                            
+                                           
                                         </select>
                                     </div>
                                 </div>
@@ -569,7 +320,7 @@ function changepage(pagesec)
                                 <div class="upload-box">
                                     <label>Are you under institution <sup>*</sup></label>
                                     <div class="select-box">
-                                        <select name="under_institution" id="under_institution">
+                                        <select name="under_insititution" id="under_insititution">
                                             <option value="0" selected="">No</option>
                                             <option value="1">Yes</option>
                                         </select>
@@ -577,7 +328,7 @@ function changepage(pagesec)
                                 </div>
 
                                 <div class="continue-btn reg-btn mt-3">
-                                    <a href="#" class="btn">SAVE</a>
+                                    <button class="btn">SAVE</button>
                                 </div>
 
                             </div>
