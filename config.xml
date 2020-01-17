@@ -18,8 +18,8 @@
      <plugin name="cordova-pdf-generator" spec="^2.0.8" />
 	<plugin name="phonegap-plugin-push"  spec="1.9.0"/>
     <plugin spec="https://github.com/apache/cordova-plugin-device.git" source="git" />
-	<plugin spec="https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git" source="git" />
-	 
+	 <plugin name="cordova-plugin-file" source="npm" spec="~4.1.1" />
+    <plugin name="cordova-plugin-file-transfer" source="npm" spec="~1.5.0" /> 
 	<gap:plugin name="com.paypal.cordova.mobilesdk" source="npm" />
 
 	<platform name="android">

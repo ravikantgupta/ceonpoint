@@ -19,9 +19,7 @@
     <script>	
 	function setvalue()
 	{ 
-		var loggedIn=window.localStorage.getItem("loggedIn");
-       	
-		
+	  var loggedIn=window.localStorage.getItem("loggedIn");		
 	  if(window.localStorage.getItem("successmsg"))
 	  {
 	    jQuery("#msgstatus").addClass("alert-success").fadeIn(10).text(window.localStorage.getItem("successmsg"));
@@ -87,6 +85,8 @@
 											   
 											   if(data.screen=='4')
 											   {
+											     window.localStorage.setItem("curpage", "dhasboard.html");
+												 
 												 window.plugins.nativepagetransitions.flip({
 														 'backgroundColor' : "#BBBBBB",
 														 'direction': 'right',										
