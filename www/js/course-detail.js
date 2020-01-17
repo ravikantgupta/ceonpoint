@@ -349,10 +349,10 @@ function downloadCertificate()
 				url:base_url+"/professional/download_certificate",
 				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
 				success:function(data)
-					 {				  
-					   window.open(data.url)
+					 {
+                       var ref = window.open( data.url, "_blank", "EnableViewPortScale=yes" );					  
 					   jQuery('.loading').hide();
-						jQuery('.mask').hide();				  													
+					   jQuery('.mask').hide();				  													
                         
 					}
 				   }); 
