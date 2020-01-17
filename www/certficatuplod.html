@@ -13,7 +13,50 @@
      <script type="text/javascript" src="js/functions.js"></script>
 </head>
 <body>
+<script>
 
+function checkValidation(){
+   
+	     jQuery('.mask').show();
+		 jQuery('.loading').show();
+		 var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+		 var formData = new FormData();
+		 formData.append('user_id', userdata.id);
+		 formData.append('certificate_id', $('#certificate_id').val());
+		 formData.append('course_name', $('#course_name').val());
+         formData.append('units', $('#units').val());
+         formData.append('category', $('#category').val());
+         formData.append('issue_date', $('#issue_date').val());
+         formData.append('issue_from', $('#issue_from').val());
+         formData.append('issue_by', $('#issue_by').val());		 
+		 formData.append('certificate', $('input[type=file]')[0].files[0]); 
+		
+				jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/uploade_certificate",
+					data: formData,	
+					contentType: false,
+				    processData: false,
+					success:function(data)
+						 {	 
+							 jQuery('.mask').hide();
+							 jQuery('.loading').hide();
+						
+							if(data.success=='true')
+							   {
+							     jQuery("#msgstatus").addClass("alert-success").fadeIn(10).text(data.msg);
+							   }else
+								{
+								  jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.msg);
+								   
+								} 										   
+							 
+						}
+				   });
+	   return false;
+}
+</script>
     <header>
         <div class="container">
             <div class="row">
@@ -21,7 +64,7 @@
                     <div class="back-link-box">
                        
                         <div class="back-link">
-                            <a href="profile.html">
+                            <a href="javascript:void(0)" onclick="backscreen()">
                                 <img class="img-fluid" src="images/left.png" alt="">
                             </a>
                         </div>
@@ -40,47 +83,41 @@
     
     <section class="login-banner">
 		<div class="container-fluid">
+		 <form method="post" id="uploadcertificate" onsubmit="return checkValidation();">
 			<div class="row">
 			
 			    <div class="col-12">
                     <div class="login-title mt-1">
                         <h6>Upload Certificate</h6>
+						<p id="msgstatus"></p>
                     </div>
                 </div>
             
 	            <div class="col-12">
 	                <div class="upload-box">
-						<label for="email">Certificate Number</label>
-						<input id="email" type="number">
+						<label for="certificate_id">Certificate Number</label>
+						<input id="certificate_id" name="certificate_id" type="number" required>
 					</div>
 	            </div>
 	            
 	            <div class="col-12">
 	                <div class="upload-box">
-						<label for="email">Courses Title <sup>*</sup></label>
-						<input id="email" type="text">
+						<label for="course_name">Courses Title <sup>*</sup></label>
+						<input id="course_name" name="course_name" type="text" required>
 					</div>
 	            </div>
 	            
 	            <div class="col-12">
 	                <div class="upload-box">
-						<label for="email">Courses Unit <sup>*</sup></label>
-						<input id="email" type="text">
+						<label for="units">Courses Unit <sup>*</sup></label>
+						<input id="units" name="units" type="text" required>
 					</div>
 	            </div>
-	            
-	            <div class="col-12">
+				
+				<div class="col-12">
 	                <div class="upload-box">
-						<label>Date Issued <sup>*</sup></label>
-						<div class="select-box">
-						    <select name="" id="">
-                                <option value="" selected>Please Saelect</option>
-                                <option value="">01</option>
-                                <option value="">02</option>
-                                <option value="">03</option>
-                                <option value="">04</option>
-                            </select>
-						</div>
+						<label for="issue_date">Date Issued <sup>*</sup></label>
+						<input id="issue_date" style="width: 100%;" name="issue_date" type="date" required>
 					</div>
 	            </div>
 	            
@@ -88,21 +125,37 @@
 	                <div class="upload-box">
 						<label>Categary <sup>*</sup></label>
 						<div class="select-box">
-						    <select name="" id="">
-                                <option value="" selected>Please Saelect</option>
-                                <option value="">01</option>
-                                <option value="">02</option>
-                                <option value="">03</option>
-                                <option value="">04</option>
+						    <select name="category" id="category" required>
+						 	 <option value="" selected="">Please Select</option>
+							 <option value="general">General</option>
+							 <option value="specific">Specific</option>      
                             </select>
 						</div>
 					</div>
 	            </div>
-	            
+				
+				<div class="col-12">
+	                <div class="upload-box">
+						<label>Issued From <sup>*</sup></label>
+						<div class="select-box">
+						    <select name="issue_from" id="issue_from" required>
+						 	 <option value="" selected="">Please Select</option>
+							 <option value="Online Course">Online Course</option>
+							 <option value="Training">Training</option>  
+                            </select>
+						</div>
+					</div>
+	            </div>
 	            <div class="col-12">
 	                <div class="upload-box">
-						<label for="email">Certficate</label>
-						<input id="email" type="file">
+						<label for="issue_by">Issued By<sup>*</sup></label>
+						<input id="issue_by" name="issue_by" type="text" required>
+					</div>
+	            </div>
+	            <div class="col-12">
+	                <div class="upload-box">
+						<label for="certificate">Certficate</label>
+						<input id="certificate" name="certificate" type="file" required>
 					</div>
 	            </div>
 	            
@@ -112,11 +165,11 @@
 	                </div>
 	            </div>
 				    				
-			</div>
+			  </div>
+			</form>
 		</div>
 	</section>
-
-<div class="mask" style="display:none;"></div>	
+     <div class="mask" style="display:none;"></div>	
 	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
 	
 	 <script type="text/javascript" src="cordova.js"></script>        

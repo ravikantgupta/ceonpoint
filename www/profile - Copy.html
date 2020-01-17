@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CEONPOINT Screen1</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">    
+    <link rel="stylesheet" href="css/style.css">    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+     <script type="text/javascript" src="js/functions.js"></script>	
+</head>
+<body class="pb-2" onload="setvalue()">
+<script>
+ function setvalue()
+	{ 
+		var loggedIn=window.localStorage.getItem("loggedIn");       	
+		if(!loggedIn)
+		 {
+		   nextpage('login.html');	   
+		   
+		 }
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
+        jQuery('.usename').html(userdata.name); 	
+        jQuery('.profession').html('Profession : '+userdata.profession); 
+	  
+	}
+</script>	
+    <header class="header-btn p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="back-link-box pr-0">
+
+                        <div class="back-link">
+                            <a href="javascript:void(0)" onclick="backscreen()">
+                                <img class="img-fluid" src="images/left.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="back-logo">
+                            <a href="#">
+                                <img class="img-fluid" src="images/logo-new.png" alt="">
+                                <span>Continuing Education to all Professionals Worldwide</span>
+                            </a>
+                        </div>
+
+                        <div class="link-nav">
+                            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <div class="container pr-0">
+                                    <a href="javascript:void(0)" onclick="nextpagewithback('profile.html','menunew.html')" class="navbar-toggler">
+                                        <span class="navbar-toggler-icon"></span>
+                                        <span class="navbar-toggler-icon ml-1"></span>
+                                        <span class="navbar-toggler-icon"></span>
+                                    </a>
+                                </div>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero-login-banner mt-5">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12 px-0">
+					<div class="main-profile-box">
+                        <img class="img-fluid" src="images/profile-banner.png" alt="">
+                        <div class="main-profile-img">
+							<a href="#">
+								<div class="profile-camera">
+									<img class="img-fiuld" src="images/camera.png" alt="">
+								</div>
+							</a>
+						</div>
+                        
+                        <div class="hero-profile">
+                            <div class="hero-profile-img">
+                                <img class="img-fluid" src="images/profile1.png" alt="">
+                                <div class="profile-camera-box">
+									<a href="#">
+										<div class="profile-camera">
+											<img class="img-fiuld" src="images/camera.png" alt="">
+										</div>
+									</a>
+								</div>
+                            </div>
+                            <div class="hero-profile-text">
+                                <p class="usename">Jakira Ali</p>
+                                <p class="par profession">Profession: Accountant</p>
+                                <p class="par">Expiry Date: Life Time</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+			</div>
+		</div>
+    </section>
+    
+    <section class="profile-para-box">
+        <div class="container-fluid">
+            <div class="row">
+               
+                <div class="col-5 pr-2">
+                    <div class="profile-para">
+                        <ul>
+				            <li><a href="#">View Public Profile</a></li>
+				            <li><a href="javascript:void(0)" onclick="nextpagewithback('profile.html','editprofile.html')">Profile</a></li>
+				            <li><a href="#">Photo</a></li>
+				            <li><a href="#">Account</a></li>
+				            <li><a href="#">Privacy</a></li>
+				            <li><a href="#">Notifications</a></li>
+				            <li><a href="#">API Clients</a></li>
+				            <li><a href="#" class="lightblue">Close Account</a></li>
+				        </ul>
+                       <a href="javascript:void(0)" onclick="logout()" class="btn close-btn">Log Out</a>
+                    </div>
+                </div>
+
+                <div class="col-7 pl-1">
+                    <div class="profile-close">
+                        <a href="#" class="lightblue">Close Account</a>
+                        <p>Close your account permanently.</p>
+                    </div>
+                    
+                    <div class="close-account-box">
+                       
+                        <span class="close-account">Close Your Account</span>
+                        
+                        <p><span class="red">Warning :</span> If you close your account, you will be unsubscribed from all your 7 courses, and will lose access forever.</p>
+                        
+                        <button class="btn close-btn">Close Account</button>
+                        
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+     <div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	
+	 <script type="text/javascript" src="cordova.js"></script>        
+     <script src="js/jquery-1.11.2.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>    
+   <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+   
+	
+</body>
+</html>

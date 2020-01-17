@@ -21,7 +21,7 @@
 	   var loggedIn=window.localStorage.getItem("loggedIn");       	
 		if(!loggedIn)
 		 {
-		   nextpage('login.html');	   
+		   flippageup('login.html');	   
 		   
 		 }
 
@@ -45,7 +45,9 @@
 					data: JSON.stringify({user_id: userdata.id }),	
 					
 					success:function(data)
-						 {	 							
+						 {	 
+                            jQuery('.loading').hide();
+                             jQuery('.mask').hide();						 
 							  var course_list='';                             
                                for (i in data.course_list) {							  								
 							     course_list+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.course_list[i].course_title+'</td><td>'+data.course_list[i].units+'</td>\
@@ -480,7 +482,7 @@
 
 									<div class="col-3 p-0">
 										<div class="accountant-icon-box">
-											<a href="javascript:void(0)" onclick="nextpage('certficatuplod.html')">
+											<a href="javascript:void(0)" onclick="nextpagewithback('dhasboard.html','certficatuplod.html')">
 												<div class="accountant-icon-img">
 													<img class="img-fluid" src="images/certificates-clipboards.png" alt="">
 												</div>
@@ -555,6 +557,10 @@
 		});
 
         
+	</script>
+	 <script>
+	 jQuery('.loading').show();
+  jQuery('.mask').show();
 	</script>
 </body>
 

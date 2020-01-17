@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CEONPOINT Screen1</title>
+    <title>Profile</title>
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">    
-    <link rel="stylesheet" href="css/style.css">    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+        rel="stylesheet">
      <script type="text/javascript" src="js/functions.js"></script>	
 </head>
+
 <body class="pb-2" onload="setvalue()">
 <script>
  function setvalue()
 	{ 
-		var loggedIn=window.localStorage.getItem("loggedIn");       	
+	   var loggedIn=window.localStorage.getItem("loggedIn");       	
 		if(!loggedIn)
 		 {
-		   nextpage('login.html');	   
+		   flippageup('login.html');	   
 		   
-		 }
-		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
+		 }		 
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+        console.log(userdata);		
         jQuery('.usename').html(userdata.name); 	
-        jQuery('.profession').html('Profession : '+userdata.profession); 
-	  
-	}
-</script>	
+        jQuery('.profession').html('Profession : '+userdata.profession);        	
+		jQuery('#userimage').attr('src',userdata.image); 			
+		//addfootermenu();
+   }
+function changepage(pagesec)
+{
+  jQuery('.pagesection').hide();  
+  jQuery('.'+pagesec).show();
+} 
+</script>		
     <header class="header-btn p-0">
         <div class="container-fluid">
             <div class="row">
@@ -50,7 +60,7 @@
                         <div class="link-nav">
                             <nav class="navbar navbar-expand-lg navbar-dark p-0">
                                 <div class="container pr-0">
-                                    <a href="javascript:void(0)" onclick="nextpagewithback('profile.html','menunew.html')" class="navbar-toggler">
+                                    <a href="javascript:void(0)" class="navbar-toggler" onclick="nextpagewithback('profile.html','menunew.html')">
                                         <span class="navbar-toggler-icon"></span>
                                         <span class="navbar-toggler-icon ml-1"></span>
                                         <span class="navbar-toggler-icon"></span>
@@ -64,88 +74,1531 @@
             </div>
         </div>
     </header>
-    
+
     <section class="hero-login-banner mt-5">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12 px-0">
-					<div class="main-profile-box">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 px-0">
+                    <div class="main-profile-box">
                         <img class="img-fluid" src="images/profile-banner.png" alt="">
-                        <div class="main-profile-img">
-							<a href="#">
-								<div class="profile-camera">
-									<img class="img-fiuld" src="images/camera.png" alt="">
-								</div>
-							</a>
-						</div>
-                        
+
                         <div class="hero-profile">
                             <div class="hero-profile-img">
-                                <img class="img-fluid" src="images/profile1.png" alt="">
-                                <div class="profile-camera-box">
-									<a href="#">
-										<div class="profile-camera">
-											<img class="img-fiuld" src="images/camera.png" alt="">
-										</div>
-									</a>
-								</div>
+                                <img id="userimage" class="img-fluid" src="images/profile1.png" alt="">
                             </div>
                             <div class="hero-profile-text">
-                                <p class="usename">Jakira Ali</p>
+                                <p class="usename"></p>
                                 <p class="par profession">Profession: Accountant</p>
                                 <p class="par">Expiry Date: Life Time</p>
                             </div>
                         </div>
-                        
-                    </div>
-                </div>
-			</div>
-		</div>
-    </section>
-    
-    <section class="profile-para-box">
-        <div class="container-fluid">
-            <div class="row">
-               
-                <div class="col-5 pr-2">
-                    <div class="profile-para">
-                        <ul>
-				            <li><a href="#">View Public Profile</a></li>
-				            <li><a href="javascript:void(0)" onclick="nextpagewithback('profile.html','editprofile.html')">Profile</a></li>
-				            <li><a href="#">Photo</a></li>
-				            <li><a href="#">Account</a></li>
-				            <li><a href="#">Privacy</a></li>
-				            <li><a href="#">Notifications</a></li>
-				            <li><a href="#">API Clients</a></li>
-				            <li><a href="#" class="lightblue">Close Account</a></li>
-				        </ul>
-                       <a href="javascript:void(0)" onclick="logout()" class="btn close-btn">Log Out</a>
-                    </div>
-                </div>
 
-                <div class="col-7 pl-1">
-                    <div class="profile-close">
-                        <a href="#" class="lightblue">Close Account</a>
-                        <p>Close your account permanently.</p>
                     </div>
-                    
-                    <div class="close-account-box">
-                       
-                        <span class="close-account">Close Your Account</span>
-                        
-                        <p><span class="red">Warning :</span> If you close your account, you will be unsubscribed from all your 7 courses, and will lose access forever.</p>
-                        
-                        <button class="btn close-btn">Close Account</button>
-                        
-                    </div>
-                    
                 </div>
-
             </div>
         </div>
     </section>
 
-     <div class="mask" style="display:none;"></div>	
+    <section class="profile-para-box">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-12">
+                        <form action="">
+                            <div class="upload-box">
+                            <div class="select-box mb-4">
+                                <select name="" id="" onchange="changepage(this.value)">
+                                   
+                                    <option value="profile">Profile</option>
+                                    <option value="privacy">Privacy</option>
+                                    <option value="notification">Notifications</option>
+                                </select>
+                            </div>
+                            </div>
+
+                            <a href="javascript:void(0)" onclick="logout()" class="btn close-btn">Log Out</a>
+                            
+                             <!---------profile-content------->
+                            <div class="profile-infobox mt-3 pagesection profile">
+                                <div class="login-title mb-3">
+                                    <h6>Profile</h6>
+                                </div>
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td width="30%">Name</td>
+                                            <td>Robertos Rolle</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Profession</td>
+                                            <td>Nursing</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Username</td>
+                                            <td>p@gmail.com</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Location</td>
+                                            <td>United States</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Registered Date</td>
+                                            <td>2018-07-17</td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                                <hr>
+
+                                <div class="upload-box">
+                                    <label>Name <span class="required"> * </span> </label>
+                                    <input name="name" class="form-control" size="20" type="text"
+                                        value="Robertos Rolle">
+                                    <span class="error"></span>
+                                </div>
+
+                                <div class="upload-box">
+                                    <label>Licence <span class="required"> * </span> </label>
+                                    <input name="licence" class="form-control" size="20" type="text" value="TYUOP890">
+                                    <span class="error"></span>
+                                </div>
+
+                                <div class="upload-box">
+                                    <label>Profile Image </label>
+                                    <input class="form-control" name="image" size="20" type="file">
+                                    <span class="error"></span>
+                                </div>
+
+                                <div class="upload-box">
+                                    <label>Role <sup>*</sup></label>
+                                    <div class="select-box">
+                                        <select name="" id="">
+                                            <option value="0" selected="" disabled="">Select</option>
+                                            <option value="01">Professional</option>
+                                            <option value="02">CPD Provider </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="upload-box">
+                                    <label>Profession <sup>*</sup></label>
+                                    <div class="select-box">
+                                        <select name="category" id="category">
+                                            <option value="">Select</option>
+                                            <option value="Accountancy">Accountancy</option>
+                                            <option value="Aeronautical Engineering">Aeronautical Engineering</option>
+                                            <option value="Agricultural &amp; Biosystems Engineering">Agricultural &amp;
+                                                Biosystems Engineering</option>
+                                            <option value="Agriculture">Agriculture</option>
+                                            <option value="Architecture   -70 yrs old &amp; above">Architecture -70 yrs
+                                                old &amp; above</option>
+                                            <option value="Architecture - Between 60-69 yrsold">Architecture - Between
+                                                60-69 yrsold</option>
+                                            <option value="Architecture -Below 60 yrs old">Architecture -Below 60 yrs
+                                                old</option>
+                                            <option value="Certified Plant Mechanic">Certified Plant Mechanic</option>
+                                            <option value="Chemical Engineering">Chemical Engineering</option>
+                                            <option value="Chemist">Chemist</option>
+                                            <option value="Chemistry - Chemist">Chemistry - Chemist</option>
+                                            <option value="Chemistry- Chemical Laboratory Technician">Chemistry-
+                                                Chemical Laboratory Technician</option>
+                                            <option value="Civil Engineering">Civil Engineering</option>
+                                            <option value="Criminology">Criminology</option>
+                                            <option value="Customs Brokers">Customs Brokers</option>
+                                            <option value="Dentistry - Dental Technologist">Dentistry - Dental
+                                                Technologist</option>
+                                            <option value="Dentistry - Dentist">Dentistry - Dentist</option>
+                                            <option value="Dentristry - Dental Hygeinist">Dentristry - Dental Hygeinist
+                                            </option>
+                                            <option value="Doctor">Doctor</option>
+                                            <option value="Electrical Engineering - Professional Electric Engineer">
+                                                Electrical Engineering - Professional Electric Engineer</option>
+                                            <option value="Electrical Engineering - Registered Electrical Engineer">
+                                                Electrical Engineering - Registered Electrical Engineer</option>
+                                            <option value="Electrical Engineering - Registered Master Electrician">
+                                                Electrical Engineering - Registered Master Electrician</option>
+                                            <option value="Electronics Teahnician">Electronics Teahnician</option>
+                                            <option value="Environmental Planning">Environmental Planning</option>
+                                            <option value="Fisheries">Fisheries</option>
+                                            <option value="Forestry">Forestry</option>
+                                            <option value="Geodetic Engineering">Geodetic Engineering</option>
+                                            <option value="Geology">Geology</option>
+                                            <option value="Guidance &amp; Counselling">Guidance &amp; Counselling
+                                            </option>
+                                            <option value="Interior Design -70 yrs old &amp; above">Interior Design -70
+                                                yrs old &amp; above</option>
+                                            <option value="Interior Design -below 60 yrs old">Interior Design -below 60
+                                                yrs old</option>
+                                            <option value="Interior Design -Between 60-69 yrs old">Interior Design
+                                                -Between 60-69 yrs old</option>
+                                            <option value="Landscape Architecture">Landscape Architecture</option>
+                                            <option value="Librarian">Librarian</option>
+                                            <option value="Master Pl;umbing">Master Pl;umbing</option>
+                                            <option value="Medical Laboratory Technician">Medical Laboratory Technician
+                                            </option>
+                                            <option value="Medical Technologist">Medical Technologist</option>
+                                            <option value="Medicine">Medicine</option>
+                                            <option value="Metallurgical Engineering">Metallurgical Engineering</option>
+                                            <option value="Midwifery">Midwifery</option>
+                                            <option value="Mining Architecture">Mining Architecture</option>
+                                            <option value="Naval Architecture">Naval Architecture</option>
+                                            <option selected="" value="Nursing">Nursing</option>
+                                            <option value="Nutrition &amp; Dietetics">Nutrition &amp; Dietetics</option>
+                                            <option value="Occupational Therapy">Occupational Therapy</option>
+                                            <option value="Optometry">Optometry</option>
+                                            <option value="Pharmacy">Pharmacy</option>
+                                            <option value="Physical Therapy">Physical Therapy</option>
+                                            <option value="Professional Electronics Engineer">Professional Electronics
+                                                Engineer</option>
+                                            <option value="Professional Mechanical Engineer">Professional Mechanical
+                                                Engineer</option>
+                                            <option value="Professional Teachers">Professional Teachers</option>
+                                            <option value="Psychologist">Psychologist</option>
+                                            <option value="Psychometrician">Psychometrician</option>
+                                            <option value="Radiologic Technologist">Radiologic Technologist</option>
+                                            <option value="Real Estate Services - Appraisers">Real Estate Services -
+                                                Appraisers</option>
+                                            <option value="Real Estate Services - Broker">Real Estate Services - Broker
+                                            </option>
+                                            <option value="Real Estate Services - Consultant">Real Estate Services -
+                                                Consultant</option>
+                                            <option value="Real Estate Services - Salesperson">Real Estate Services -
+                                                Salesperson</option>
+                                            <option value="REgistered Electronics Engineer">REgistered Electronics
+                                                Engineer</option>
+                                            <option value="REgistered Mechinical Engineer">REgistered Mechinical
+                                                Engineer</option>
+                                            <option value="Respiratory Therapy">Respiratory Therapy</option>
+                                            <option value="Sanitary Engineering">Sanitary Engineering</option>
+                                            <option value="Social Work">Social Work</option>
+                                            <option value="Teacher">Teacher</option>
+                                            <option value="Veterinary Medicine">Veterinary Medicine</option>
+                                            <option value="X-ray Technician">X-ray Technician</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="upload-box">
+                                    <label>Country of Location <sup>*</sup></label>
+                                    <div class="select-box">
+                                        <select name="location" id="location" class="form-control">
+                                            <option value="">Select Country</option>
+                                            <option value="1">Afghanistan</option>
+                                            <option value="2">Albania</option>
+                                            <option value="3">Algeria</option>
+                                            <option value="4">American Samoa</option>
+                                            <option value="5">Andorra</option>
+                                            <option value="6">Angola</option>
+                                            <option value="7">Anguilla</option>
+                                            <option value="8">Antarctica</option>
+                                            <option value="9">Antigua and Barbuda</option>
+                                            <option value="10">Argentina</option>
+                                            <option value="11">Armenia</option>
+                                            <option value="12">Aruba</option>
+                                            <option value="13">Australia</option>
+                                            <option value="14">Austria</option>
+                                            <option value="15">Azerbaijan</option>
+                                            <option value="16">Bahamas</option>
+                                            <option value="17">Bahrain</option>
+                                            <option value="18">Bangladesh</option>
+                                            <option value="19">Barbados</option>
+                                            <option value="20">Belarus</option>
+                                            <option value="21">Belgium</option>
+                                            <option value="22">Belize</option>
+                                            <option value="23">Benin</option>
+                                            <option value="24">Bermuda</option>
+                                            <option value="25">Bhutan</option>
+                                            <option value="26">Bolivia</option>
+                                            <option value="27">Bosnia and Herzegowina</option>
+                                            <option value="28">Botswana</option>
+                                            <option value="29">Bouvet Island</option>
+                                            <option value="30">Brazil</option>
+                                            <option value="31">British Indian Ocean Territory</option>
+                                            <option value="32">Brunei Darussalam</option>
+                                            <option value="33">Bulgaria</option>
+                                            <option value="34">Burkina Faso</option>
+                                            <option value="35">Burundi</option>
+                                            <option value="36">Cambodia</option>
+                                            <option value="37">Cameroon</option>
+                                            <option value="38">Canada</option>
+                                            <option value="39">Cape Verde</option>
+                                            <option value="40">Cayman Islands</option>
+                                            <option value="41">Central African Republic</option>
+                                            <option value="42">Chad</option>
+                                            <option value="43">Chile</option>
+                                            <option value="44">China</option>
+                                            <option value="45">Christmas Island</option>
+                                            <option value="46">Cocos (Keeling) Islands</option>
+                                            <option value="47">Colombia</option>
+                                            <option value="48">Comoros</option>
+                                            <option value="49">Congo Democratic Republic of</option>
+                                            <option value="50">Cook Islands</option>
+                                            <option value="51">Costa Rica</option>
+                                            <option value="52">Cote D'Ivoire</option>
+                                            <option value="53">Croatia</option>
+                                            <option value="54">Cuba</option>
+                                            <option value="55">Cyprus</option>
+                                            <option value="56">Czech Republic</option>
+                                            <option value="57">Denmark</option>
+                                            <option value="58">Djibouti</option>
+                                            <option value="59">Dominica</option>
+                                            <option value="60">Dominican Republic</option>
+                                            <option value="61">Timor-Leste</option>
+                                            <option value="62">Ecuador</option>
+                                            <option value="63">Egypt</option>
+                                            <option value="64">El Salvador</option>
+                                            <option value="65">Equatorial Guinea</option>
+                                            <option value="66">Eritrea</option>
+                                            <option value="67">Estonia</option>
+                                            <option value="68">Ethiopia</option>
+                                            <option value="69">Falkland Islands (Malvinas)</option>
+                                            <option value="70">Faroe Islands</option>
+                                            <option value="71">Fiji</option>
+                                            <option value="72">Finland</option>
+                                            <option value="73">France</option>
+                                            <option value="75">French Guiana</option>
+                                            <option value="76">French Polynesia</option>
+                                            <option value="77">French Southern Territories</option>
+                                            <option value="78">Gabon</option>
+                                            <option value="79">Gambia</option>
+                                            <option value="80">Georgia</option>
+                                            <option value="81">Germany</option>
+                                            <option value="82">Ghana</option>
+                                            <option value="83">Gibraltar</option>
+                                            <option value="84">Greece</option>
+                                            <option value="85">Greenland</option>
+                                            <option value="86">Grenada</option>
+                                            <option value="87">Guadeloupe</option>
+                                            <option value="88">Guam</option>
+                                            <option value="89">Guatemala</option>
+                                            <option value="90">Guinea</option>
+                                            <option value="91">Guinea-bissau</option>
+                                            <option value="92">Guyana</option>
+                                            <option value="93">Haiti</option>
+                                            <option value="94">Heard Island and McDonald Islands</option>
+                                            <option value="95">Honduras</option>
+                                            <option value="96">Hong Kong</option>
+                                            <option value="97">Hungary</option>
+                                            <option value="98">Iceland</option>
+                                            <option selected="" value="99">India</option>
+                                            <option value="100">Indonesia</option>
+                                            <option value="101">Iran (Islamic Republic of)</option>
+                                            <option value="102">Iraq</option>
+                                            <option value="103">Ireland</option>
+                                            <option value="104">Israel</option>
+                                            <option value="105">Italy</option>
+                                            <option value="106">Jamaica</option>
+                                            <option value="107">Japan</option>
+                                            <option value="108">Jordan</option>
+                                            <option value="109">Kazakhstan</option>
+                                            <option value="110">Kenya</option>
+                                            <option value="111">Kiribati</option>
+                                            <option value="112">Korea, Democratic People's Republic of</option>
+                                            <option value="113">South Korea</option>
+                                            <option value="114">Kuwait</option>
+                                            <option value="115">Kyrgyzstan</option>
+                                            <option value="116">Lao People's Democratic Republic</option>
+                                            <option value="117">Latvia</option>
+                                            <option value="118">Lebanon</option>
+                                            <option value="119">Lesotho</option>
+                                            <option value="120">Liberia</option>
+                                            <option value="121">Libya</option>
+                                            <option value="122">Liechtenstein</option>
+                                            <option value="123">Lithuania</option>
+                                            <option value="124">Luxembourg</option>
+                                            <option value="125">Macao</option>
+                                            <option value="126">Macedonia, The Former Yugoslav Republic of</option>
+                                            <option value="127">Madagascar</option>
+                                            <option value="128">Malawi</option>
+                                            <option value="129">Malaysia</option>
+                                            <option value="130">Maldives</option>
+                                            <option value="131">Mali</option>
+                                            <option value="132">Malta</option>
+                                            <option value="133">Marshall Islands</option>
+                                            <option value="134">Martinique</option>
+                                            <option value="135">Mauritania</option>
+                                            <option value="136">Mauritius</option>
+                                            <option value="137">Mayotte</option>
+                                            <option value="138">Mexico</option>
+                                            <option value="139">Micronesia, Federated States of</option>
+                                            <option value="140">Moldova</option>
+                                            <option value="141">Monaco</option>
+                                            <option value="142">Mongolia</option>
+                                            <option value="143">Montserrat</option>
+                                            <option value="144">Morocco</option>
+                                            <option value="145">Mozambique</option>
+                                            <option value="146">Myanmar</option>
+                                            <option value="147">Namibia</option>
+                                            <option value="148">Nauru</option>
+                                            <option value="149">Nepal</option>
+                                            <option value="150">Netherlands</option>
+                                            <option value="151">Netherlands Antilles</option>
+                                            <option value="152">New Caledonia</option>
+                                            <option value="153">New Zealand</option>
+                                            <option value="154">Nicaragua</option>
+                                            <option value="155">Niger</option>
+                                            <option value="156">Nigeria</option>
+                                            <option value="157">Niue</option>
+                                            <option value="158">Norfolk Island</option>
+                                            <option value="159">Northern Mariana Islands</option>
+                                            <option value="160">Norway</option>
+                                            <option value="161">Oman</option>
+                                            <option value="162">Pakistan</option>
+                                            <option value="163">Palau</option>
+                                            <option value="164">Panama</option>
+                                            <option value="165">Papua New Guinea</option>
+                                            <option value="166">Paraguay</option>
+                                            <option value="167">Peru</option>
+                                            <option value="168">Philippines</option>
+                                            <option value="169">Pitcairn</option>
+                                            <option value="170">Poland</option>
+                                            <option value="171">Portugal</option>
+                                            <option value="172">Puerto Rico</option>
+                                            <option value="173">Qatar</option>
+                                            <option value="174">Reunion</option>
+                                            <option value="175">Romania</option>
+                                            <option value="176">Russian Federation</option>
+                                            <option value="177">Rwanda</option>
+                                            <option value="178">Saint Kitts and Nevis</option>
+                                            <option value="179">Saint Lucia</option>
+                                            <option value="180">Saint Vincent and the Grenadines</option>
+                                            <option value="181">Samoa</option>
+                                            <option value="182">San Marino</option>
+                                            <option value="183">Sao Tome and Principe</option>
+                                            <option value="184">Saudi Arabia</option>
+                                            <option value="185">Senegal</option>
+                                            <option value="186">Seychelles</option>
+                                            <option value="187">Sierra Leone</option>
+                                            <option value="188">Singapore</option>
+                                            <option value="189">Slovakia (Slovak Republic)</option>
+                                            <option value="190">Slovenia</option>
+                                            <option value="191">Solomon Islands</option>
+                                            <option value="192">Somalia</option>
+                                            <option value="193">South Africa</option>
+                                            <option value="194">South Georgia and the South Sandwich Islands</option>
+                                            <option value="195">Spain</option>
+                                            <option value="196">Sri Lanka</option>
+                                            <option value="197">Saint Helena, Ascension and Tristan da Cunha</option>
+                                            <option value="198">St. Pierre and Miquelon</option>
+                                            <option value="199">Sudan</option>
+                                            <option value="200">Suriname</option>
+                                            <option value="201">Svalbard and Jan Mayen Islands</option>
+                                            <option value="202">Swaziland</option>
+                                            <option value="203">Sweden</option>
+                                            <option value="204">Switzerland</option>
+                                            <option value="205">Syrian Arab Republic</option>
+                                            <option value="206">Taiwan</option>
+                                            <option value="207">Tajikistan</option>
+                                            <option value="208">Tanzania, United Republic of</option>
+                                            <option value="209">Thailand</option>
+                                            <option value="210">Togo</option>
+                                            <option value="211">Tokelau</option>
+                                            <option value="212">Tonga</option>
+                                            <option value="213">Trinidad and Tobago</option>
+                                            <option value="214">Tunisia</option>
+                                            <option value="215">Turkey</option>
+                                            <option value="216">Turkmenistan</option>
+                                            <option value="217">Turks and Caicos Islands</option>
+                                            <option value="218">Tuvalu</option>
+                                            <option value="219">Uganda</option>
+                                            <option value="220">Ukraine</option>
+                                            <option value="221">United Arab Emirates</option>
+                                            <option value="222">United Kingdom</option>
+                                            <option value="223">United States</option>
+                                            <option value="224">United States Minor Outlying Islands</option>
+                                            <option value="225">Uruguay</option>
+                                            <option value="226">Uzbekistan</option>
+                                            <option value="227">Vanuatu</option>
+                                            <option value="228">Vatican City State (Holy See)</option>
+                                            <option value="229">Venezuela</option>
+                                            <option value="230">Vietnam</option>
+                                            <option value="231">Virgin Islands (British)</option>
+                                            <option value="232">Virgin Islands (U.S.)</option>
+                                            <option value="233">Wallis and Futuna Islands</option>
+                                            <option value="234">Western Sahara</option>
+                                            <option value="235">Yemen</option>
+                                            <option value="236">Serbia</option>
+                                            <option value="238">Zambia</option>
+                                            <option value="239">Zimbabwe</option>
+                                            <option value="240">Aaland Islands</option>
+                                            <option value="241">Palestine</option>
+                                            <option value="242">Montenegro</option>
+                                            <option value="243">Guernsey</option>
+                                            <option value="244">Isle of Man</option>
+                                            <option value="245">Jersey</option>
+                                            <option value="247">Curaçao</option>
+                                            <option value="248">Ivory Coast</option>
+                                            <option value="249">Kosovo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="upload-box">
+                                    <label for="email">Username (email) <sup>*</sup></label>
+                                    <input id="username" size="20" type="text" value="p@gmail.com">
+                                </div>
+
+
+                                <div class="upload-box">
+                                    <label>Are you under institution <sup>*</sup></label>
+                                    <div class="select-box">
+                                        <select name="under_institution" id="under_institution">
+                                            <option value="0" selected="">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="continue-btn reg-btn mt-3">
+                                    <a href="#" class="btn">SAVE</a>
+                                </div>
+
+                            </div>
+
+                              <!---------privacy-content------->
+
+                            <div class="privacy-infobox mt-3 pagesection privacy" style="display:none;">
+                                <div class="login-title mb-3">
+                                    <h6>Terms Of Service</h6>
+                                   
+                                    </div>
+                                    <div class="privacy-content mt-3">
+                                        <p></p>
+                                        <p style="box-sizing: content-box; margin: 0px 0px 10px; text-align: justify; color: rgb(128, 128, 128);">
+                                            <b style="color: rgb(60, 60, 60);"><u>Terms and Conditions of
+                                                    Service</u></b><br></p>
+                                        <p><b>Introduction &amp; Scope.</b></p>
+                                        <p>Welcome, please read the following Terms and Conditions of Service
+                                            (hereinafter, the “<b>Terms</b>”) for the website www.ceonpoint.com (the
+                                            “<b>Site</b>”) carefully.&nbsp; This is a legal agreement which sets out the
+                                            terms and conditions on which CEonpoint LLC (hereinafter referred to as
+                                            “<b>CEonpoint</b>”) will provide services to you or to the legal entity you
+                                            represent ‘<b>you’</b>, ‘<b>your</b>’, and/or ‘<b>yourself</b>’.</p>
+                                        <p>The terms ‘<b>us</b>’, ‘<b>its</b>’, ‘<b>ours</b>’ and/or ‘<b>we</b>’, as
+                                            used herein, shall refer to us, CEonpoint and/or our affiliates, assignees,
+                                            successors and/or brands. &nbsp;These Terms shall supplement our Privacy
+                                            Policy (the “<b>Policy</b>”), incorporated herein by reference.</p>
+                                        <p> </p>
+                                        <p><b>User Agreement &amp; Acceptance.</b></p>
+                                        <p>By accessing our Site, you are agreeing to be bound by these Terms, which
+                                            constitute a legally binding user agreement, along with any and all
+                                            applicable laws and regulations.&nbsp; By using our Site, you represent and
+                                            warrant that you: (a) are of legal age or legal capacity in your
+                                            jurisdiction; (b) agree to all of the terms and conditions stated herein;
+                                            (c) have the right, power, and authority to bind your represented entity or
+                                            the agency to these terms and conditions.</p>
+                                        <p>You hereby acknowledge and covenant to abide by and comply with any
+                                            applicable federal, state and local rules and regulations applicable to your
+                                            use of our services.&nbsp; If you do not agree with any of these Terms, you
+                                            are thereby prohibited from using or accessing this Site.</p>
+                                        <p>The Site’s accessibility to the user is solely provided for the user’s
+                                            individual benefit.&nbsp; If you are using our Site in representation of a
+                                            corporate third party, you hereby represent and warrant that you have the
+                                            necessary power and authority in order to execute this agreement.</p>
+                                        <p>In order to use the functionalities and services provided, you will need to
+                                            register for an account with us, thereby disclosing certain proprietary
+                                            information, along with personally identifiable information.</p>
+                                        <p> </p>
+                                        <p><b>General Account Registration, Verification and Safety Rules.</b></p>
+                                        <p>In order to use our Services, you must create an account, including all
+                                            mandatory fields on the registration form.&nbsp; You must provide accurate
+                                            and complete information, and you hereby agree to keep secret the password
+                                            chosen upon creating your account and not to communicate it to
+                                            anybody.&nbsp; If you lose or disclose it, you must promptly inform us.</p>
+                                        <p>You are solely responsible for the activity that occurs on your account and
+                                            for keeping your password secure and confidential, and must notify us
+                                            immediately of any breach or unauthorized use of your account.</p>
+                                        <p> </p>
+                                        <p><b>Account for Professionals</b></p>
+                                        <p>CEonpoint provides, operates and manages an online platform that provides
+                                            continuing education (CE) to all professionals worldwide (collectively, the
+                                            “<b>Services</b>”). &nbsp;It is available at website and mobile app anytime,
+                                            anywhere.</p>
+                                        <p>All online courses and training are uploaded by accredited CE providers in
+                                            different countries so you can be sure that you are receiving only the best
+                                            from the experts in their own field of specialization.&nbsp; At CEonpoint we
+                                            offer continuing education through online courses and training. &nbsp;Plus,
+                                            we will provide you with a free suite of Professional CE Management Software
+                                            (PCE-MS) upon registering with the following features:</p>
+                                        <ul>
+                                            <li>Set your total Required CE Units or Contact hours and its breakdown as
+                                                to General and Specific. Also set the period of time for its completion.
+                                            </li>
+                                            <li>Reset your Required CE Units or contact hours and period covered for
+                                                another set of certificates for your next license renewal or performance
+                                                appraisal once your present required units or contact hours has been
+                                                completed.</li>
+                                            <li>Store your previous certificates at the archive section once you
+                                                completed your required CE Units or contact hours.</li>
+                                            <li>Track your Required CE units/contact hours versus the Obtained CE
+                                                units/contact hours and the Needed CE units/contacts. Your completion
+                                                station is also shown in your CE tracker.</li>
+                                            <li>Take online courses uploaded by accredited CE Providers locally or
+                                                internationally viA ceonpoint.com website or from its mobile app.</li>
+                                            <li>Receive a digital certificate with credit units or contact hours once
+                                                you pass the examination section at each online course.&nbsp; Your
+                                                certificate will be recorded automatically in your personal account and
+                                                to your employer’s Staff CE Record if you tool the online course from
+                                                your employer who is using ceonpoint’s Institution Continuing Education
+                                                Management Software (ICE-MS).&nbsp; </li>
+                                            <li>Digital Certificates are verifiable online at the CEonpoint website
+                                                particularly at this page or link
+                                                https://ceonpoint.com/index.php/pages/cfvalidation/.</li>
+                                            <li>Register online in training/seminars sponsored by CE Providers or your
+                                                institution.&nbsp; Once you attended the training you will receive
+                                                digital certificate that will also be recorded automatically to your
+                                                personal account and at the same time to your employer’s Staff CE Record
+                                                if the training is conducted by your institution using the Ceonpoint’s
+                                                ICE-MS.</li>
+                                            <li>Manually upload your certificates issued by other CE Providers (who are
+                                                not using our digital certificate) and you can send certificates
+                                                electronically to your employer or other recipients of your choice.</li>
+                                            <li>Store all digital certificates and manually uploaded certificates to the
+                                                listing of certificate with automated summary of all credit
+                                                units/contact hours. </li>
+                                            <li>Automatically add all your CE units or contacts hours to keep you on
+                                                track of your required CE units/contacts for license renewal or
+                                                performance appraisal.&nbsp; Your PCE-MS tracker will show your
+                                                completion status.</li>
+                                            <li>Send your certificates to government agency for license renewal through
+                                                CEonpoint as your broker so you would not go personally at the office
+                                                once ce broker gets accreditation for brokerage in your country.</li>
+                                            <li>Receive notification of new online courses or training relevant to your
+                                                profession and more.</li>
+                                            <li>Upload professional competency cards like basic Life Support (BLS) ACLs,
+                                                PALS, etc and get notification of its status as either, _____ expiring,
+                                                expired, past due.</li>
+                                            <li>Be notified of the expiration date of your professional license and of
+                                                the professional cards.</li>
+                                            <li>Access to your institution's online courses and training for free at
+                                                your institution CE webpage if your institution is using the CEonpoint’s
+                                                ICE-MS. You can do this by going to your account, click the edit profile
+                                                tab, and answer YES to the question, “Are you under institution?”,
+                                                select the name of your institution and enter the code of your
+                                                institution. You can get the code by contacting the training department
+                                                of your institution.</li>
+                                            <li>Track all your online courses or training/seminars through your
+                                                certificate listing. You can click the title of the online courses and
+                                                it will redirect to the URL.</li>
+                                            <li>Track all your digital certificates issued to professionals from online
+                                                course or training/seminar through certificate listings.</li>
+                                            <li>Promote yourself at the professional listing for employment purposes so
+                                                that employers can check on your profile by opting to promotion features
+                                                at additional cost.</li>
+                                            <li>Promote your professional practice as featured listing at the list of
+                                                our Professionals to get more clients by opting to promotion features at
+                                                additional cost. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+                                        </ul>
+                                        <p>Your membership signifies that you are serious about your project management
+                                            career and your professional development. &nbsp;It highlights this
+                                            dedication to employers, colleagues and stakeholders, giving you an edge in
+                                            the job market. &nbsp;It also provides you with access to valuable
+                                            knowledge, networks and resources.</p>
+                                        <p>When you complete one of our CE courses, you will receive a certificate of
+                                            completion, which you can share with your friends, relatives, co-workers and
+                                            potential employers. &nbsp;Certificates of completion help demonstrate your
+                                            accomplishments, and unfortunately, certificates are created using a
+                                            template and the information provided by the CE Providers, thus there is no
+                                            way to change the formatting for them.</p>
+                                        <p>Please take into account that CEonpoint is not an accredited educative
+                                            institution, and as a result, the certificate is issued not by the ceonpoint
+                                            but by the CE Provider who are accredited educative institution and thus
+                                            valid for continuing education document necessary for license renewal or
+                                            performance appraisal.&nbsp; Accredited CE Providers only uses the
+                                            Certificate Software to generate computer-based, online verifiable
+                                            certificates both for online courses and training.</p>
+                                        <p>Your certificate of completion is generated using your name as provided
+                                            during your registration, henceforth it is important to use your full and
+                                            complete name when registering your account details. If you indicated your
+                                            incomplete name, you may be able to update it on your account, but sometimes
+                                            you will need to contact our customer support team for update of your
+                                            account and certificate.</p>
+                                        <p>Also, most of our certificate will be generated using the language selected
+                                            for your account.&nbsp; As a general rule, the language will be English, and
+                                            in time we will include new languages on our systems.&nbsp; If a language is
+                                            not available yet, please contact us, we will be happy to hear your
+                                            recommendations.</p>
+                                        <p>As one of our professional students, you’ll gain exclusive access to
+                                            publications, tools, templates, articles, guides and other resources to keep
+                                            you informed and remain efficient.&nbsp; We also provide other online
+                                            services, as indicated on our Site from time to time.</p>
+                                        <p> </p>
+                                        <p><b>Payment Terms.</b></p>
+                                        <p>We rely on authorized third-party payment processors in order to bill you
+                                            through a payment account linked to your account.&nbsp; Depending on your
+                                            location and what country your account is registered in, your payment
+                                            methods may include the following: PayPal, international credit and debit
+                                            cards such as Visa, MasterCard, American Express, and Discover.&nbsp; Cash
+                                            payments via third party platforms and bank transfers may be an option for
+                                            students in several different Latin American nations, as well as some
+                                            countries in Europe and Asia.</p>
+                                        <p>For users of our App, we also accept Apple App Store and Google Play.
+                                            &nbsp;Since the mobile apps use Apple’s and Google’s payment systems,
+                                            additional payment options may be available. </p>
+                                        <p>Henceforth you hereby authorize us to charge the pertinent fees through your
+                                            indicated payment processing account.&nbsp; CEonpoint shall not be held
+                                            responsible for any and all costs, charges and currency conversion fees by
+                                            the payment processor, and you should review its terms and policies from
+                                            time to time, which will govern the provision of services to you.</p>
+                                        <p>You must provide us with valid and current billing information.&nbsp; Except
+                                            as expressly set forth herein, all payment charges are final and
+                                            non-cancelable.&nbsp; If we detect any chargeback or if any payment is not
+                                            received by us or our payment processors for any reason, you will promptly
+                                            pay us any and all amounts due to us upon notice.&nbsp; Any failure or
+                                            inability by us to process any payment hereunder does not relieve you from
+                                            your payment obligations.</p>
+                                        <p>Some of the most common reasons banks decline payments include insufficient
+                                            funds, too many payment intents, card purchase limitations, and card
+                                            security policies, among other issues. &nbsp;Since CEonpoint does not have
+                                            detailed insights into why a payment is declined, we recommend contacting
+                                            your payment processor or financial institution directly to help solve the
+                                            payment issue.</p>
+                                        <p> </p>
+                                        <p><b>Currency Terms.</b></p>
+                                        <p>By default, students who do not have one of our supported currencies assigned
+                                            to their account will see prices set in USD.&nbsp; We may accept other
+                                            currencies now or in the future, depending on your location and the settings
+                                            allowed by your payment processor.&nbsp; The currency is generally set based
+                                            on the IP location of where your account was created.</p>
+                                        <p>Due to compliance requirements, we are not permitted to change the currency
+                                            of an account once it is set by our systems or the ones of your payment
+                                            processing system.&nbsp;&nbsp; However, if you reside in a different nation
+                                            than the one your account was created in, and are presently located in the
+                                            country of your residence, please contact our support team so we can assist
+                                            you further.&nbsp; We will require from you the necessary information about
+                                            your legal residence, tax identification number, visa/migratory status, etc.
+                                        </p>
+                                        <p>Please keep in mind that there may be additional costs, fees and ancillary
+                                            expenses when dealing with currency conversion options.&nbsp; We are not
+                                            responsible for such, and we recommend you to consult the terms and
+                                            conditions of your preferred payment processor platform.</p>
+                                        <p> </p>
+                                        <p><b>Refund Policy.</b></p>
+                                        <p>We try to create an equitable field for all of our users.&nbsp; We encourage
+                                            CE Providers to upload top quality content, and we also allow our students
+                                            to be able to request a refund if they are not satisfied with their
+                                            purchase.&nbsp; Thus, the default return period for the courses offered in
+                                            the Site is for 30 days only.</p>
+                                        <p>Since payments are sent to CE Providers after 30 days, for your protection we
+                                            will not process refund requests received after the refund window.&nbsp; For
+                                            some of our products, we also offer a partial refund program, or credit
+                                            options.</p>
+                                        <p>Most refunds will be processed returned via the original payment method.
+                                            &nbsp;Please note that certain restrictions may apply and some purchases may
+                                            only be eligible for credit refunds.&nbsp; In some countries where cash
+                                            payments systems are available, most courses will not be eligible for a
+                                            refund.&nbsp; In such cases, and provided that you are still within the
+                                            30-day refund window, you will generally be eligible to receive a purchase
+                                            credit which will be valid for further purchases of our courses.</p>
+                                        <p>You can challenge a refund by contacting our support team, or clicking on the
+                                            request a complaint button or similar which appears on the Site when you are
+                                            logged into your account.</p>
+                                        <p>When you submit a challenge request, please be sure to include the course
+                                            url, the reason for your request, and the type of payment method that you
+                                            used when making the purchase.</p>
+                                        <p>If professionals were able to download all the content of a course before the
+                                            refund was requested, our team may deny your refund request. &nbsp;Users who
+                                            purchase and refund multiple courses may be subject to suspension for abuse
+                                            of the refund policy.</p>
+                                        <p>If you have a problem with your payment, please contact us as soon as
+                                            possible.&nbsp; You can always contact our team with questions about your
+                                            purchase, and we will strive to answer them and work together to solve any
+                                            such doubts.</p>
+                                        <p> </p>
+                                        <p><b>Service Eligibility.</b></p>
+                                        <p>CEonpoint does not generally provide its Services to persons under the age of
+                                            eighteen (18).&nbsp; Users under the age of eighteen (18) may use CEonpoint,
+                                            only with the express, unequivocal consent of their legal guardians.&nbsp;
+                                            Accordingly, we reserve the right to request any and all applicable proof of
+                                            identification and consent proof from our users, at any moment, without
+                                            prior notice, and at our sole and final discretion.&nbsp; Upon the failure
+                                            to provide such proof of age, we reserve the right to immediately freeze,
+                                            block or cancel the account, with no liability.&nbsp; </p>
+                                        <p>In compliance with the terms of the Children’s Online Privacy Protection Act
+                                            (‘COPPA’), CEonpoint does not knowingly collect any kind of information from
+                                            any person under the age of thirteen (13), and will delete any related
+                                            information thereto.&nbsp; All of our users are otherwise prohibited from
+                                            providing us with personally identifiable information of persons under the
+                                            age of thirteen (13).</p>
+                                        <p><b>User Support.</b></p>
+                                        <p>If you have any questions or complaints regarding the Site or our Services,
+                                            please contact us by email as indicated on our contact web page.&nbsp; We
+                                            will undertake commercially reasonable efforts in order to answer as quickly
+                                            as possible.&nbsp; You must provide us with full details of your service
+                                            query so that we can clearly asses your concerns.</p>
+                                        <p>For purposes of clarification, we will be responsible to provide user and
+                                            technical support for the App, and not Apple or Google.</p>
+                                        <p> </p>
+                                        <p><b>Third-party Websites and Content.</b></p>
+                                        <p>From time to time, our Site and Services may contain hyperlinks to other
+                                            websites.&nbsp; These links are for your personal convenience and to provide
+                                            you with further information which may be of interest to you.&nbsp; The
+                                            provision of such links does not imply any endorsement of such third-party
+                                            websites (or their products and services).&nbsp; Please review the
+                                            applicable terms and policies of such websites, including their privacy and
+                                            data collection practices.</p>
+                                        <p>We may place ads and promotions from third-party sources in the Site.&nbsp;
+                                            Accordingly, your participation or undertakings in promotions of
+                                            third-parties other than CEonpoint, and any terms, conditions, warranties or
+                                            representations associated with such undertakings, are solely between you
+                                            and such third-party.&nbsp; CEonpoint is not responsible or liable for any
+                                            loss or damage of any sort incurred as the result of any such dealings or as
+                                            the result of the presence of third-party advertisers on the Site.</p>
+                                        <p><b> </b></p>
+                                        <p><b>User Code of Conduct.</b></p>
+                                        <p>As our user, you agree not to undertake, motivate, or facilitate the use or
+                                            access of the Site or the Services in order to:</p>
+                                        <p>Infringe these Terms, or allow, encourage or facilitate others to do so.</p>
+                                        <p>Plagiarize and/or infringe on the intellectual property rights or privacy
+                                            rights of any third party, including any breach of confidence, copyright,
+                                            trademark, patent, trade secret, moral right, privacy right, right of
+                                            publicity, or any other intellectual property or proprietary right.</p>
+                                        <p>Collect, receive, transfer or disseminate any personally identifiable
+                                            information of any person without due consent from the title holder.</p>
+                                        <p>Republish, sell, rent or sub-license content or materials from the Site
+                                            without our authorization.</p>
+                                        <p>Reproduce, duplicate or copy material from the Site without our
+                                            authorization.</p>
+                                        <ul>
+                                            <li>Otherwise reverse engineer, decompile or extract the proprietary code of
+                                                the Site and our Services.</li>
+                                        </ul>
+                                        <p><b> </b></p>
+                                        <p><b>Account Suspension &amp; Termination.</b></p>
+                                        <p>CEonpoint encourages you to report violations of our Terms.&nbsp; Users
+                                            undertaking conducts that may constitute a factual –or even alleged– breach
+                                            of these Terms, including but not limiting, using automated mechanisms to
+                                            make fraudulent communications, may become subject to immediate account
+                                            suspension/termination, at our sole and final discretion, without notice and
+                                            without responsibility.</p>
+                                        <p>We reserve the right, at our sole and final discretion, to deactivate,
+                                            freeze, suspend or terminate any account upon any factual or alleged breach
+                                            of these Terms.&nbsp; You must notify us immediately of any change in your
+                                            eligibility to use our platform, or if you suspect a breach of security or
+                                            unauthorized use of your account.</p>
+                                        <p>You acknowledge and agree that we may report any activity that we believe may
+                                            violate any law to law enforcement, regulators or other relevant third
+                                            parties, and that any violation of the aforementioned provisions may result
+                                            in the immediate termination of your access to the Site or our Services.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Content Moderation.</b></p>
+                                        <p>CEonpoint encourages users to report violations of our Terms.&nbsp; Each user
+                                            is solely responsible for their activities and any content posted,
+                                            transmitted or otherwise made available via our Services.</p>
+                                        <p>CEonpoint has the right, but not the obligation, to monitor any chat activity
+                                            and ‘user generated content’ (e.g. names, photos, posts, feedback, images,
+                                            comments, questions and other content) to determine compliance thereof, and
+                                            to edit, refuse to post or remove any material or content submitted to or
+                                            posted on our Services that we find to be in violation of our Terms, Policy
+                                            or that is otherwise objectionable.</p>
+                                        <p>You acknowledge and agree that we may report any activity that we believe may
+                                            violate any law to law enforcement, regulators or other relevant third
+                                            parties, and that any violation of the aforementioned provisions may result
+                                            in the immediate termination of your access to the CEonpoint and our
+                                            Services.</p>
+                                        <p>We reserve the right (but not the obligation) to monitor disputes between you
+                                            and other of our users.&nbsp; We also reserve the right (but not the
+                                            obligation) to delete items, products, services and user generated content
+                                            that would be interpreted or considered offensive or spam.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Changes to the Services.</b></p>
+                                        <p>CEonpoint reserves the right to modify, amend, suspend, terminate, upgrade,
+                                            update or otherwise modify these Terms, the Site and the Services, at any
+                                            time and without notice.&nbsp; Any changes will be displayed on the Site,
+                                            and we may also notify you by email.&nbsp; As a general rule, we will try to
+                                            not diminish the functionalities available to your Service tier, and in the
+                                            case of increased or newly available functionalities, we will inform you
+                                            before their activation, including the timeframe to accept new payment
+                                            terms.</p>
+                                        <p>Please refer to the last effective date where changes were last undertaken by
+                                            us.&nbsp; Your use of our Services after the effective date of any update–
+                                            either by an account registration or simple use – thereby indicates your
+                                            acceptance thereof.</p>
+                                        <p><b> </b></p>
+                                        <p><b>User Privacy.</b></p>
+                                        <p>By disclosing any data and personally identifying information to us, you
+                                            agree to our Policy, including the collection, process, storage and
+                                            disclosure of such personally identifiable information, including to our
+                                            affiliates, partners and clients.&nbsp; We will ask for your express
+                                            consent, including for inclusion into our newsletters, updates, and follow
+                                            ups.&nbsp; For more information, please read our Policy.</p>
+                                        <p><b> </b></p>
+                                        <p><b>No Spam Policy.</b></p>
+                                        <p>We reserve the right to screen our content to locate and delete any spam or
+                                            deceiving coupon, code, offer or link to any product or service.&nbsp; We
+                                            will not tolerate, and we will not allow others to undertake though our
+                                            Services, App or Site, any and all massive delivery of unsolicited bulk
+                                            communications to our users or to any third party.&nbsp; Any commercial
+                                            electronic communication (“CEM”) that you may receive from us our partners,
+                                            licensors, suppliers and affiliates will require your prior consent to such
+                                            communication.&nbsp; Our CEMs will include measures in order for you to stop
+                                            receiving them, usually through an unsubscribe link.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Mobile Application Policy.</b></p>
+                                        <p>You acknowledge and agree that these Terms are concluded between you and
+                                            CEonpoint only, and not with Google Inc. or Apple Inc. (hereinafter, “Apple”
+                                            and “Google”).&nbsp; Henceforth, only upon the case where CEonpoint hosts
+                                            the App, uploads, certifies, manages and/or updates it before Apple and
+                                            Google, CEonpoint shall be the entity solely responsible for the Site, any
+                                            mobile application software operated by CEonpoint (the “App”) and the
+                                            content thereof before the general end user.&nbsp; Please be informed that
+                                            these Terms shall be, in turn, supplemented, amended or completely replaced
+                                            by the appertaining terms of use and privacy policies for the App provided
+                                            by Apple and Google.</p>
+                                        <p>These Terms may not provide for usage rules for the App that are less
+                                            restrictive than the usage rules set forth for licensed applications in, or
+                                            otherwise be in conflict with, Google Inc.’s or Apple Inc.’s terms of
+                                            service.</p>
+                                        <p><b> </b></p>
+                                        <p><b>App Store Terms.</b></p>
+                                        <p>You hereby acknowledge and agree that these Terms are executed between
+                                            CEonpoint and you, and not between Google or Apple.&nbsp; Henceforth, the
+                                            license granted to you for the App is also limited to a non-transferable
+                                            license to use the App an authorized third party device activated product
+                                            that you own or control, and as permitted by the terms of use set forth in
+                                            the applicable app store.</p>
+                                        <p>These Terms may not provide for usage rules for the App that are less
+                                            restrictive than the usage rules set forth for licensed applications that
+                                            otherwise are in conflict with, Google’s or Apple’s app stores terms of
+                                            service.</p>
+                                        <p>CEonpoint, and not any such third party app store provider, shall be solely
+                                            responsible for the App and any and all content thereof.&nbsp; CEonpoint is
+                                            solely responsible for the App, the Services and the content thereof.</p>
+                                        <p>To the extent these Terms provides for terms of use or licenses for the App
+                                            that are less restrictive than the terms of use set forth in the applicable
+                                            app store, or that otherwise are in conflict with their respective of use,
+                                            the more restrictive term shall govern.</p>
+                                        <p>CEonpoint is solely responsible for providing any maintenance and support
+                                            services with respect to the App, and neither Apple nor Google have any
+                                            obligation to furnish any maintenance and support services thereof.</p>
+                                        <p>In the event of any failure of the App to conform to any applicable warranty,
+                                            you may notify Apple or Google, and they may refund you the purchase price
+                                            for the App only (if any); and, to the maximum extent permitted by
+                                            applicable law, neither Apple nor Google will have other warranty obligation
+                                            whatsoever with respect to the App, and any other claims, losses,
+                                            liabilities, damages, costs or expenses attributable to any failure to
+                                            conform to any warranty will CEonpoint’s responsibility.</p>
+                                        <p>You hereby acknowledge and agree that Apple and Google (and their
+                                            affiliates), are third party beneficiaries of these Terms, and that, upon
+                                            your acceptance of the terms and conditions of these Terms, Apple and Google
+                                            will have the right (and will be deemed to have accepted the right) to
+                                            enforce these Terms against you as third party beneficiaries thereof.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Confidentiality.</b></p>
+                                        <p>Neither party shall disclose any Confidential Information to any third party
+                                            except to its employees, attorneys, tax or accounting professionals who have
+                                            a legitimate need to know and who have agreed to be bound by the provisions
+                                            of a confidentiality agreement at least as stringent as the ones
+                                            herein.&nbsp; Each party shall further protect the Confidential Information
+                                            to the same extent as it protects its own information of a similar type.</p>
+                                        <p>For the purposes herein stated, “Confidential Information” shall be defined
+                                            as the digital, verbal and/or written disclosures, documents or
+                                            communications, stored in either written, graphic, digital, optical
+                                            electromagnetic form or in software as a service systems, commonly known as
+                                            “the cloud”, e-mails, optical disks, memory cards or removable drives or any
+                                            other means that can retain information.</p>
+                                        <p>Confidential Information shall not include, information that: (i) is in the
+                                            public domain at the time of disclosure; (ii) becomes publicly available
+                                            through no fault of the recipient party and without breach of these Terms,
+                                            (iii) is already in the lawful possession of a party without restriction
+                                            prior to disclosure; (iv) becomes rightfully known to a party without
+                                            restriction from a source other than the disclosing party; or that (v) is
+                                            required to be disclosed by virtue of an order of a competent court or a
+                                            legal requirement; shall not be deemed Confidential Information.</p>
+                                        <p><b> </b></p>
+                                        <p><b>User Representations and Warranties.</b></p>
+                                        <p>You hereby represent, warrant and covenant that: (i) your use of our Site and
+                                            Services, and all your uploaded and used data shall be at all times
+                                            compliant with these Terms and all local, state, federal and international
+                                            laws and regulations applicable to you and your organization; (ii) you have
+                                            obtained all necessary rights, releases and permissions to provide any data
+                                            to CEonpoint and its affiliates, licensors and agents; and to grant the
+                                            rights granted to CEonpoint in these Terms, including without limitation any
+                                            intellectual property rights or rights of publicity, privacy and any use,
+                                            collection and disclosure authorized.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Term, Termination.</b></p>
+                                        <p>The term hereof shall begin on the date that comes first among: (i) first
+                                            access to the Site; (ii) your first access or execution of our Services; or
+                                            (iii) CEonpoint begins providing its Services to you.</p>
+                                        <p>The term hereof will automatically end on the earlier date of either your:
+                                            (i) account deactivation, suspension, freezing or deletion; (ii) access
+                                            termination or revocation for our Services; (iii) CEonpoint's termination of
+                                            these Terms, at its sole and final discretion; (iv) the termination date
+                                            indicated by CEonpoint to you from time to time; or (v) CEonpoint’s decision
+                                            to make the Site or the Services no longer available for use, at its sole
+                                            and final discretion.</p>
+                                        <p>Professionals can terminate or close their account by going to the edit
+                                            profile tab and answer YES to the close account section. Your account will
+                                            now be deactivated and will be stored within 90 days for complaints and/or
+                                            legal purposes and then deleted from the database.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Termination for cause by CEonpoint.</b></p>
+                                        <p>These Terms, along with any and all licenses granted hereof may or will
+                                            automatically terminate if you breach any of the terms and conditions
+                                            contained herein.&nbsp; Upon termination for breach, your rights to use our
+                                            Site, our Services and any information provided or generated thereby shall
+                                            cease and you shall not be entitled to any compensation, credit, remedy or
+                                            refund of any nature.&nbsp; In this case, please contact our support
+                                            department in order to initiate the process of receiving a backup copy of
+                                            your user data, if any, subject to the terms and conditions of our
+                                            providers, such as Amazon Web Services.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Disclaimer of Damages.</b></p>
+                                        <p>To the fullest extent permissible under applicable law, the Site, the App and
+                                            the Services are provided to you “as is”, with “all faults” and “as
+                                            available”, without warranty of any kind.&nbsp; CEonpoint, and its
+                                            affiliates, clients, agents, officers, licensors and/or distributors, do not
+                                            make, and hereby disclaim, any and all express, implied or statutory
+                                            warranties, either by statute, common law, custom, usage of trade, course of
+                                            dealing or otherwise, however arising, including implied warranties of
+                                            description, quality, fitness for a particular purpose, non-infringement,
+                                            non-interference with use and/or enjoyment.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Specific Disclaimer.</b></p>
+                                        <p>All content is for references purposes only, and should not be construed to
+                                            be actual educative content, certified educational material, or government
+                                            sanctioned curricula.&nbsp; All content is provided by third parties, which
+                                            are independent contractors of CEonpoint.</p>
+                                        <p>You bear sole responsibility for your own healthcare decisions.&nbsp; None of
+                                            the classes, workshops or recommendations from CEonpoint (if any) should be
+                                            performed or otherwise undertook without previous clearance from your
+                                            physician or health care provider.&nbsp; During tutorials, please be aware
+                                            of your surroundings and act safely.&nbsp; You agree that your use of
+                                            CEonpoint and any and all tutorials, classes, workshops or recommendations
+                                            from therefrom are at your own risk, and it is your responsibility to
+                                            maintain such health, liability, hazard, personal injury, medical, life, and
+                                            other insurance policies as you deem reasonably necessary for any injuries
+                                            that you may incur while using our Services.</p>
+                                        <p>The information contained within CEonpoint is not intended to provide
+                                            specific physical or mental health advice, nor be considered or interpreted
+                                            as the practice of the physical therapy, medical, pharmaceutical and/or the
+                                            infirmary professions or any other medical advice whatsoever, for any
+                                            individual or company, and should not be relied upon in that regard.&nbsp;
+                                            Neither CEonpoint nor its affiliates are health, medical and/or fitness
+                                            professionals, their advice (if any) is not meant as a substitute for
+                                            medical advice, no doctor-patient relationship arises between you and
+                                            CEonpoint, and nothing on this Site should be misconstrued to mean
+                                            otherwise.</p>
+                                        <p>For people in poor health or with pre-existing physical or mental health
+                                            conditions, there may be risks associated with the tutorials, classes,
+                                            workshops and recommendations displayed on CEonpoint (if any).</p>
+                                        <p>Due to the existence of these risks, you should not implement any tutorials,
+                                            classes, workshops or recommendations from CEonpoint, nor any exercise or
+                                            physical routine displayed if you are poor health or have a pre-existing
+                                            mental or physical health conditions, or if you are not currently able to
+                                            assess whether you are overall fit to take our dance tutorials, classes,
+                                            workshops or recommendations.</p>
+                                        <p>Neither CEonpoint nor its affiliates are responsible for any injuries or
+                                            health problems you may experience, or even death, as a result of
+                                            implementing any of the aforementioned dance tutorials, classes, workshops
+                                            or recommendations.&nbsp; If you choose to follow any of the dance
+                                            tutorials, classes, workshops or recommendations (if any), you do so of your
+                                            own free will and accord, knowingly and voluntarily accepting all risks
+                                            associated with such dietary activities.&nbsp; Accordingly, you hereby
+                                            acknowledge and agree that neither CEonpoint nor its affiliates have any
+                                            obligation to review your mental and/physical health and/or status.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Warranty Disclaimer.</b></p>
+                                        <p>In no event shall CEonpoint, its affiliates, clients, agents, officers,
+                                            licensors, distributors and/or any authorized third party, be held liable
+                                            for any special, indirect, incidental or consequential damages, including
+                                            losses, costs or expenses of any kind resulting from possession, access,
+                                            use, inaccessibility or malfunction of the Site, the App or the Services,
+                                            including but not limited to, loss of revenue, profits, business, loss of
+                                            use or lack of availability of computer resources; whatsoever arising out of
+                                            or related thereto, whether arising in tort (including negligence),
+                                            contract, strict liability or other legal or equitable theory and whether or
+                                            not CEonpoint, its affiliates, clients, licensors and/or distributors have
+                                            been advised of the possibility of such damages.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Limitation of Liability.</b></p>
+                                        <p>If a user suffers loss or damage as a result of CEonpoint’s negligence or
+                                            failure to comply with these Terms, any claim by such user against us will
+                                            be limited in respect of any one incident, or series of connected incidents,
+                                            to the fees paid by such user in the previous three (3) months or the amount
+                                            of direct loss or damage suffered by the customer, whichever is less.</p>
+                                        <p>These Terms provide you with specific legal rights, and you may have other
+                                            rights that may vary from jurisdiction to jurisdiction.&nbsp; Legislation of
+                                            some states/countries does not allow certain limitations of liability, and
+                                            henceforth this limitation of liability shall apply to the fullest extent
+                                            permitted by law in the applicable jurisdiction.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Indemnification.</b></p>
+                                        <p>You shall indemnify, hold harmless, and defend CEonpoint, its affiliates,
+                                            clients, agents, officers, licensors, distributors and/or any authorized
+                                            representatives, and the officers, directors and employees of each (jointly,
+                                            the “<b>CEonpoint’s Indemnitees</b>”) from and against any and all third
+                                            party liabilities, claims, causes of action, suits, losses, damages, fines,
+                                            judgments, settlements and expenses (including any and all reasonable
+                                            outside attorneys’ fees and court costs) which may be suffered, made or
+                                            incurred by any of such CEonpoint’s Indemnitees arising out of or relating
+                                            to: (i) any breach of any warranties, representations and/or covenants made
+                                            by you hereunder (to the extent not arising substantially from any breach
+                                            hereof by CEonpoint); and/or (ii) any third party claim arising out of or in
+                                            relation to CEonpoint or use thereof in combination with your business
+                                            platform, including without limitation, any claim that CEonpoint violates,
+                                            infringes, or misappropriates any proprietary or intellectual property right
+                                            of any third party, including without limitation, any privacy right of any
+                                            person, or violates any applicable law.</p>
+                                        <p><b> </b></p>
+                                        <p><b>General Terms.</b></p>
+                                        <p><u>Assignment</u>.&nbsp; These Terms will inure to the benefit of any
+                                            successors of the parties.&nbsp; We may assign any rights or obligations
+                                            hereunder to any current or future affiliated company and to any successor
+                                            in interest.&nbsp; Any rights not expressly granted herein are thereby
+                                            reserved.&nbsp; These terms will inure to the benefit of any successors of
+                                            the parties.&nbsp; We reserve the right, at any time, to transfer some or
+                                            all of CEonpoint’s assets in connection with a merger, acquisition,
+                                            reorganization or sale of assets or in the event of bankruptcy.</p>
+                                        <p><u>Entire Agreement</u>.&nbsp; These Terms set forth the entire agreement
+                                            between the parties hereof and may not be altered or amended except in
+                                            writing signed by both parties.</p>
+                                        <p><u>Equitable remedies</u>.&nbsp; You hereby acknowledge and agree that if
+                                            these Terms are not specifically enforced, CEonpoint will be irreparably
+                                            damaged, and therefore you agree that CEonpoint shall be entitled, without
+                                            bond, other security or proof of damages, to appropriate equitable remedies
+                                            with respect to your breach of any of these Terms, in addition to any other
+                                            available remedies.</p>
+                                        <p><u>Force Majeure</u>.&nbsp; CEonpoint shall not be liable for any failure of
+                                            performance on its obligations as set forth herein, where such failure
+                                            arises from any cause beyond our reasonable control, including but not
+                                            limiting to, electronic, power, mechanic or Internet failure.</p>
+                                        <p><u>Headings</u>. The titles of paragraphs in these Terms are shown only for
+                                            ease of reference and will not affect any interpretation therefrom.</p>
+                                        <p><u>Language</u>.&nbsp; These Terms may be translated into other languages,
+                                            but English shall be and remain the official language of this agreement and
+                                            in any conflict between the English language version and any other version,
+                                            the English language version shall control.</p>
+                                        <p><u>Newsletters</u>.&nbsp; The Site may allow you to subscribe to our
+                                            newsletter service, which may be provided by us or through an authorized
+                                            third party.&nbsp; Through our newsletters, you may receive information
+                                            according to your subscriber preferences.&nbsp; As our subscriber, you will
+                                            receive a conspicuous communication indicating any subscription and you will
+                                            be able to select the amount and type of emails received by you.&nbsp; If
+                                            you wish to unsubscribe, you will find ‘unsubscribe’ and similar links on
+                                            our communications.</p>
+                                        <p><u>No Embargo</u>.&nbsp; You hereby represent and warrant that: (i) you are
+                                            not located in a country that is subject to an international government’s
+                                            embargo, or that has been designated by any nation’s government as a
+                                            “terrorist supporting” country; and (ii) you are not listed on any
+                                            government’s list of prohibited or restricted parties or activities.</p>
+                                        <p><u>No Waiver</u>.&nbsp; Failure by CEonpoint to enforce any rights hereunder
+                                            shall not be construed as a waiver of any rights with respect to the subject
+                                            matter hereof.</p>
+                                        <p><u>No Relationship</u>.&nbsp; You and CEonpoint are independent contractors,
+                                            and no agency, partnership, joint venture, employee-employer, or
+                                            franchiser-franchisee relationship is intended or created by these Terms.
+                                        </p>
+                                        <p><u>Notices</u>.&nbsp; All notices and other communications given or made
+                                            pursuant to these Terms must be in writing and will be deemed to have been
+                                            given upon the earlier of actual receipt or: (a) personal delivery to the
+                                            party to be notified; (b) when sent, if sent by facsimile or electronic mail
+                                            during normal business hours of the recipient, and if not sent during normal
+                                            business hours, then on the recipient’s next business day; (c) five days
+                                            after having been sent by registered or certified mail, return receipt
+                                            requested, postage prepaid; or (d) one business day after deposit with a
+                                            nationally recognized overnight courier, freight prepaid, specifying next
+                                            business day delivery, with written verification of receipt.&nbsp; Each
+                                            party agrees to receive electronic documents and to accept electronic
+                                            signatures, which shall thereto be considered valid substitutes for hardcopy
+                                            documents and hand inked signatures.</p>
+                                        <p><u>Severability</u>.&nbsp; If any provision of these Terms is held
+                                            unenforceable, then such provision will be modified to reflect the parties'
+                                            intention.&nbsp; All remaining provisions of these Terms will remain in full
+                                            force and effect.</p>
+                                        <p><u>Taxes</u>.&nbsp; You are responsible for complying with all tax
+                                            obligations associated with your account.&nbsp; It is important that you
+                                            keep complete and accurate contact details in order for us to remit
+                                            invoices, especially payment </p>
+                                        <p><b> </b></p>
+                                        <p><b>Applicable Law.</b></p>
+                                        <p>You agree to submit to the applicable laws in the City of [-------------],
+                                            State of [-------------], United States of America, which will govern these
+                                            Terms and any claim, without regard to conflict of law provisions.&nbsp; If
+                                            you bring a dispute in a manner other than in accordance with this section,
+                                            you agree that we may move to have it dismissed, and that you will be
+                                            responsible for our reasonable attorney’s fees, court costs, and
+                                            disbursements in doing so.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Dispute Resolution.</b></p>
+                                        <p><u>Applicability of Arbitration Agreement</u>.&nbsp; All claims and disputes
+                                            (excluding claims for injunctive or other equitable relief as set forth
+                                            below) in connection with the Terms or the use of any product or service
+                                            provided by CEonpoint that cannot be resolved informally shall be resolved
+                                            by binding arbitration on an individual basis under the terms of these
+                                            Terms.&nbsp; Unless otherwise agreed to, all arbitration proceedings shall
+                                            be held in English.&nbsp; This arbitration applies to you and CEonpoint, and
+                                            to any subsidiaries, affiliates, agents, employees, predecessors in
+                                            interest, successors, and assigns, as well as all authorized or unauthorized
+                                            users or beneficiaries of services or goods provided under these Terms.</p>
+                                        <p><u>Notice Requirement and Informal Dispute Resolution</u>.&nbsp; Before
+                                            either party may seek arbitration, the party must first send to the other
+                                            party a written Notice of Dispute (a “<b>Notice</b>”) describing the nature
+                                            and basis of the claim or dispute, and the requested relief.&nbsp; A Notice
+                                            to CEonpoint should be sent to our address as indicated in our contact
+                                            section.&nbsp; After the Notice is received, you and CEonpoint may attempt
+                                            to resolve the claim or dispute informally.&nbsp; If you and CEonpoint do
+                                            not resolve the claim or dispute within thirty (30) days after the Notice is
+                                            received, either party may begin an arbitration proceeding. The amount of
+                                            any settlement offer made by any party may not be disclosed to the
+                                            arbitrator until after the arbitrator has determined the amount of the
+                                            award, if any, to which either party is entitled.&nbsp; The amount of the
+                                            award shall also be limited by the Limitation of Liability section of these
+                                            Terms, to the extent applicable.</p>
+                                        <p><u>Arbitration Rules</u>.&nbsp; Arbitration shall be initiated through the
+                                            American Arbitration Association (“<b>AAA</b>”), an established alternative
+                                            dispute resolution provider (“<b>ADR Provider</b>”) that offers arbitration
+                                            as set forth in this section.&nbsp; If AAA is not available to arbitrate,
+                                            the parties shall agree to select an alternative ADR Provider. The rules of
+                                            the ADR Provider shall govern all aspects of the arbitration, including but
+                                            not limited to the method of initiating and/or demanding arbitration, except
+                                            to the extent such rules are in conflict with the Terms.&nbsp; </p>
+                                        <p>The AAA Consumer Arbitration Rules governing the arbitration are available
+                                            online at www.adr.org or by calling the AAA at 1-800-778-7879.&nbsp; The
+                                            arbitration shall be conducted by a single, neutral arbitrator. Any claims
+                                            or disputes where the total amount of the award sought is less than Ten
+                                            Thousand U.S. Dollars (US $10,000.00) may be resolved through binding
+                                            non-appearance-based arbitration, at the option of the party seeking relief.
+                                            For claims or disputes where the total amount of the award sought is Ten
+                                            Thousand U.S. Dollars (US $10,000.00) or more, the right to a hearing will
+                                            be determined by the Arbitration Rules.</p>
+                                        <p>Any hearing will be held in a location within 100 miles of CEonpoint’s
+                                            business premises, unless you reside outside of the USA, and unless the
+                                            parties agree otherwise.&nbsp; If you reside outside of the USA, the
+                                            arbitrator shall give the parties reasonable notice of the date, time and
+                                            place of any oral hearings, as detailed herebelow. Any judgment on the award
+                                            rendered by the arbitrator may be entered in any court of competent
+                                            jurisdiction. Each party shall bear its own costs (including attorney’s
+                                            fees) and disbursements arising out of the arbitration and shall pay an
+                                            equal share of the fees and costs of the ADR Provider.</p>
+                                        <p><u>Additional Rules for Non-Appearance Based Arbitration</u>.&nbsp; If
+                                            non-appearance based arbitration is elected, the arbitration shall be
+                                            conducted by telephone, reputable video conference based tools and/or based
+                                            solely on written submissions; the specific manner shall be chosen by the
+                                            party initiating the arbitration.&nbsp; The arbitration shall not involve
+                                            any personal appearance by the parties or witnesses unless otherwise agreed
+                                            by the parties.</p>
+                                        <p><u>Time Limits</u>.&nbsp; If you or CEonpoint elect to pursue arbitration,
+                                            the arbitration action must be initiated and/or demanded within the statute
+                                            of limitations (i.e., the legal deadline for filing a claim) and within any
+                                            deadline imposed under the AAA Rules for the pertinent claim.</p>
+                                        <p><u>Authority of Arbitrator</u>.&nbsp; If arbitration is initiated, the
+                                            arbitrator will decide the rights and liabilities, if any, of you and
+                                            CEonpoint, and the dispute will not be consolidated with any other matters
+                                            or joined with any other cases or parties. The arbitrator shall have the
+                                            authority to grant motions dispositive of all or part of any claim. The
+                                            arbitrator shall have the authority to award monetary damages, and to grant
+                                            any non-monetary remedy or relief available to an individual under
+                                            applicable law, the AAA Rules, and the Terms.</p>
+                                        <p>The arbitrator shall issue a written award and statement of decision
+                                            describing the essential findings and conclusions on which the award is
+                                            based, including the calculation of any damages awarded. The arbitrator has
+                                            the same authority to award relief on an individual basis that a judge in a
+                                            court of law would have. The award of the arbitrator is final and binding
+                                            upon you and CEonpoint.</p>
+                                        <p><u>Emergency Equitable Relief</u>. Notwithstanding the foregoing, either
+                                            party may seek emergency equitable relief before a state or federal court in
+                                            order to maintain the status quo pending arbitration.</p>
+                                        <p><u>Courts</u>. In any circumstances where the foregoing Arbitration Agreement
+                                            permits the parties to litigate in court, the parties hereby agree to submit
+                                            to the personal jurisdiction of the courts located in [-------------], City
+                                            of [-------------], State of [-------------], United States of America, for
+                                            such purposes.</p>
+                                        <p><u>Waiver of Class Actions, Non-Individualized Relief</u>. You acknowledge
+                                            and accept that claims brought against CEonpoint shall be only on an
+                                            individual basis and not as a plaintiff or class member in any possible
+                                            future class or representative action or similar proceeding.&nbsp; Unless
+                                            otherwise agreed by you and CEonpoint, you may not adjoin or consolidate any
+                                            claim with more than one person's; and you may not otherwise supervise or
+                                            take over any form of a class, representative or consolidated proceeding.
+                                        </p>
+                                        <p><u>Waiver of Jury Trial</u>. The parties herein waive their constitutional
+                                            and statutory rights to go to court and have a trial in front of a judge or
+                                            a jury, instead electing that all claims and disputes be resolved by a
+                                            competent judge.</p>
+                                        <p><b> </b></p>
+                                        <p><b>Contact.</b></p>
+                                        <p>If you have any questions or comments about us, our Site, our Terms and/or
+                                            these Terms, please contact us at: </p>
+                                        <p>[-------------]</p>
+                                        <p>[-------------]</p>
+                                        <p>[-------------]</p>
+                                        <p><b>Date of last effective update is [---------], 2019.</b></p>
+                                        <p><b> </b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u>Copyright Policy</u></b></p>
+                                        <p><b>Scope of this Policy.</b></p>
+                                        <p>Welcome, this is the Copyright Policy (the “<b>Policy</b>”) for the website
+                                            located at www.ceonpoint.com (the “<b>Site</b>”), including its sub-domains
+                                            and its mobile optimized versions.&nbsp; This Policy shall supplement our
+                                            Privacy Policy and our Terms of Use, along with any other guidelines, terms
+                                            and policies made available by us from time to time, all incorporated herein
+                                            by reference.</p>
+                                        <p>The Site is operated by CEonpoint LLC, hereinafter referred to as
+                                            “<b>CEonpoint</b>”.&nbsp; As used herein, the terms<b> </b>‘<b>us</b>’,
+                                            ‘<b>its</b>’, ‘<b>ours</b>’ and/or ‘<b>we</b>’, as used herein, refer to
+                                            CEonpoint and/or its affiliates, assignees, successors and/or brands.
+                                            &nbsp;As used herein, the terms ‘<b>you</b>’, ‘<b>your</b>’, and/or
+                                            ‘<b>yourself</b>’ refer to you, a user/visitor/browser of our Site, whether
+                                            registered under an account or not.</p>
+                                        <p><b>Copyright and Content Ownership.</b></p>
+                                        <p>The trademarks, copyright, service marks, trade names and other intellectual
+                                            property rights and proprietary notices displayed on the Site and our
+                                            products and services are the property of –or otherwise are licensed to–
+                                            CEonpoint and/or its licensors or affiliates, whether acknowledged (or not),
+                                            and which are protected under intellectual and proprietary rights in various
+                                            jurisdictions throughout the world.</p>
+                                        <p>Respective title holders may or may not be affiliated with us or our
+                                            affiliates, partners and advertisers.&nbsp; No section hereof shall be
+                                            construed as intent to grant to you any right transfer or interest in the
+                                            Site and our products and services.</p>
+                                        <p>For ease of understanding, ‘intellectual property rights’ shall mean any and
+                                            all patent rights, copyright rights, mask work rights, moral rights, rights
+                                            of publicity, trademark, trade dress and service mark rights, goodwill,
+                                            trade secret rights and other intellectual property rights as may now exist
+                                            or hereafter come into existence, and all applications therefore and
+                                            registrations, renewals and extensions thereof, under the laws of Canada,
+                                            the United States and other applicable jurisdictions.</p>
+                                        <p>You acknowledge and agree that any and all infringing use or exploitation of
+                                            copyrighted content in the Site and our products and services may cause us,
+                                            our affiliates, licensors or content providers irreparable injury, which may
+                                            not be remedied solely at law, and therefore our affiliates, licensors or
+                                            content providers may seek remedy for breach of this Policy, either in
+                                            equity or through injunctive or other equitable relief.</p>
+                                        <p><b>CEonpoint Content.</b></p>
+                                        <p>Our Service requires that you receive certain content from our platform,
+                                            encompassing audio, video, texts, materials other content for study of the
+                                            PMP certification.&nbsp; Reproduction and sharing of training material is
+                                            strictly forbidden and all civil and criminal measures will be taken by
+                                            CEonpoint against the offender.&nbsp; Digitally recording and sharing of the
+                                            online classes is strictly forbidden and all civil and criminal measures
+                                            will be taken by CEonpoint against the offender.</p>
+                                        <p><b>User Licenses.</b></p>
+                                        <p><u>Limited License</u>.&nbsp; CEonpoint grants you a limited, non-exclusive,
+                                            revocable, royalty free and non-transferable license to utilize and access
+                                            the Services.&nbsp; You are prohibited from duplicating, re-engineering,
+                                            reverse engineering, modifying or otherwise using the Services, in whole or
+                                            in part.&nbsp; CEonpoint does not grant any express or implied right to you
+                                            under any patents, trademarks, copyrights or trade secret information; and
+                                            you shall have no right, either directly or indirectly, to own, use, loan,
+                                            sell, rent, lease, license, sublicense, assign, copy, translate, modify,
+                                            adapt, improve or create any new or derivative works from, or display,
+                                            distribute, perform or in any way exploit any downloaded Services and
+                                            computer applications, in whole or in part.</p>
+                                        <p><u>User Generated Content License</u>.&nbsp; You hereby grant CEonpoint an
+                                            unlimited, non-exclusive, sub-licensable, assignable, royalty-free,
+                                            perpetual, irrevocable, for all the countries and territories through the
+                                            world, right and license to use, host, store, reproduce, modify, create
+                                            derivative works (such as those resulting from translations, adaptations or
+                                            other changes), communicate, publish, publicly perform, publicly display and
+                                            distribute such any content you may upload, disseminate, deliver, create or
+                                            transfer any post, original audio file, message, chat, files uploaded, data
+                                            inputted, e-mails sent, or otherwise any content delivered to CEonpoint via
+                                            the Site or the Services.&nbsp; You represent and warrant to CEonpoint that
+                                            you have all rights, authorizations or otherwise hold sufficient title for
+                                            any and all content submitted to CEonpoint as set forth herein.</p>
+                                        <p><u>Feedback License</u>.&nbsp; You hereby grant CEonpoint an unlimited,
+                                            non-exclusive, sub-licensable, assignable, royalty-free, perpetual,
+                                            irrevocable, for all the countries and territories through the world, right
+                                            and license to use, host, store, reproduce, modify, create derivative works
+                                            (such as those resulting from translations, adaptations or other changes),
+                                            communicate, publish, publicly perform, publicly display and distribute such
+                                            any suggestions, feedback, recommendations, comments and know how that you
+                                            provide to CEonpoint regarding the Site and Services.</p>
+                                        <p><b>Proprietary Rights.</b></p>
+                                        <p>The trademarks, copyright, service marks, trade names and other intellectual
+                                            property rights and proprietary notices displayed on the Site and the
+                                            Services are the property of or otherwise are licensed to CEonpoint and its
+                                            licensors and affiliates, whether acknowledged (or not), and which are
+                                            protected under intellectual property laws, including copyright laws and
+                                            treaties and other jurisdictions throughout the world.&nbsp; </p>
+                                        <p>Respective title holders may or may not be affiliated with us or our
+                                            affiliates, partners and advertisers.&nbsp; No section hereof shall be
+                                            construed as intent to grant to you any right transfer or interest in the
+                                            Site or our Services, in whole or in part.</p>
+                                        <p>You acknowledge and agree that any and all infringing use or exploitation of
+                                            copyrighted content in the Site and/or the Services may cause us, our
+                                            affiliates, licensors or content providers irreparable injury, which may not
+                                            be remedied solely at law, and therefore our affiliates, licensors or
+                                            content providers may seek remedy for breach of these Terms, either in
+                                            equity or through injunctive or other equitable relief.</p>
+                                        <p><b>Digital Millennium Copyright Act (‘DMCA’) Notice.</b></p>
+                                        <p>In compliance with the DMCA, we inform you that CEonpoint LLC is the
+                                            Designated Copyright Agent for DMCA Takedown Notices and intellectual
+                                            property rights infringement policing though the Site, which you may contact
+                                            by email at contact@ceonpoint.com.&nbsp; You can review the DMCA text at the
+                                            U.S. Copyright Office website.&nbsp; CEonpoint takes copyright infringement
+                                            matters seriously, and is ready to remove any allegedly or factually
+                                            infringing content displayed on the Site upon due notice and request by the
+                                            title holder.&nbsp; </p>
+                                        <p>The following procedure will apply for any content displayed through the Site
+                                            that allegedly infringes the intellectual property rights of you or of any
+                                            third party.&nbsp; You must notify us of your claim with subject: "Takedown
+                                            Request".&nbsp; Once received, CEonpoint will study and consider your claim
+                                            and, if it believes or has reason to believe any content on the Site
+                                            infringes on another’s copyright, CEonpoint may delete it, disable or
+                                            otherwise stop displaying it.</p>
+                                        <p>Your notification claim must be in writing and must at least contain the
+                                            following information: (i) your signature and identification, or the ones
+                                            the person authorized to act on behalf of you or the title holder; (ii) a
+                                            clear and concise description of the content of which its copyright has
+                                            allegedly been infringed; (iii) contact information (e.g. address and
+                                            email); and (iv) a statement, under penalty of perjury, indicating that you
+                                            have a good faith belief that the information provided in your claim is true
+                                            and accurate.</p>
+                                        <p> </p>
+                                        <p><b>DMCA Counter Claim Notice.</b></p>
+                                        <p>Given our business model, our affiliates, advertisers, partners and third
+                                            party syndicated content providers may be adversely affected due to a DMCA
+                                            Takedown Notice.&nbsp; Accordingly, upon receipt of any such notice, we will
+                                            try to contact the content owner or webmaster of the affected site to uphold
+                                            their right to a Counter Claim Notice, under Sections 512(g)(2) and (3) of
+                                            the DMCA.&nbsp; To file a Counter Claim Notice, please contact our
+                                            Designated Agent indicated above, in writing, and with a Counter Claim
+                                            Notice containing the following information, at a minimum: (i) express
+                                            identification of the content that we may have or have removed from our Site
+                                            and section or domain it was displayed; (ii) contact information, such as
+                                            your address and your email address; (iii) a signature and identification of
+                                            the title holder and/or the person authorized to act; and (iv) a statement
+                                            indicating that you swear, under penalty of perjury, that you have a good
+                                            faith belief that the information provided in the Counter Claim Notice is
+                                            true and accurate.</p>
+                                        <p><b>Content</b><b> Moderation.</b></p>
+                                        <p>CEonpoint encourages you to report violations of our Policy.&nbsp; CEonpoint
+                                            has the right, but not the obligation, to monitor any activity and user
+                                            generated content (e.g. names, photos, posts, feedback, images, comments,
+                                            graphics, questions and other content) to determine compliance thereof, and
+                                            to edit, refuse to post or remove any material or content submitted to or
+                                            posted the Site that we find to be in violation of this Policy or that is
+                                            otherwise objectionable. </p>
+                                        <p>You acknowledge and agree that we may report any activity that we believe may
+                                            violate any law to law enforcement, regulators or other relevant third
+                                            parties, and that any violation of the aforementioned provisions may result
+                                            in the immediate termination of your access to the Site and use of our
+                                            products and services.</p>
+                                        <p><b>Amendments, Updates.</b></p>
+                                        <p>We reserve the right to amend, change, suspend and/or update this Policy, in
+                                            whole or in part, from time to time and at our sole and final discretion.
+                                        </p>
+                                        <p>Your continued use thereof after the last effective date of modifications
+                                            thereof indicates your acceptance of such modifications.&nbsp; We will post
+                                            any updates on our Site, and may also send you an email or otherwise notify
+                                            you of any material changes to this Policy.</p>
+                                        <p>If you have any questions or queries about us, our Site, our Terms, our
+                                            Privacy Policy and/or this Policy, please contact us at:</p>
+                                        <p>[-------------]</p>
+                                        <p>[-------------]</p>
+                                        <p>[-------------]</p>
+                                        <p><b>Date of last effective update is [---------], 2019.</b></p>
+                                        <p> </p>
+                                        <p> </p>
+                                        <p> </p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u> </u></b></p>
+                                        <p><b><u>Privacy Policy</u></b></p>
+                                        <p><b>Introduction &amp; General Scope.</b></p>
+                                        <p>Welcome, this is the Privacy Policy and Personal Data Notice applicable for
+                                            the website available at www.ceonpoint.com, encompassing its sub-domains and
+                                            its mobile optimized versions.&nbsp; We also recommend you to read our
+                                            Terms, along with any and all of our rules, guidelines and ancillary
+                                            policies (if any), all included herein by reference.</p>
+                                        <p>Unless otherwise stated to the contrary, this Policy applies to this Site,
+                                            and any website that references this Policy, any of CEonpoint’s operated
+                                            websites and platforms, as well as any data we may collect across partnered
+                                            and unaffiliated websites.</p>
+                                        <p><b>Definitions.</b></p>
+                                        <p><b>Privacy Policy </b>shall be referred to as
+                                            the<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                “Policy”</b></p>
+                                        <p><b>CEonpoint LLC</b> shall be referred to
+                                            as&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            “<b>CEonpoint”</b> and “<b>our”,</b> “<b>us”</b> or “<b>we”.</b></p>
+                                        <p><b>www.ceonpoint.com </b>shall be referred to as the&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            “<b>Site”</b></p>
+                                        <p><b>A visitor or end user of our Site</b> is referred to
+                                            as&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            “<b>you”,</b> “<b>your(s)”</b> or “<b>yourself”</b>.</p>
+                                        <p><b>Personally Identifiable Information</b> shall be referred to
+                                            as&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; “<b>PI”</b></p>
+                                        <p><b>Terms and Conditions of Service</b> shall be referred to
+                                            as&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <b>“Terms”</b></p>
+                                        <p>In addition, the terms “<b>collect</b>”, “<b>process</b>”, “<b>treat</b>”,
+                                            “<b>use</b>”, “<b>share</b>”, “<b>disclose</b>”, “<b>divulge</b>” and
+                                            analogous words shall be refer to your PI and other data collected from our
+                                            visitors and end users.</p>
+                                        <p><b>Services Offered.</b></p>
+                                        <p>CEonpoint provides, operates and manages an online platform that provides
+                                            continuing education (CE) to all professionals worldwide. It is available at
+                                            website and mobile app anytime, anywhere.&nbsp; All online courses and
+                                            training are uploaded by accredited CE providers in different countries so
+                                            you can be sure that you are receiving only the best from the experts in
+                                            their own field of specialization. &nbsp;We also provide other online
+                                            services, as indicated on our Site from time to time.</p>
+                                        <p><b>User Agreement &amp; Registration.</b></p>
+                                        <p>This Policy applies to our unregistered general users, registered
+                                            professionals and CE providers.&nbsp; Upon reigstration, you will be asked
+                                            to create a profile with us, by clicking on the “I Agree” checkbox on the
+                                            registration form or box or other similar means.&nbsp; Through that action,
+                                            you thereby acknowledge and agree to the terms of this Policy, which is and
+                                            constitutes a legal, binding agreement between you and CEonpoint.</p>
+                                        <p>This Policy is freely available for your review prior to registration, and if
+                                            you do not agree to its terms, your remedy shall consist of not registering
+                                            into the Site, and exiting the web tab though which you visited us.</p>
+                                        <p>Users can visit our Site anonymously, and henceforth we will collect PI from
+                                            them only if they voluntarily submit such information to us. &nbsp;You can
+                                            always refuse to supply personally PI to CEonpoint, though in that c</p>
+
+                                    </div>
+                            </div>
+
+                           <!---------Notification-content------->
+                            <div class="notifications-infobox mt-3 notification pagesection" style="display:none;">
+                                <div class="login-title mb-3">
+                                    <h6>Notification</h6>
+                                    </div>
+                                <table class="table table-striped table-bordered">
+                                    <tbody><tr>
+                                        <th>No.</th>
+                                        <th>Subject</th>
+                                        <th>Message</th>
+                                        <th>From</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p style="color:red;">Sorry no records found.</p>
+                            </div>
+
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+<div class="mask" style="display:none;"></div>	
 	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
 	
 	 <script type="text/javascript" src="cordova.js"></script>        
@@ -154,7 +1607,6 @@
    <style>
    .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
    </style>
-   
-	
 </body>
+
 </html>

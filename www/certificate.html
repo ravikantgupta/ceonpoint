@@ -26,11 +26,34 @@
 					
 					success:function(data)
 						 {	
-						  						
-							jQuery('#certificate').attr('src',data.certificat);
+						   jQuery('.loading').hide();
+					       jQuery('.mask').hide();						  						
+						   jQuery('#certificate').attr('src',data.data.certificate);
 						 }
 			      });
 	}
+	
+	function downCertificate()
+		{
+			 var ref = window.open('http://docs.google.com/viewer?url='+jQuery('#certificate').attr('src'), '_system', 'location=yes');
+			
+		}
+function printDiv() 
+{
+
+  var divToPrint=document.getElementById('certificatectsec');
+
+  var newWin=window.open('','Print-Window');
+
+  newWin.document.open();
+
+  newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
+  newWin.document.close();
+
+  setTimeout(function(){newWin.close();},10);
+
+}	
 </script>	
     <header>
         <div class="container-fluid">
@@ -63,10 +86,10 @@
              
 				<div class="col-12">
 					<div class="send-icon">
-				        <a href="javascript:void(0)" onclick="nextpage('certficatuplod.html')">
+				        <a href="javascript:void(0)" onclick="nextpagewithback('certificate.html','certficatuplod.html')">
 				        	<img class="img-fluid" src="images/certificate-icon.png" alt="">
 				        </a>
-				        <a href="#">
+				        <a href="javascript:void(0)" onclick="downCertificate()">
 				        	<img class="img-fluid" src="images/document-icon.png" alt="">
 				        </a>
 				        <a href="#">
@@ -75,7 +98,7 @@
 				        <a href="#">
 				        	<img class="img-fluid" src="images/delete-icon.png" alt="">
 				        </a>
-				        <a href="#">
+				        <a href="javascript:void(0)" onclick="printDiv()">
 				        	<img class="img-fluid" src="images/print-icon.png" alt="">
 				        </a>
 				        <a href="javascript:void(0)" onclick="nextpage('send-sms.html')">
@@ -87,9 +110,9 @@
 				    </div>
 				</div>
             
-            	<div class="col-12">
+            	<div class="col-12" id="certificatectsec">
 					<div class="text-center mt-3">
-				        <img class="img-fluid" id="certificate" src="images/certificate.png" alt="">
+				        <img class="img-fluid" id="certificate" src="" alt="">
 				    </div>
 				</div>
              
@@ -99,6 +122,14 @@
 	 <script type="text/javascript" src="cordova.js"></script>        
      <script src="js/jquery-1.11.2.min.js"></script>
      <script src="js/bootstrap.min.js"></script>  
-	
+	<div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	 <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+    <script>
+	 jQuery('.loading').show();
+  jQuery('.mask').show();
+	</script>
 </body>
 </html>
