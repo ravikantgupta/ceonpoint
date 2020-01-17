@@ -345,16 +345,14 @@ function downloadCertificate()
 		jQuery('.mask').show();
        jQuery.ajax({					  
 				type:'POST', 
-				dataType: 'html',                   			
+				dataType: 'JSON',                   			
 				url:base_url+"/professional/download_certificate",
 				data: JSON.stringify({id: course_id,user_id:userdata.id }),				
 				success:function(data)
-					 {	 
-					   console.log(data.data);
-					// window.open(data.data)
+					 {				  
+					   window.open(data.url)
 					   jQuery('.loading').hide();
-						jQuery('.mask').hide();	
-					  													
+						jQuery('.mask').hide();				  													
                         
 					}
 				   }); 
