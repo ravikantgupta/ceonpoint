@@ -62,7 +62,7 @@ var app = {
 
     },
     onSuccesfulPayment : function(payment) {
-     // alert("payment success: " + JSON.stringify(payment, null, 4));
+      alert("payment success: " + JSON.stringify(payment, null, 4));
 	  placeorder();
     },
     // This code is only used for independent card.io scanning abilities

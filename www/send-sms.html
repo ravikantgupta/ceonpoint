@@ -12,8 +12,91 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <script type="text/javascript" src="js/functions.js"></script>	
 </head>
-<body>
+<body onload="setvalue()">
+<script>
+ function setvalue()
+	{
+        var courserid=window.localStorage.getItem("courserid");	
+		
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/certificate_details",
+					data: JSON.stringify({id: courserid }),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+					       jQuery('.mask').hide();						  						
+						   jQuery('#certificate').attr('src',data.data.certificate);
+						 }
+			      });
+	}
+function sendSms()
+{
+ 
+  
+  var send_to=jQuery('#send_to').val();
+  var subject=jQuery('#subject').val();
+  var flag=0;
+  if(send_to=='')
+  {
+    jQuery('.send_to-error').show();
+	flag=1;
+  }
+  if(subject=='')
+  {
+    jQuery('.subject-error').show();
+	flag=1;
+  }
+  if(flag==1)
+  {
+    setTimeout(function(){ jQuery('.error').hide(); }, 3000);
+    return false;
+  }
+   jQuery('.loading').show();
+  jQuery('.mask').show();  
+  var courserid=window.localStorage.getItem("courserid");
+  var userdata=JSON.parse(window.localStorage.getItem("userdata"));  
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/sendcertificate",
+					data: JSON.stringify({user_id:userdata.id,send_to:send_to,cetificate_id: courserid,subject:subject }),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+					       jQuery('.mask').hide();	
+                           
+						   if(data.success=='true')
+						   {
+							  jQuery('.msgpage').show();
+                              jQuery('.sndsmspage').hide();
+							  
+							  jQuery('#cn').html(data.data.cetificate_no);
+							  jQuery('#to').html(data.data.send_to);
+							  jQuery('#rn').html(data.data.recept_no);
+							 
+						   }else
+							{
+							  jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.msg);
+							   
+							} 						   
+						  
+						 }
+			      });
 
+}
+function sendpage()
+{
+   jQuery('#send_to').val('');
+   jQuery('#subject').val('');
+   jQuery('.msgpage').hide();
+   jQuery('.sndsmspage').show();
+
+}	
+</script>	
     <header>
         <div class="container-fluid">
             <div class="row">
@@ -39,50 +122,74 @@
         </div>
     </header>
     
-    <section class="login-banner">
+    <section class="login-banner sndsmspage">
 		<div class="container-fluid">
 			<div class="row">
-	            
+	            <p id="msgstatus"></p>
 	            <div class="col-12">
 	                <div class="send-mail-box mt-2 datalist">
 						<label>Send To :</label>
-						<input list="brow" type="text">
-						<datalist id="brow">
-							<option value="Internet Explorer">Internet Explorer</option>
-							<option value="Firefox">Firefox</option>
-							<option value="Chrome">Chrome</option>
-							<option value="Opera">Opera</option>
-							<option value="Safari">Safari</option>
-							<option value="aryankrsingh2001@gmail.com"></option>
-							<option value="aarifsaifi45@gmail.com"></option>
-							<option value="vikash.wps@gmail.com"></option>
-							<option value="developerrajankumar@gmail.com"></option>
-							<option value="kumar.ravi919@gmail.com"></option>
-							<option value="rajkumar28071994@gmail.com"></option>
-							<option value="nutan2247@gmail.com"></option>
-						</datalist>
+						<input id="send_to" name="send_to" type="text">						
 					</div>
+					<span class="send_to-error error" style="color:red;display:none">Please enter email id</span>
 	            </div>
 	            
 	            <div class="col-12">
 	                <div class="send-mail-box mt-3">
-						<label for="email">Content :</label>
-						<input id="email" type="text" value="Certificate Number 201900205">
+						<label for="subject">Content :</label>
+						<input id="subject" name="subject" type="text" value="">
+					
 					</div>
+					<span class="subject-error error" style="color:red;display:none">Please enter certificate number</span>
 	            </div>
             
             	<div class="col-12">
 					<div class="text-center mt-3">
-				        <img class="img-fluid" src="images/certificate.png" alt="">
+				        <img class="img-fluid" id="certificate" src="" alt="">
 				    </div>
 				</div>
 	            
 	            <div class="col-12 pb-1 mt-4 mb-3">
 					<div class="login-box text-center">
-						<a href="message.html" class="login-btn rounded-0">SEND</a>
+						<a href="javascript:void(0)" onclick="sendSms()" class="login-btn rounded-0">SEND</a>
 					</div>
 				</div>
 				
+			</div>
+		</div>
+	</section>
+
+
+    <section class="login-banner mt-4 msgpage" style="display:none;">
+		<div class="container-fluid">
+			<div class="row">
+			
+			    <div class="col-12">
+                    <div class="login-title mt-1">
+                        <h6>MESSAGE</h6>
+                    </div>
+                </div>
+            
+	            <div class="col-12">
+	                <div class="sent-sms">
+						<p>
+							<span class="gray">Certificate Number :</span> <b id="cn"></b>
+						</p>
+						<p>
+							<span class="gray">Successfully sent to :</span> <b id="to"></b>
+						</p>
+						<p>
+							<span class="gray">Receipt Number : </span> <b id="rn"></b>
+						</p>
+					</div>
+	            </div>
+	            
+	            <div class="col-12 pb-1 mt-4">
+					<div class="login-box text-center">
+						<a href="javascript:void(0)" onclick="sendpage()" class="login-btn rounded-0 px-2">SEND AGAIN</a>
+					</div>
+				</div>
+				    				
 			</div>
 		</div>
 	</section>
@@ -91,6 +198,14 @@
      <script src="js/jquery-1.11.2.min.js"></script>
      <script src="js/bootstrap.min.js"></script>  
 	
-	
+	<div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	 <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+    <script>
+	 jQuery('.loading').show();
+     jQuery('.mask').show();
+	</script>
 </body>
 </html>

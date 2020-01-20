@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>upload card</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+     <script type="text/javascript" src="js/functions.js"></script>
+</head>
+<body>
+<script>
+
+function checkValidation(){
+   
+	     jQuery('.mask').show();
+		 jQuery('.loading').show();
+		 var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+		 var formData = new FormData();
+		 formData.append('user_id', userdata.id);
+		 formData.append('card_no', $('#card_no').val());
+		 formData.append('card_name', $('#card_name').val());
+         formData.append('date_issued', $('#date_issued').val());
+         formData.append('expiry_date', $('#expiry_date').val());
+         formData.append('issue_by', $('#issue_by').val());       
+		 formData.append('photos', $('input[type=file]')[0].files[0]); 
+		
+				jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/savecard",
+					data: formData,	
+					contentType: false,
+				    processData: false,
+					success:function(data)
+						 {	 
+							 jQuery('.mask').hide();
+							 jQuery('.loading').hide();
+						
+							if(data.success=='true')
+							   {
+							     jQuery("#msgstatus").addClass("alert-success").fadeIn(10).text(data.msg);
+							   }else
+								{
+								  jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.msg);
+								   
+								} 										   
+							 
+						}
+				   });
+	   return false;
+}
+</script>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="back-link-box">                       
+                        <div class="back-link">
+                            <a href="javascript:void(0)" onclick="bakpage('completency-card.html')">
+                                <img class="img-fluid" src="images/left.png" alt="">
+                            </a>
+                        </div>                        
+                        <div class="back-logo">
+                            <a href="#">
+                                <img class="img-fluid" src="images/logo-sign.png" alt="">
+                            </a>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>    
+    <section class="login-banner">
+		<div class="container-fluid">
+		 <form method="post" id="uploadcadform" onsubmit="return checkValidation();">
+			<div class="row">
+			
+			    <div class="col-12">
+                    <div class="login-title mt-1">
+                        <h6>Upload Card</h6>
+						<p id="msgstatus"></p>
+                    </div>
+                </div>
+            
+	            <div class="col-12">
+	                <div class="upload-box">
+						<label for="card_no">Card No<sup>*</sup></label>
+						<input id="card_no" name="card_no" type="text" required>
+					</div>
+	            </div>
+	            
+	            <div class="col-12">
+	                <div class="upload-box">
+						<label for="card_name">Card Name<sup>*</sup></label>
+						<input id="card_name" name="card_name" type="text" required>
+					</div>
+	            </div>
+	            				
+				<div class="col-12">
+	                <div class="upload-box">
+						<label for="date_issued">Date Issued <sup>*</sup></label>
+						<input id="date_issued" style="width: 100%;" name="date_issued" type="date" required>
+					</div>
+	            </div>
+				
+				<div class="col-12">
+	                <div class="upload-box">
+						<label for="expiry_date">Expiration Date<sup>*</sup></label>
+						<input id="expiry_date" style="width: 100%;" name="expiry_date" type="date" required>
+					</div>
+	            </div>
+	            
+	           
+	          
+			  <div class="col-12">
+	                <div class="upload-box">
+						<label for="issue_by">Issue By (Name of company)<sup>*</sup></label>
+						<input id="issue_by" name="issue_by" type="text" required>
+					</div>
+	            </div>
+	            <div class="col-12">
+	                <div class="upload-box">
+						<label for="photos">Certficate</label>
+						<input id="photos" name="photos" type="file" required>
+					</div>
+	            </div>
+	            
+	            <div class="col-12">
+	                <div class="continue-btn reg-btn mt-3">
+	                    <button class="btn">SAVE</button>
+	                </div>
+	            </div>
+				    				
+			  </div>
+			</form>
+		</div>
+	</section>
+     <div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	
+	 <script type="text/javascript" src="cordova.js"></script>        
+     <script src="js/jquery-1.11.2.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>    
+   <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+</body>
+</html>

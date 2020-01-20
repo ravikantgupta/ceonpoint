@@ -74,7 +74,7 @@
 									 
 									 
 								var professionhtml='<option value="">Select</option>';
-							  for (i in data.data.countries) {
+							  for (i in data.data.professions) {
 										
 										if(data.data.user.profession==data.data.professions[i].cat_name)
 										{
@@ -93,8 +93,22 @@
 						  
 						 }
 			      });
+				  
+				  
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/notification_list",
+					data: JSON.stringify({user_id: userdata.id }),					
+					success:function(data)
+						 {	
+						   console.log(data);									 
+						  
+						 }
+			      });		  
 		
-		//addfootermenu();
+		//addfootermenu();	
+		
    }
 function changepage(pagesec)
 {

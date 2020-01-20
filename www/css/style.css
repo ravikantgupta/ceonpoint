@@ -2547,6 +2547,42 @@ input.datalist {
     background-color: #7ED321 !important;
     cursor: pointer;
 }
+.privacy-infobox p {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+.privacy-infobox ul {
+    font-size: 13px;
+    padding-left: 15px;
+    overflow: hidden;
+}
+.flex-box{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+.card-info p{
+ margin-bottom: 5px;;
+}
+.action-info a {
+    margin: 4px;
+    font-size: 13px;
+    color: #000;
+}
+.card-tabel {
+    border-color: #212529;
+    margin-bottom: 10px;
+
+}
+.card-tabel td, .card-tabel th {
+    border: none;
+    text-align: left;
+    padding: 5px 10px;
+}
+.action-info {
+    border-top: 1px solid #000!important;
+}
+
 
 /*
 .certificate-modal button.close:focus {

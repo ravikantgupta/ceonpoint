@@ -12,8 +12,41 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <script type="text/javascript" src="js/functions.js"></script>	
 </head>
-<body>
+<body onload="setvalue()">
+<script>
+ function setvalue()
+	{
+        var courserid=window.localStorage.getItem("courserid");	
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));  
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/alredysendto",
+					data: JSON.stringify({user_id:userdata.id,course_id: courserid }),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+					       jQuery('.mask').hide();
 
+                           var reshtml='';
+                           for (i in data.data) {						   
+                               reshtml+='<li><p><b>'+data.data[i].send_to+'</b></p>\
+							    <p><span class="gray">'+data.data[i].date+'</span></p>\
+							   <p><span class="gray">Receipt Number : </span><b>'+data.data[i].recept_no+'</b></p>\
+			    		       </li>';						   
+						    }
+							if(reshtml=='')
+							{
+							 reshtml='<li><p>Not found</p></li>';	
+							
+							}
+							
+							jQuery('.send-list').html(reshtml);
+						 }
+			      });
+	}
+</script>	
     <header>
         <div class="container-fluid">
             <div class="row">
@@ -52,60 +85,7 @@
 		    
 			    <div class="col-12">
 				    <ol class="send-list">
-				    	<li>
-				    		<p><b>ABC Company</b></p>
-							<p>
-								<span class="gray">05 Dec 2019, 06:20 PM</span>
-							</p>
-							<p>
-								<span class="gray">Receipt Number : </span><b>0024251</b>
-							</p>
-			    		</li>
-				    	<li>
-				    		<p><b>WPS Company</b></p>
-							<p>
-								<span class="gray">09 Dec 2019, 06:24 PM</span>
-							</p>
-							<p>
-								<span class="gray">Receipt Number : </span><b>0024252</b>
-							</p>
-				    	</li>
-				    	<li>
-				    		<p><b>Nursing Company</b></p>
-							<p>
-								<span class="gray">28 Dec 2019, 06:45 PM</span>
-							</p>
-							<p>
-								<span class="gray">Receipt Number : </span><b>0024253</b>
-							</p>
-				    	</li>
-				    	<li>
-				    		<p><b>ABC Company</b></p>
-							<p>
-								<span class="gray">02 Nov 2019, 06:57 PM</span>
-							</p>
-							<p>
-								<span class="gray">Receipt Number : </span><b>0024254</b>
-							</p>
-				    	</li>
-				    	<li>
-				    		<p><b>WPS Company</b></p>
-							<p>
-								<span class="gray">15 Nov 2019, 06:24 PM</span>
-							</p>
-							<p>
-								<span class="gray">Receipt Number : </span><b>0024255</b>
-							</p>
-				    	</li>
-				    	<li>
-				    		<p><b>Training Company</b></p>
-							<p>
-								<span class="gray">24 Nov 2019, 06:24 PM</span>
-							</p>
-							<p>
-								<span class="gray">Receipt Number : </span><b>0024256</b>
-							</p>
-				    	</li>
+				    	
 				    </ol>
 				    
 				</div>
@@ -118,6 +98,14 @@
 	 <script type="text/javascript" src="cordova.js"></script>        
      <script src="js/jquery-1.11.2.min.js"></script>
      <script src="js/bootstrap.min.js"></script>  
-	
+	<div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	 <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+    <script>
+	 jQuery('.loading').show();
+     jQuery('.mask').show();
+	</script>
 </body>
 </html>

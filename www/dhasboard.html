@@ -69,12 +69,12 @@
 												<td>\
 													<div class="view-plus-box">\
 														<div class="view">\
-															<a href="javascript:void(0)" onclick="viewcourse('+data.specific_ce_record[i].id+')">\
+															<a href="javascript:void(0)" onclick="viewCertificate('+data.specific_ce_record[i].id+')">\
 																<img class="img-fluid" src="images/view.png" alt="">\
 															</a>\
 														</div>\
 														<div class="plus">\
-															<a href="javascript:void(0)" onclick="viewcourse('+data.specific_ce_record[i].id+')">\
+															<a href="javascript:void(0)" onclick="viewCertificate('+data.specific_ce_record[i].id+')">\
 																<img class="img-fluid" src="images/plus.png" alt="">\
 															</a></div></div></td></tr>';
 										
@@ -101,12 +101,12 @@
 															<td>\
 																<div class="view-plus-box">\
 																	<div class="view">\
-																		<a href="javascript:void(0)" onclick="viewcourse('+data.general_ce_record[i].id+')">\
+																		<a href="javascript:void(0)" onclick="viewCertificate('+data.general_ce_record[i].id+')">\
 																			<img class="img-fluid" src="images/view.png" alt="">\
 																		</a>\
 																	</div>\
 																	<div class="plus">\
-																		<a href="javascript:void(0)" onclick="viewcourse('+data.general_ce_record[i].id+')">\
+																		<a href="javascript:void(0)" onclick="viewCertificate('+data.general_ce_record[i].id+')">\
 																			<img class="img-fluid" src="images/plus.png" alt="">\
 																		</a></div></div></td></tr>';
 										
@@ -158,6 +158,13 @@
 	}
 	
  function viewcourse(courserid)
+	{
+      window.localStorage.setItem("course_id", courserid);
+	  nextpagewithback('dhasboard.html','course-detail.html')
+
+	} 
+	
+ function viewCertificate(courserid)
 	{
       window.localStorage.setItem("courserid", courserid);
       nextpage('certificate.html');
