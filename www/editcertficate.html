@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>upload certificate</title>
+    <title>edit certificate</title>
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -10,41 +10,65 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">    
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-     <script type="text/javascript" src="js/functions.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
 </head>
 <body onload="setvalue()">
 <script>
 
 function setvalue()
 	{ 
-	   var loggedIn=window.localStorage.getItem("loggedIn");       	
-		if(loggedIn!='1')
-		 {
-		   flippageup('login.html');	   
-		   
-		 }	
+	    var courserid=window.localStorage.getItem("courserid");
+        jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/certificate_details",
+					data: JSON.stringify({id: courserid }),
+					contentType: false,
+				    processData: false,
+					success:function(data)
+						 {	 
+							 jQuery('.mask').hide();
+							 jQuery('.loading').hide();		
+							if(data.success=='true')
+                                {
+								  jQuery('#certificate_id').val(data.data.certificate_id);
+								  jQuery('#course_name').val(data.data.course_name);
+								  jQuery('#units').val(data.data.units);
+								  jQuery('#issue_date').val(data.data.issue_date);
+								  jQuery('#category').val(data.data.category);
+								  jQuery('#issue_from').val(data.data.issue_from);
+								  jQuery('#issue_by').val(data.data.issue_by);
+								  
+								}							
+							 
+						}
+				   });
+		 
 	}
 	
 function checkValidation(){
    
 	     jQuery('.mask').show();
 		 jQuery('.loading').show();
+		 var courserid=window.localStorage.getItem("courserid");
 		 var userdata=JSON.parse(window.localStorage.getItem("userdata"));
 		 var formData = new FormData();
-		 formData.append('user_id', userdata.id);
+		 formData.append('id', courserid);
 		 formData.append('certificate_id', $('#certificate_id').val());
 		 formData.append('course_name', $('#course_name').val());
          formData.append('units', $('#units').val());
          formData.append('category', $('#category').val());
          formData.append('issue_date', $('#issue_date').val());
          formData.append('issue_from', $('#issue_from').val());
-         formData.append('issue_by', $('#issue_by').val());		 
-		 formData.append('certificate', $('input[type=file]')[0].files[0]); 
-		
+         formData.append('issue_by', $('#issue_by').val());	
+		 if(jQuery('#certificate')!='')
+		 {
+		   formData.append('certificate', $('input[type=file]')[0].files[0]); 
+		 }
 				jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
-					url:base_url+"/professional/uploade_certificate",
+					url:base_url+"/professional/update_certificate",
 					data: formData,	
 					contentType: false,
 				    processData: false,
@@ -98,7 +122,7 @@ function checkValidation(){
 			
 			    <div class="col-12">
                     <div class="login-title mt-1">
-                        <h6>Upload Certificate</h6>
+                        <h6>Update Certificate</h6>
 						<p id="msgstatus"></p>
                     </div>
                 </div>
@@ -106,7 +130,7 @@ function checkValidation(){
 	            <div class="col-12">
 	                <div class="upload-box">
 						<label for="certificate_id">Certificate Number</label>
-						<input id="certificate_id" name="certificate_id" type="number" required>
+						<input id="certificate_id" name="certificate_id" type="text" required>
 					</div>
 	            </div>
 	            
@@ -165,7 +189,7 @@ function checkValidation(){
 	            <div class="col-12">
 	                <div class="upload-box">
 						<label for="certificate">Certficate</label>
-						<input id="certificate" name="certificate" type="file" required>
+						<input id="certificate" name="certificate" type="file" >
 					</div>
 	            </div>
 	            
@@ -188,5 +212,9 @@ function checkValidation(){
    <style>
    .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
    </style>
+    <script>
+	 jQuery('.loading').show();
+  jQuery('.mask').show();
+	</script>
 </body>
 </html>

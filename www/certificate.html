@@ -50,6 +50,26 @@
 			 var ref = window.open(jQuery('#certificate').attr('src'), '_system', 'location=yes');
 			
 		}
+		
+function deleteCertificate()
+{
+      var courserid=window.localStorage.getItem("courserid");	
+		jQuery('.loading').show();
+		jQuery('.mask').show();	
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/certificate_delete",
+					data: JSON.stringify({id: courserid }),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+					       jQuery('.mask').hide();						  						
+						   nextpage('dhasboard.html')
+						 }
+			      });
+}		
 function printDiv() 
 {
 
@@ -107,7 +127,7 @@ function printDiv()
 				        <a href="#">
 				        	<img class="img-fluid" src="images/resume-icon.png" alt="">
 				        </a>
-				        <a href="#">
+				        <a href="javascript:void(0)" onclick="deleteCertificate()">
 				        	<img class="img-fluid" src="images/delete-icon.png" alt="">
 				        </a>
 				        <a href="javascript:void(0)" onclick="printDiv()">
