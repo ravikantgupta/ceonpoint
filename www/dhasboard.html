@@ -19,16 +19,13 @@
  function setvalue()
 	{ 
 	   var loggedIn=window.localStorage.getItem("loggedIn");       	
-		if(!loggedIn)
+		if(loggedIn!='1')
 		 {
 		   flippageup('login.html');	   
 		   
 		 }		 
 		var userdata=JSON.parse(window.localStorage.getItem("userdata"));
-	if(!userdata)
-		 {	   
-		   flippageup('login.html');  		   
-		 }		
+			
         jQuery('.usename').html(userdata.name); 	
         jQuery('.profession').html('Profession : '+userdata.profession); 	
        
