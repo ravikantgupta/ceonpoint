@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <script type="text/javascript" src="js/functions.js"></script>
 </head>
-<body onload="setvalue()">
+<body class="onlinecourse" onload="setvalue()" >
   <script>
   
   var curcat=0;
@@ -192,7 +192,7 @@
 	     jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
-					url:base_url+"/professional/course_list",
+					url:base_url+"/professional/all_course_list",
 					data: JSON.stringify({cat_id: cat_id}),	
 					
 					success:function(data)
@@ -337,14 +337,14 @@
 	     var contry_id=jQuery('#country').val();
 		 var course_name=jQuery('#course_name').val();
 		 
-		 if(course_name=='')
+		/* if(course_name=='')
 		 {		 
 		   $("#course_name").css("border","1px solid red");		   
 		   return false;
 		 }else
 		 {
 		   $("#course_name").css("border","");	
-		 }
+		 }*/
 		 
 		 
 	      jQuery('.loading').show();
@@ -354,7 +354,7 @@
 					type:'POST', 
 					dataType: 'JSON',                   			
 					url:base_url+"/professional/all_course_list",
-					data: JSON.stringify({contry_id: contry_id,course_name:course_name}),	
+					data: JSON.stringify({cat_id: curcat,contry_id: contry_id,course_name:course_name}),	
 					
 					success:function(data)
 						 {	
@@ -473,7 +473,7 @@
 								<span class="select-img">
 									<img class="img-fluid" src="images/india.png" alt="">
 								</span>
-								<select name="country" id="country">
+								<select name="country" id="country" onchange="searchCourse()">
 									
 								</select>
 							</div>
@@ -598,6 +598,13 @@
     </script>
    <style>
    .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   
+   .review-field-rating > .review-control-vote:not(:checked) > label {
+    pointer-events: none;
+}
+   
+   
+   
    </style>
 
 </body>
