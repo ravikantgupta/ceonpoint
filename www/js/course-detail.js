@@ -361,7 +361,7 @@ function downloadCertificate()
 
 function viewEvaluation()
 {
-	return false;
+	
 	var loggedIn=window.localStorage.getItem("loggedIn");
 		   
 		   if(!loggedIn)
