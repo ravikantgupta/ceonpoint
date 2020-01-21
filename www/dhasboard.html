@@ -23,10 +23,12 @@
 		 {
 		   flippageup('login.html');	   
 		   
-		 }
-
-		 
-		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
+		 }		 
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+	if(!userdata)
+		 {	   
+		   flippageup('login.html');  		   
+		 }		
         jQuery('.usename').html(userdata.name); 	
         jQuery('.profession').html('Profession : '+userdata.profession); 	
        
