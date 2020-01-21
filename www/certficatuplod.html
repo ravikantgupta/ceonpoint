@@ -54,8 +54,11 @@ function checkValidation(){
 							 jQuery('.loading').hide();
 						
 							if(data.success=='true')
-							   {
+							   {							    
+								 jQuery('#uploadcertificate').trigger("reset");
+								 
 							     jQuery("#msgstatus").addClass("alert-success").fadeIn(10).text(data.msg);
+							   
 							   }else
 								{
 								  jQuery("#msgstatus").addClass("alert-danger").fadeIn(10).text(data.msg);
