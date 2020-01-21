@@ -361,7 +361,7 @@ function downloadCertificate()
 
 function viewEvaluation()
 {
-	
+	return false;
 	var loggedIn=window.localStorage.getItem("loggedIn");
 		   
 		   if(!loggedIn)
@@ -383,7 +383,13 @@ function viewEvaluation()
 
 function saveEvaluation()
 {
-   var star_mark= jQuery('input[name="rating89"]:checked').val();	
+   var star_mark= jQuery('input[name="rating89"]:checked').val();
+  
+  if(!star_mark)
+  {
+	  jQuery('.mesg').html('<span style="color:red">Please select star</span>'); 
+	   return false;
+  }	  
    var comments=jQuery('#evaluation').val();	
    var course_id=window.localStorage.getItem("course_id");	 
    var userdata=JSON.parse(window.localStorage.getItem("userdata"));
@@ -401,7 +407,7 @@ function saveEvaluation()
 						
                         if(data.success=="true")
 						 {
-							  jQuery('.mesg').html(data.msg); 
+							  jQuery('.mesg').html('<span style="color:green">'+data.msg+'</span>'); 
 						 }  							 
 						 
 					}
