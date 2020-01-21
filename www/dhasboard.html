@@ -23,7 +23,9 @@
 		 {
 		   flippageup('login.html');	   
 		   
-		 }		 
+		 }
+
+		 
 		var userdata=JSON.parse(window.localStorage.getItem("userdata"));			
         jQuery('.usename').html(userdata.name); 	
         jQuery('.profession').html('Profession : '+userdata.profession); 	
@@ -87,10 +89,47 @@
 								   specific_course+='<tr><td colspan="4">No course</td></tr>';								
 								
 								 
-								 }
+								 }			
 								
+								jQuery('#specific_course').html(specific_course);
+
+
+                             /*********All course*****************/
+							 
+							   var all_ce_record='';
+                               var count=0;
+                               for (i in data.all_ce_record) {
+							     count++;										
+							     all_ce_record+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.all_ce_record[i].course_name+'</td><td>'+data.all_ce_record[i].units+'</td>\
+												<td>\
+													<div class="view-plus-box">\
+														<div class="view">\
+															<a href="javascript:void(0)" onclick="viewCertificate('+data.all_ce_record[i].id+')">\
+																<img class="img-fluid" src="images/view.png" alt="">\
+															</a>\
+														</div>\
+														<div class="plus">\
+															<a href="javascript:void(0)" onclick="viewCertificate('+data.all_ce_record[i].id+')">\
+																<img class="img-fluid" src="images/plus.png" alt="">\
+															</a></div></div></td></tr>';
+										
+								} 
 								
-								jQuery('#specific_course').html(specific_course);								
+								if(all_ce_record!='')
+								{
+								   all_ce_record+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								
+								}else
+								 {
+								   all_ce_record+='<tr><td colspan="4">No course</td></tr>';								
+								
+								 
+								 }			
+								
+								jQuery('#all_ce_record').html(all_ce_record);
+							 
+							 /*********All course*****************/
+								
 								var general_ce_record='';
 								count=0;
 								for (i in data.general_ce_record) {
@@ -294,8 +333,7 @@
 					<div class="table-title">
 						<h6>Pending Online courses/Training</h6>
 					</div>
-				</div>
-				
+				</div>				
 				<div class="col-12">
 					<div class="pending-table">
 						<table class="table table-bordered table-sm">
@@ -335,30 +373,21 @@
 						</div>
 					</div>
 
-					<div class="col-12">
-						
+					<div class="col-12">						
 						<div class="dashboard-tab pl-0">
-
-							<div class="all-box active" id="showall">
+							<div class="all-box active showSingle" id="showall" target="0">
 								<span>All</span>
 							</div>
-
 							<div class="all-box showSingle" target="1">
 								<span>SPECIFIC</span>
 							</div>
-
 							<div class="all-box showSingle" target="2">
 								<span>GENERAL</span>
 							</div>
-
 						</div>
-
-					</div>
-					
+					</div>					
 					<div class="col-12">
-
-						<table class="targettable table table-bordered table-sm bg-white mb-1" id="div1">
-
+                       <table class="targettable table table-bordered table-sm bg-white mb-1 all_ce_record" id="div0">
 							<thead>
 								<tr>
 									<th>SL. No.</th>
@@ -367,16 +396,23 @@
 									<th>Action</th>
 								</tr>
 							</thead>
-
-							<tbody id="specific_course">
-
-							
-
+							<tbody id="all_ce_record">
 							</tbody>
-
+						</table>
+						<table class="targettable table table-bordered table-sm bg-white mb-1 specific_course" id="div1" style="display:none;">
+							<thead>
+								<tr>
+									<th>SL. No.</th>
+									<th>Course Title</th>
+									<th>Units</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="specific_course">
+							</tbody>
 						</table>
 
-						<table class="targettable table table-bordered table-sm bg-white mb-1" id="div2">
+						<table class="targettable table table-bordered table-sm bg-white mb-1 general_ce_record" id="div2" style="display:none;">
 
 							<thead>
 								<tr>
@@ -387,9 +423,7 @@
 								</tr>
 							</thead>
 
-							<tbody id="general_ce_record"> 
-
-								
+							<tbody id="general_ce_record"> 							
 
 							</tbody>
 
@@ -530,11 +564,7 @@
    
    <script>
    $(function() {
-			$('#showall').click(function() {
-				$('.targettable').show();
-				jQuery('.all-box').removeClass('active');
-				jQuery(this).addClass('active');
-			});
+			
 
 			$('.showSingle').click(function() {
 				$('.targettable').hide();
