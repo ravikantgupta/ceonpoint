@@ -54,6 +54,11 @@
 							jQuery('#email').val(data.data.user.username_email);
 							jQuery('#under_insititution').val(data.data.user.under_insititution);
 
+                            if(data.data.user.under_insititution==1)
+							   {
+								 jQuery('.yes').show();
+							   
+							   }
                             var countryhtml='<option value="">Select Country</option>';
 							  for (i in data.data.countries) {
 										
@@ -70,7 +75,7 @@
 										  }
 										
 										}                                 
-									 jQuery('#location').html(countryhtml);
+									jQuery('#location').html(countryhtml);
 									 
 									 
 								var professionhtml='<option value="">Select</option>';
@@ -89,7 +94,28 @@
 										  }
 										
 										}                                 
-									 jQuery('#profession').html(professionhtml);	 
+									 jQuery('#profession').html(professionhtml);
+                            
+                                /***********institution***********/
+								 var insititutionhtml='<option value="">Select</option>';
+							  for (i in data.data.insititution) {
+										
+										if(data.data.user.parent_insititution==data.data.insititution[i].id)
+										{
+										 
+										  insititutionhtml+='<option selected value="'+data.data.insititution[i].id+'">'+data.data.insititution[i].name+'</option>';
+										  
+										}else
+										  {
+										  
+										  insititutionhtml+='<option value="'+data.data.insititution[i].id+'">'+data.data.insititution[i].name+'</option>';
+										  
+										  }
+										
+										}                                 
+									 jQuery('#institution').html(insititutionhtml);
+								
+								/***********end institution***********/							
 						  
 						 }
 			      });
@@ -146,6 +172,8 @@ function updateprofile()
          formData.append('licence', $('#licence').val()); 
 		 formData.append('profession', $('#profession').val());
          formData.append('under_insititution', $('#under_insititution').val()); 
+		 formData.append('institution', $('#institution').val());
+		 formData.append('institution_code', $('#institution_code').val());
        	 if(jQuery('#image').val()!='')
 		 {
 		   formData.append('image', $('input[type=file]')[0].files[0]); 
@@ -176,7 +204,17 @@ function updateprofile()
 	   return false;
 
 }
-
+function showInsti(ui)
+{
+   if(ui==1)
+   {
+     jQuery('.yes').show();
+   
+   }else
+   {
+    jQuery('.yes').hide();
+   }
+}
 </script>		
     <header class="header-btn p-0">
         <div class="container-fluid">
@@ -351,11 +389,25 @@ function updateprofile()
                                 <div class="upload-box">
                                     <label>Are you under institution <sup>*</sup></label>
                                     <div class="select-box">
-                                        <select name="under_insititution" id="under_insititution">
+                                        <select name="under_insititution" id="under_insititution" onchange="showInsti(this.value)">
                                             <option value="0" selected="">No</option>
                                             <option value="1">Yes</option>
                                         </select>
                                     </div>
+                                </div>
+								
+								<div class="upload-box yes" style="display:none;">
+                                    <label>Select institution</label>
+                                    <div class="select-box">
+                                        <select name="institution" id="institution">
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+								
+								 <div class="upload-box yes" style="display:none;">
+                                    <label for="institution_code">Enter institution code</label>
+                                    <input name="institution_code" id="institution_code" size="20" type="text" value="">
                                 </div>
 
                                 <div class="continue-btn reg-btn mt-3">

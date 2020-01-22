@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>notification</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+        rel="stylesheet">
+     <script type="text/javascript" src="js/functions.js"></script>	
+</head>
+
+<body class="pb-2" onload="setvalue()">
+<script>
+ function setvalue()
+	{ 
+	   var loggedIn=window.localStorage.getItem("loggedIn");       	
+		if(!loggedIn)
+		 {
+		   flippageup('login.html');	   
+		   
+		 }				 
+		var userdata=JSON.parse(window.localStorage.getItem("userdata"));       		
+       				  
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/notification_list",
+					data: JSON.stringify({user_id: userdata.id }),					
+					success:function(data)
+						 {	
+						  	jQuery('.loading').hide();
+                            jQuery('.mask').hide();							 
+						   var notificationhtml='';
+						    var  coount=0;
+							  for (i in data.data) {
+                                     coount++;							  
+										notificationhtml+='<tr>\
+                                        <td>'+coount+'</td>\
+                                        <td>'+data.data[i].subject+'</td>\
+                                        <td>'+data.data[i].message+'</td>\
+                                        <td>'+userdata.name+'</td>\
+                                        <td>'+data.data[i].added_on+'</td>\
+                                    </tr>';									
+										
+										}
+                                  if(notificationhtml=='')
+									 {
+										notificationhtml='<p style="color:red;">Sorry no records found.</p>';
+									 }
+									jQuery('#notificationtable').html(notificationhtml);
+						 }
+			      });		  
+		
+		
+		
+   }
+
+</script>		
+    <header class="header-btn p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="back-link-box pr-0">
+                        <div class="back-link">
+                            <a href="javascript:void(0)" onclick="backscreen()">
+                                <img class="img-fluid" src="images/left.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="back-logo">
+                            <a href="#">
+                                <img class="img-fluid" src="images/logo-new.png" alt="">
+                                <span>Continuing Education to all Professionals Worldwide</span>
+                            </a>
+                        </div>
+                        <div class="link-nav">
+                            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+    <section class="profile-para-box">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-12">
+                        <form method="post">
+                          
+                            
+                           <!---------Notification-content------->
+                            <div class="notifications-infobox mt-3 notification pagesection">
+                                <div class="login-title mb-3">
+                                    <h6>Notification</h6>
+                                    </div>
+                                <table class="table table-striped table-bordered">
+								  <tr> <th>No.</th>
+                                        <th>Subject</th>
+                                        <th>Message</th>
+                                        <th>From</th>
+                                        <th>Date</th> </tr>
+                                    <tbody id="notificationtable"> 
+                                    </tbody>
+                                </table>
+                               
+                            </div>
+
+                        </form>
+                  </div>
+            </div>
+        </div>
+    </section>
+
+<div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	
+	 <script type="text/javascript" src="cordova.js"></script>        
+     <script src="js/jquery-1.11.2.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>    
+   <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+    <script>
+	 jQuery('.loading').show();
+  jQuery('.mask').show();
+	</script>
+</body>
+
+</html>
