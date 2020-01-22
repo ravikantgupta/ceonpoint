@@ -42,13 +42,13 @@
 					       jQuery('.mask').hide();	
                            jQuery('.user_name').html(data.data.user.name);
 						   jQuery('.user_profession').html(data.data.user.profession);						   
-						   jQuery('.user_email').html(data.data.user.email);						   
+						   jQuery('.user_email').html(data.data.user.username_email);						   
 						   jQuery('.user_location').html(data.data.user.location);						   
 						   jQuery('.user_added_on').html(data.data.user.added_on);
 
                             jQuery('#name').val(data.data.user.name);
 							jQuery('#role').val(data.data.user.role);
-							jQuery('#email').val(data.data.user.email);
+							
 							jQuery('#profession').val(data.data.user.profession);	
 							jQuery('#licence').val(data.data.user.licence);
 							jQuery('#email').val(data.data.user.username_email);
@@ -102,8 +102,25 @@
 					data: JSON.stringify({user_id: userdata.id }),					
 					success:function(data)
 						 {	
-						   console.log(data);									 
-						  
+						  								 
+						   var notificationhtml='';
+						  var  coount=0;
+							  for (i in data.data) {
+                                     coount++;							  
+										notificationhtml+='<tr>\
+                                        <td>'+coount+'</td>\
+                                        <td>'+data.data[i].subject+'</td>\
+                                        <td>'+data.data[i].message+'</td>\
+                                        <td>'+userdata.name+'</td>\
+                                        <td>'+data.data[i].added_on+'</td>\
+                                    </tr>';									
+										
+										}
+                                  if(notificationhtml=='')
+									 {
+										notificationhtml='<p style="color:red;">Sorry no records found.</p>';
+									 }
+									jQuery('#notificationtable').html(notificationhtml);
 						 }
 			      });		  
 		
@@ -251,23 +268,23 @@ function updateprofile()
                                     <tbody>
                                         <tr>
                                             <td width="30%">Name</td>
-                                            <td class="user_name">Robertos Rolle</td>
+                                            <td class="user_name"></td>
                                         </tr>
                                         <tr>
                                             <td>Profession</td>
-                                            <td class="user_profession">Nursing</td>
+                                            <td class="user_profession"></td>
                                         </tr>
                                         <tr>
                                             <td>Username</td>
-                                            <td class="user_email">p@gmail.com</td>
+                                            <td class="user_email"></td>
                                         </tr>
                                         <tr>
                                             <td>Location</td>
-                                            <td class="user_location">United States</td>
+                                            <td class="user_location"></td>
                                         </tr>
                                         <tr>
                                             <td>Registered Date</td>
-                                            <td class="user_added_on">2018-07-17</td>
+                                            <td class="user_added_on"></td>
                                         </tr>
 
 
@@ -327,7 +344,7 @@ function updateprofile()
 
                                 <div class="upload-box">
                                     <label for="email">Username (email) <sup>*</sup></label>
-                                    <input name="email" id="email" size="20" type="text" value="">
+                                    <input name="email" id="email" size="20" type="text" value="" readonly>
                                 </div>
 
 
@@ -1369,16 +1386,15 @@ function updateprofile()
                                     <h6>Notification</h6>
                                     </div>
                                 <table class="table table-striped table-bordered">
-                                    <tbody><tr>
-                                        <th>No.</th>
+								  <tr> <th>No.</th>
                                         <th>Subject</th>
                                         <th>Message</th>
                                         <th>From</th>
-                                        <th>Date</th>
-                                    </tr>
+                                        <th>Date</th> </tr>
+                                    <tbody id="notificationtable"> 
                                     </tbody>
                                 </table>
-                                <p style="color:red;">Sorry no records found.</p>
+                               
                             </div>
 
                         </form>

@@ -31,8 +31,8 @@
         jQuery('.needed').html(userdata.needed); 	
         jQuery('.general').html(userdata.general); 	
         jQuery('.specific').html(userdata.specific); 	
-        jQuery('.required').html(userdata.required+' : Required'); 	
-        jQuery('.obtained').html(userdata.obtained+' : Required'); 		
+        jQuery('.requireds').html(userdata.required+' : Required'); 	
+        jQuery('.obtained').html(userdata.obtained+' : Obtained'); 		
 		jQuery('#userimage').attr('src',userdata.image); 		  
 		
 	  
@@ -71,7 +71,7 @@
                 </a>
             </div>
             <div class="hero-link-box">
-                <a href="#">
+                <a href="javascript:void(0)" onclick="nextpage('profile.html')">
                     <div class="hero-link-img">
                         <img class="img-fluid" src="images/user-icon.png" alt="">
                     </div>
@@ -105,7 +105,7 @@
                         <div class="link-nav">
                             <nav class="navbar navbar-expand-lg navbar-dark p-0">
                                 <div class="container pr-0">
-                                    <a href="#" class="navbar-toggler" onclick="openNav()">
+                                    <a href="javascript:void(0)" class="navbar-toggler" onclick="nextpagewithback('profile-screen4.html','menunew.html')">
                                         <span class="navbar-toggler-icon"></span>
                                         <span class="navbar-toggler-icon ml-1"></span>
                                         <span class="navbar-toggler-icon"></span>
@@ -193,11 +193,11 @@
                     <div class="dashboard-tab">
 
                         <div class="dashbord-box bgblue">
-                            <span class="required">25 : Required</span>
+                            <span class="requireds">00 : Required</span>
                         </div>
 
                         <div class="dashbord-box bgblue">
-                            <span class="obtained">14 : Obtained</span>
+                            <span class="obtained">00 : Obtained</span>
                         </div>
 
                         <!--<div class="dashbord-box">

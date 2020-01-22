@@ -28,8 +28,7 @@
 		var userdata=JSON.parse(window.localStorage.getItem("userdata"));
 			
         jQuery('.usename').html(userdata.name); 	
-        jQuery('.profession').html('Profession : '+userdata.profession); 	
-       
+        jQuery('.profession').html('Profession : '+userdata.profession);       
         jQuery('.needed').html(userdata.needed); 	
         jQuery('.general').html(userdata.general); 	
         jQuery('.specific').html(userdata.specific); 	
@@ -37,6 +36,34 @@
         jQuery('.obtained').html(userdata.obtained+' : Obtained'); 		
 		jQuery('#userimage').attr('src',userdata.image); 			
 		addfootermenu();
+		
+		jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/users/get_user_data",
+					data: JSON.stringify({user_id: userdata.id }),	
+					
+					success:function(data)
+						 {	 
+                            jQuery('.loading').hide();
+                            jQuery('.mask').hide();	
+                           
+                            jQuery('.usename').html(data.data.name); 	
+							jQuery('.profession').html('Profession : '+data.data.profession);       
+							jQuery('.needed').html(data.data.needed); 	
+							jQuery('.general').html(data.data.general); 	
+							jQuery('.specific').html(data.data.specific); 	
+							jQuery('.requiredpoint').html(data.data.required+' : Required'); 	
+							jQuery('.obtained').html(data.data.obtained+' : Obtained'); 
+							jQuery('.profe').html('Profession : '+data.data.profession); 
+							jQuery('.progress-bar').html(data.data.persant+'%'); 
+							jQuery('.progress-bar').css('width',data.data.persant+'%'); 
+							
+							jQuery('#userimage').attr('src',data.data.image);  
+               					 		
+							 
+						  }
+				   });
 		
 		jQuery.ajax({					  
 					type:'POST', 
@@ -53,8 +80,13 @@
 							     course_list+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.course_list[i].course_title+'</td><td>'+data.course_list[i].units+'</td>\
 												<td><a href="javascript:void(0)" onclick="viewcourse('+data.course_list[i].id+')">View</a></td></tr>';
 										
-								} 
-								if(course_list=='')
+								}
+                                if(course_list!='')
+								{
+								   course_list+='<tr><td></td><td>Total</td><td>'+data.total_course+'</td><td></td></tr>';								
+								
+								}								
+								else
 								{
 								 course_list='<tr><td colspan="4">No course</td></tr>';
 								}
@@ -64,7 +96,7 @@
 							 var specific_course='';
                                var count=0;
                                for (i in data.specific_ce_record) {
-							   count++;										
+							   count=count+parseInt(data.specific_ce_record[i].units);										
 							     specific_course+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.specific_ce_record[i].course_name+'</td><td>'+data.specific_ce_record[i].units+'</td>\
 												<td>\
 													<div class="view-plus-box">\
@@ -82,7 +114,7 @@
 								
 								if(specific_course!='')
 								{
-								   specific_course+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								   specific_course+='<tr><td></td><td>Total</td><td>'+data.total_specific_certificate+'</td><td></td></tr>';								
 								
 								}else
 								 {
@@ -99,7 +131,7 @@
 							   var all_ce_record='';
                                var count=0;
                                for (i in data.all_ce_record) {
-							     count++;										
+							    count=count+parseInt(data.all_ce_record[i].units);							
 							     all_ce_record+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.all_ce_record[i].course_name+'</td><td>'+data.all_ce_record[i].units+'</td>\
 												<td>\
 													<div class="view-plus-box">\
@@ -117,7 +149,7 @@
 								
 								if(all_ce_record!='')
 								{
-								   all_ce_record+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								   all_ce_record+='<tr><td></td><td>Total</td><td>'+data.total_certificate+'</td><td></td></tr>';								
 								
 								}else
 								 {
@@ -133,7 +165,7 @@
 								var general_ce_record='';
 								count=0;
 								for (i in data.general_ce_record) {
-										  count++;	
+										count=count+parseInt(data.general_ce_record[i].units);
 										  general_ce_record+='<tr><td>'+(parseInt(i)+1)+'</td><td>'+data.general_ce_record[i].course_name+'</td><td>'+data.general_ce_record[i].units+'</td>\
 															<td>\
 																<div class="view-plus-box">\
@@ -152,7 +184,7 @@
 
 								if(general_ce_record!='')
 								{
-								general_ce_record+='<tr><td></td><td>Total</td><td>'+count+'</td><td></td></tr>';								
+								general_ce_record+='<tr><td></td><td>Total</td><td>'+data.total_gernal_certificate+'</td><td></td></tr>';								
 								}else
 								 {
 								   general_ce_record+='<tr><td colspan="4">No course</td></tr>';	
@@ -254,9 +286,9 @@
 				        	<div class="welcome-profile-text">
 				        		<p class="red">Welcome!</p>
 				        		<p class="usename">Vaishnaw</p>
-				        		<span>Profession : Accountant</span>
+				        		<span class="profe">Profession : Accountant</span>
 								<div class="notification-box">
-									<a href="#" class="notification-icon ml-0">
+									<a href="javascript:void(0)" class="notification-icon ml-0" onclick="nextpagewithback('dhasboard.html','profile.html')">
 										<img class="img-fluid" src="images/notification.png" alt="">
 									</a>
 
@@ -297,7 +329,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="progress mt-3">
-						<div class="progress-bar bggreen" style="width:100%">100%</div>
+						<div class="progress-bar bggreen" style="width:0%">00%</div>
 					</div>
 				</div>
 			</div>
