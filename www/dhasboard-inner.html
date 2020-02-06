@@ -28,9 +28,7 @@
         jQuery('.specific').html(userdata.specific); 	
         jQuery('.requiredpoint').html(userdata.required+' : Required'); 	
         jQuery('.obtained').html(userdata.obtained+' : Obtained'); 		
-		jQuery('#userimage').attr('src',userdata.image); 	
-		
-		
+		jQuery('#userimage').attr('src',userdata.image); 		
 		addfootermenu();
 	  
 	}
@@ -189,9 +187,9 @@
 			        </div>
 			    </div>
 			    
-			   <div class="col-3" style="display:none;">
+			   <div class="col-3">
 			        <div class="accountant-icon-box">
-			            <a href="#">
+			            <a href="javascript:void(0)" onclick="nextpage('insititution-courses.html')">
 			            	<div class="accountant-icon-img">
 								<img class="img-fluid" src="images/certificates-university.png" alt="">
 							</div>

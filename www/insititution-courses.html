@@ -38,7 +38,7 @@
 	   jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
-					url:base_url+"/professional/course_list",
+					url:base_url+"/professional/course_list_under_institute",
 					data: JSON.stringify({user_id: user_id }),	
 					
 					success:function(data)
@@ -192,7 +192,7 @@
 	     jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
-					url:base_url+"/professional/all_course_list",
+					url:base_url+"/professional/all_course_list_under_institute",
 					data: JSON.stringify({cat_id: cat_id}),	
 					
 					success:function(data)
@@ -266,7 +266,7 @@
 	     jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
-					url:base_url+"/professional/all_course_list",
+					url:base_url+"/professional/all_course_list_under_institute",
 					data: JSON.stringify({cat_id: curcat}),	
 					
 					success:function(data)
@@ -353,7 +353,7 @@
 	     jQuery.ajax({					  
 					type:'POST', 
 					dataType: 'JSON',                   			
-					url:base_url+"/professional/all_course_list",
+					url:base_url+"/professional/all_course_list_under_institute",
 					data: JSON.stringify({cat_id: curcat,contry_id: contry_id,course_name:course_name}),	
 					
 					success:function(data)
@@ -434,7 +434,7 @@
                        
                        
                         <div class="btn-box text-center">
-                            <span>ONLINE COURSES</span>
+                            <span>INSITITUTION COURSES</span>
                         </div>
                         
                         <div class="link-nav">
