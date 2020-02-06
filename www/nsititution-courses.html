@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online Courses</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">   
+    <link rel="stylesheet" href="css/style.css">    
+	 <link rel="stylesheet" href="css/owl.carousel.css">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+<body class="onlinecourse" onload="setvalue()" >
+  <script>
+  
+  var curcat=0;
+ function setvalue()
+	{
+	   addfootermenu();
+	  var userdata=JSON.parse(window.localStorage.getItem("userdata"));	
+	   if(userdata)
+           {
+		    var user_id=userdata.id;
+		   }else
+            {
+			  var user_id=0;
+			
+			}	
+	  
+	   jQuery('.loading').show();
+	   jQuery('.mask').show();
+	   
+	   
+	   jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/course_list",
+					data: JSON.stringify({user_id: user_id }),	
+					
+					success:function(data)
+						 {	 
+
+                             var category='';
+                              
+                               for (i in data.category) {
+							  							
+                                     if(data.current_cat==data.category[i].id)
+                                      {		
+                                        curcat=data.current_cat;									  
+							           category+='<div class="item"><div class="item-text active ctlist" id="cat'+data.category[i].id+'">\
+												<a href="javascript:void(0)" onclick="searchBycat('+data.category[i].id+')">'+data.category[i].cat_name+'</a></div></div>';								
+								      }else
+									  {
+									    category+='<div class="item"><div class="item-text ctlist" id="cat'+data.category[i].id+'">\
+												<a href="javascript:void(0)" onclick="searchBycat('+data.category[i].id+')">'+data.category[i].cat_name+'</a></div></div>';
+									  }
+									  
+								}
+								jQuery('.category').html(category);	
+								  
+								$('.onlinehome-slider').owlCarousel({
+									loop: true,
+									margin: 0,
+									nav: true,
+									dots: false,
+									autoplay: true,
+									autoplaySpeed: 2000,
+									dotsSpeed: 2000,
+									responsive: {
+
+										0: {
+											items: 2
+										},
+										580: {
+											items: 2
+										},
+										767: {
+											items: 2
+										},
+										992: {
+											items: 2
+										},
+										1000: {
+											items: 2
+										}
+									}
+								});
+								
+								
+								
+							/*************Courses List*************/	
+								
+		                      var courses='';
+                              
+                               for (i in data.courses) {
+							  				
+	                              var ratinghtml='';										
+                                     courses+='<div class="col-6 pr-1">\
+				                      <div class="care-box">\
+									  <div class="care-img" onclick="viewCourse('+data.courses[i].id+')">\
+										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
+									  </div>\
+										<div class="care-title">\
+											<h4>'+data.courses[i].course_title+'</h4>\
+											<p>By :  '+data.courses[i].by+'</p>\
+											<div class="review-field-rating">\
+												<div class="review-control-vote">\
+													<span>('+data.courses[i].total_revew+')</span>';
+									for(j=5;j>=1;j--)
+                                     {
+									    if(j<= parseInt(data.courses[i].rating ))
+										{
+									      ratinghtml+='<input type="radio" checked name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label">\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}else
+                                        {
+										  ratinghtml+='<input type="radio" name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label" >\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}										
+									 
+									 }									
+								    courses+=ratinghtml;			
+							        courses+='</div>\
+											</div>\
+											<div class="price-box">\
+												<span>'+data.currency+data.courses[i].price+'</span>\
+												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
+													<img class="img-fluid" src="images/right.png" alt="">\
+												</a>\
+											</div>\
+										</div>\
+									</div>\
+								</div>';
+									
+									  
+								}
+								if(courses!='')
+								{
+								jQuery('.courses').html(courses);	
+								}else
+								{
+								
+								jQuery('.courses').html('<div class="col-12"><center> No Course list found.</center></div>');
+								}
+                                									
+							 
+						}
+				   });
+	   
+	  jQuery.ajax({					  
+					type:'GET',  
+					url:base_url+"/users/country",																
+					dataType: 'json',
+					success:function(data)
+						 {
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();
+						 
+						   var countryhtml='<option value="">Select</option>';
+						   if(data.success)
+						   {                                 
+
+							 for (i in data.country) {
+									
+									  countryhtml+='<option value="'+data.country[i].countries_id+'">'+data.country[i].countries_name+'</option>';
+									}                                 
+								 jQuery('#country').html(countryhtml);
+																	
+						   }    
+
+						}
+			           });
+	 
+    }
+	
+	function searchBycat(cat_id)
+	{
+	     jQuery('.loading').show();
+	     jQuery('.mask').show();
+	     curcat=cat_id;
+		 
+		 jQuery('.ctlist').removeClass('active');
+		 
+		 jQuery('#cat'+cat_id).addClass('active');
+		 
+	     jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/all_course_list",
+					data: JSON.stringify({cat_id: cat_id}),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();								
+							/*************Courses List*************/							
+		                      var courses='';                              
+                               for (i in data.courses) {							  							
+                                     var ratinghtml='';										
+                                     courses+='<div class="col-6 pr-1">\
+				                      <div class="care-box">\
+									  <div class="care-img" onclick="viewCourse('+data.courses[i].id+')">\
+										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
+									  </div>\
+										<div class="care-title">\
+											<h4>'+data.courses[i].course_title+'</h4>\
+											<p>By :  '+data.courses[i].by+'</p>\
+											<div class="review-field-rating">\
+												<div class="review-control-vote">\
+													<span>('+data.courses[i].total_revew+')</span>';
+									for(j=5;j>=1;j--)
+                                     {
+									    if(j<= parseInt(data.courses[i].rating ))
+										{
+									      ratinghtml+='<input type="radio" checked name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label">\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}else
+                                        {
+										  ratinghtml+='<input type="radio" name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label" >\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}										
+									 
+									 }									
+								    courses+=ratinghtml;			
+							        courses+='</div>\
+											</div>\
+											<div class="price-box">\
+												<span>'+data.currency+data.courses[i].price+'</span>\
+												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
+													<img class="img-fluid" src="images/right.png" alt="">\
+												</a>\
+											</div>\
+										</div>\
+									</div>\
+								</div>';								  
+								}
+								if(courses!='')
+								{
+								jQuery('.courses').html(courses);	
+								}else
+								{
+								
+								jQuery('.courses').html('<div class="col-12"><center> No Course list found.</center></div>');
+								}
+                                									
+							 
+						}
+				   });
+	
+	}
+	
+	function viewAllCourse()
+	{
+	  
+	     jQuery('.loading').show();
+	     jQuery('.mask').show();
+	    
+	     jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/all_course_list",
+					data: JSON.stringify({cat_id: curcat}),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();								
+							/*************Courses List*************/							
+		                      var courses='';                              
+                               for (i in data.courses) {							  							
+                                      var ratinghtml='';										
+                                     courses+='<div class="col-6 pr-1">\
+				                      <div class="care-box">\
+									  <div class="care-img" onclick="viewCourse('+data.courses[i].id+')">\
+										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
+									  </div>\
+										<div class="care-title">\
+											<h4>'+data.courses[i].course_title+'</h4>\
+											<p>By :  '+data.courses[i].by+'</p>\
+											<div class="review-field-rating">\
+												<div class="review-control-vote">\
+													<span>('+data.courses[i].total_revew+')</span>';
+									for(j=5;j>=1;j--)
+                                     {
+									    if(j<= parseInt(data.courses[i].rating ))
+										{
+									      ratinghtml+='<input type="radio" checked name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label">\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}else
+                                        {
+										  ratinghtml+='<input type="radio" name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label" >\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}										
+									 
+									 }									
+								    courses+=ratinghtml;			
+							        courses+='</div>\
+											</div>\
+											<div class="price-box">\
+												<span>'+data.currency+data.courses[i].price+'</span>\
+												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
+													<img class="img-fluid" src="images/right.png" alt="">\
+												</a>\
+											</div>\
+										</div>\
+									</div>\
+								</div>';								  
+								}
+								if(courses!='')
+								{
+								jQuery('.courses').html(courses);	
+								}else
+								{
+								
+								jQuery('.courses').html('<div class="col-12"><center> No Course list found.</center></div>');
+								}
+                                								
+							 
+						}
+				   });
+	}
+	
+	
+	function searchCourse()
+	{
+	
+	     var contry_id=jQuery('#country').val();
+		 var course_name=jQuery('#course_name').val();
+		 
+		/* if(course_name=='')
+		 {		 
+		   $("#course_name").css("border","1px solid red");		   
+		   return false;
+		 }else
+		 {
+		   $("#course_name").css("border","");	
+		 }*/
+		 
+		 
+	      jQuery('.loading').show();
+	      jQuery('.mask').show();
+	    
+	     jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/professional/all_course_list",
+					data: JSON.stringify({cat_id: curcat,contry_id: contry_id,course_name:course_name}),	
+					
+					success:function(data)
+						 {	
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();								
+							/*************Courses List*************/							
+		                      var courses='';                              
+                               for (i in data.courses) {							  							
+                                      var ratinghtml='';										
+                                     courses+='<div class="col-6 pr-1">\
+				                      <div class="care-box">\
+									  <div class="care-img" onclick="viewCourse('+data.courses[i].id+')">\
+										<img class="img-fluid" src="'+data.courses[i].course_photo+'" alt="">\
+									  </div>\
+										<div class="care-title">\
+											<h4>'+data.courses[i].course_title+'</h4>\
+											<p>By :  '+data.courses[i].by+'</p>\
+											<div class="review-field-rating">\
+												<div class="review-control-vote">\
+													<span>('+data.courses[i].total_revew+')</span>';
+									for(j=5;j>=1;j--)
+                                     {
+									    if(j<= parseInt(data.courses[i].rating ))
+										{
+									      ratinghtml+='<input type="radio" checked name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label">\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}else
+                                        {
+										  ratinghtml+='<input type="radio" name="ratings['+data.courses[i].id+j+']" id="Rating_'+data.courses[i].id+j+'" value="16" class="radio"  aria-labelledby="Rating_rating_label Rating_'+data.courses[i].id+'_label" >\
+													<label class="rating-'+j+'" for="Rating_'+data.courses[i].id+j+'" id="Rating_'+data.courses[i].id+'_label">\
+													</label>';
+										}										
+									 
+									 }									
+								    courses+=ratinghtml;			
+							        courses+='</div>\
+											</div>\
+											<div class="price-box">\
+												<span>'+data.currency+data.courses[i].price+'</span>\
+												<a href="javascript:void(0)" onclick="viewCourse('+data.courses[i].id+')" class="pull-right">\
+													<img class="img-fluid" src="images/right.png" alt="">\
+												</a>\
+											</div>\
+										</div>\
+									</div>\
+								</div>';							  
+								}
+								if(courses!='')
+								{
+								jQuery('.courses').html(courses);	
+								}else
+								{
+								
+								jQuery('.courses').html('<div class="col-12"><center> No Course list found.</center></div>');
+								}
+                                								
+							 
+						}
+				   });
+	
+	}
+	
+	function viewCourse(course_id)
+	{
+	      window.localStorage.setItem("course_id", course_id);	    
+		  nextpagewithback('onlinecourses.html','course-detail.html')
+	  
+	}
+
+</script>	
+    <header class="header-btn">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="back-link-box pr-0 py-0">
+                       
+                       
+                        <div class="btn-box text-center">
+                            <span>ONLINE COURSES</span>
+                        </div>
+                        
+                        <div class="link-nav">
+                            <nav class="navbar navbar-expand-lg navbar-dark p-0">
+                                <div class="container pr-0">
+                                    <a href="javascript:void(0)" class="navbar-toggler" onclick="nextpagewithback('onlinecourses.html','menunew.html')">
+                                        <span class="navbar-toggler-icon"></span>
+                                        <span class="navbar-toggler-icon ml-1"></span>
+                                        <span class="navbar-toggler-icon"></span>
+                                    </a>
+                                </div>
+                            </nav>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="header-bottom-banner">
+    	
+    		<section class="input-select-banner">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-7 pr-0">
+							<div class="input-box">
+								<input type="search" id="course_name" placeholder="search Courses">
+								<button type="search" onclick="searchCourse()">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
+						<div class="col-5 pl-1">
+							<div class="country-select">
+								<span class="select-img">
+									<img class="img-fluid" src="images/india.png" alt="">
+								</span>
+								<select name="country" id="country" onchange="searchCourse()">
+									
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+    		</section>
+    		
+    		
+    		<section class="header-hero-banner">
+				<div class="overlay-box"></div>
+				<div class="header-hero-insitition">
+				<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="inner-hero-box text-center">
+								  <h2>Main Insititution</h2>
+								  <p>sub heading</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</section>    		
+    </section>
+    		
+	<section class="onlinehome-banner">
+	
+		<div class="onlinehome-slider category">
+		</div>
+		
+	</section>
+   
+   	<section class="header-bottom-banner">
+		<div class="container-fluid">
+			<div class="row">
+							
+				
+				<div class="col-12">
+					<div class="latest-box">
+						<h4>Latest Insititution Courses</h4>
+						<a href="javascript:void(0)" onclick="viewAllCourse()" class="after-link pull-right mt-1">View All</a>
+					</div>
+				</div>
+				</div>
+				<div class="row courses">				
+			    </div>
+		</div>
+		<br>
+		<br>
+    </section> 
+	
+        <div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	
+	 <script type="text/javascript" src="cordova.js"></script>        
+     <script src="js/jquery-1.11.2.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>    
+	 <script src="js/owl.carousel.js"></script>
+	
+	<script>
+      
+		$('.onlineimg-slider').owlCarousel({
+            loop: true,
+			margin: 5,
+            nav: false,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 1500,
+            dotsSpeed: 1500,
+            responsive: {
+
+                0: {
+                    items: 2.5
+                },
+				580: {
+                    items: 2.5
+                },
+                767: {
+                    items: 2.5
+                },
+                992: {
+                    items: 2.5
+                },
+                1000: {
+                    items: 2.5
+                }
+            }
+        });
+		
+    </script>
+   <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   
+   .review-field-rating > .review-control-vote:not(:checked) > label {
+    pointer-events: none;
+}
+   
+   
+   
+   </style>
+
+</body>
+</html>
