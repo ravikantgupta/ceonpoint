@@ -166,8 +166,7 @@
 						   if(data.success)
 						   {                                 
 
-							 for (i in data.country) {
-									
+							 for (i in data.country) {							
 									  countryhtml+='<option value="'+data.country[i].countries_id+'">'+data.country[i].countries_name+'</option>';
 									}                                 
 								 jQuery('#country').html(countryhtml);
@@ -421,7 +420,7 @@
 	function viewCourse(course_id)
 	{
 	      window.localStorage.setItem("course_id", course_id);	    
-		  nextpagewithback('onlinecourses.html','course-detail.html')
+		  nextpagewithback('onlinecourses.html','course-detail.html');
 	  
 	}
 

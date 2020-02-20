@@ -7,8 +7,7 @@
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-  
+    <link rel="stylesheet" href="css/font-awesome.min.css">  
     <link rel="stylesheet" href="css/style.css">    
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
      <script type="text/javascript" src="js/functions.js"></script>
@@ -18,24 +17,98 @@
  function setvalue()
 	{
 	   addfootermenu(); 
+	   
+	    jQuery.ajax({					  
+					type:'GET', 
+					dataType: 'JSON',                   			
+					url:base_url+"/training/training_list",					
+					success:function(response)
+						 {
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();						 
+						   
+						   if(response.success)
+						   {                   
+                            /***********SET COUNTRY DROPDOWN**************/
+							var countryhtml='<option value="">International</option>';
+							 for (i in response.data.country) {							
+									  countryhtml+='<option value="'+response.data.country[i].countries_id+'">'+response.data.country[i].countries_name+'</option>';
+									}                                 
+							  jQuery('#country_id').html(countryhtml);
+							/***********END SET COUNTRY DROPDOWN**************/
+							
+							/***********SET Profession DROPDOWN**************/
+							var professionhtml='<option value="">Select</option>';
+							 for (i in response.data.profession) {						
+									  professionhtml+='<option value="'+response.data.profession[i].id+'">'+response.data.profession[i].cat_name+'</option>';
+									}                                 
+							  jQuery('#profession_id').html(professionhtml);
+							/***********END SET COUNTRY DROPDOWN**************/
+							
+							
+							 /***********SET TRAINING**************/
+							 var traininghtml='<div class="col-12">\
+											<div class="latest-box">\
+												<h4>Latest Training / Seminars</h4>\
+												<a href="javascript:void(0)" class="after-link pull-right mt-1">View All</a>\
+											</div>\
+										</div>';
+							 for (i in response.data.training) {							
+									 traininghtml+='<div class="col-6 pr-1" onclick="viewtraing('+response.data.training[i].id+')">\
+											<div class="care-box">\
+												<div class="care-img">\
+													<img class="img-fluid" src="'+response.data.training[i].image+'" alt="">\
+												</div>\
+												<div class="care-title">\
+													<h4>'+response.data.training[i].title+'</h4>\
+													<p>Price : $'+response.data.training[i].price+'</p>\
+													<div class="time-box">\
+														<p>\
+															<img class="img-fluid" src="images/calendar.png" alt="">\
+															'+response.data.training[i].start_date+' @ '+response.data.training[i].start_time+'\
+														</p>\
+														<p>\
+															<img class="img-fluid" src="images/location.png" alt="">\
+															'+response.data.training[i].location+'\
+														</p>\
+													</div>\
+													<p>By : Intensive Care Unit - '+response.data.training[i].host_name+'</p>\
+												</div>\
+											</div>\
+										</div>';
+									}                                 
+							  jQuery('#trainglist').html(traininghtml);
+							/***********END SET TRAINING**************/
+
+							
+						      }
+						   
+						 }			 
+						 
+			         });
     }
+	
+ function viewtraing(training_id)
+ {
+     window.localStorage.setItem("training_id", training_id);	    
+     nextpage('training-detail.html');
+ } 
 </script>
+
     <header class="header-btn">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex">
-                       
-                                  
                         
                         <div class="btn-box text-center">
                             <span>TRAINING / SEMINAR</span>
                         </div>
-                        
+                       
                         <div class="link-nav">
                             <nav class="navbar navbar-expand-lg navbar-dark p-0">
                                 <div class="container pr-0">
-                                    <a href="javascript:void(0)" class="navbar-toggler" onclick="nextpagewithback('traingseminar.html','menunew.html')">
+                                    <a href="menunew.html" class="navbar-toggler" onclick="openNav()">
                                         <span class="navbar-toggler-icon"></span>
                                         <span class="navbar-toggler-icon ml-1"></span>
                                         <span class="navbar-toggler-icon"></span>
@@ -51,47 +124,169 @@
     </header>
     
     <section class="header-bottom-banner">
-    	
-    		<section class="input-select-banner">
+    		
+		<section class="input-select-banner header-hero-banner">
+		
+			<div class="header-hero-training">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-12">
-							<div class="input-box">
-								<input type="search" placeholder="search Courses">
-								<button>
-									<i class="fa fa-search" aria-hidden="true"></i>
-								</button>
+						<div class="col-6 px-0 offset-6">
+							<div class="inner-hero-box pb-1">
+								<!--<img class="img-fluid" src="images/banner.png" alt="">-->
+								<p class="courses-price">1,00,000+</p>
+								<p class="courses-free">FREE FOR YOU</p>
+								<p class="courses-link text-left">“Education is the most powerful weapon which you can use to change the world.”</p>
+								<p class="courses-link mt-0">Nelson Mandela</p>
 							</div>
 						</div>
 					</div>
 				</div>
-    		</section>
-    		    		
-    </section>
-   
-   	<section class="header-bottom-banner">
+			</div>
+	
+		</section>
+    		
+	</section>
+	
+	<section class="py-1">
 		<div class="container-fluid">
 			<div class="row">
-				
 				<div class="col-12">
-					<div class="latest-box">
-						<h4>Latest Training / Seminars</h4>
-						<a href="#" class="after-link pull-right mt-1">View All</a>
+					<div class="select-tab">
+						<div class="current_select">
+							<span>
+								<img class="img-fluid" src="images/gloab.png" alt="">
+							</span>
+							<select name="country_id" id="country_id">
+								
+							</select>
+						</div>
+
+						<div class="tabing-box select-tabing">
+							<ul id="tabs" class="nav nav-tabs">
+								<li class="nav-item">
+									<a href="" data-target="#Overview" data-toggle="tab" class="tab-img nav-link">
+										<img class="dis-none" src="images/training.png" alt="">
+										<img class="dis-block" src="images/training-1.png" alt="">
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="" data-target="#Lesson" data-toggle="tab"class="tab-img nav-link ">
+										<img class="dis-none" src="images/employee.png" alt="">
+										<img class="dis-block" src="images/employee-1.png" alt="">
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="" data-target="#Exam" data-toggle="tab" class="tab-img nav-link">
+										<img class="dis-none" src="images/calendar-spring.png" alt="">
+										<img class="dis-block" src="images/calendar-spring-1.png" alt="">
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="" data-target="#Certificate" data-toggle="tab" class="tab-img nav-link">
+										<img class="dis-none" src="images/location-pin.png" alt="">
+										<img class="dis-block" src="images/location-pin-1.png" alt="">
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="" data-target="#Evaluation" data-toggle="tab" class="tab-img nav-link">
+										<img class="dis-none" src="images/search.png" alt="">
+										<img class="dis-block" src="images/search-1.png" alt="">
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
-				
-				<div class="col-12 pr-1">
-				
-				  <h3>Comming Soon</h3>
-					
-				</div>
-				
-				
 			</div>
 		</div>
-    </section> 
+	</section>
+    		
 	
+   
+	<section id="tabsContent" class="tab-content header-bottom-banner">
+	
+		<div id="Overview" class="tab-pane fade">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box">
+								<input type="search" placeholder="Enter Training Title">
+								<!-- <button type="search">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="Lesson" class="tab-pane fade">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box current_select">
+								<!-- <input type="search" placeholder="Profession"> -->
+								<select name="profession_id" id="profession_id" style="width: 100%;" class="pl-0">
+									
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<div id="Exam" class="tab-pane fade">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box">
+								<input type="search" placeholder="search Date">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="Certificate" class="tab-pane fade">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box">
+								<input type="search" placeholder="Enter Location">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="Evaluation" class="tab-pane fade">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box">
+								<input type="search" placeholder="search Courses">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="header-bottom-banner">
+		<div class="container-fluid">
+			<div class="row" id="trainglist"></div>
+		</div>
+	</section>
 <div class="mask" style="display:none;"></div>	
 	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
 	
@@ -101,7 +296,10 @@
    <style>
    .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
    </style>
-
+<script>
+ jQuery('.loading').show();
+  jQuery('.mask').show();	
+</script>
 	
 </body>
 </html>
