@@ -2646,6 +2646,11 @@ input.datalist {
     border: none;
     -webkit-appearance: button;
     padding: 5px 0px 5px 24px;
+    background: #fff;
+}
+
+.input-box.current_select select {
+    width: 100%;
 }
 
 .current_select span {

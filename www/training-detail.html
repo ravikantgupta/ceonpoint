@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>CEONPOINT</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link
+		href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+		rel="stylesheet">
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+<body onload="setvalue()">
+<script>
+var price=0;
+ function setvalue()
+	{
+	   addfootermenu(); 
+	   
+	   var training_id=window.localStorage.getItem("training_id");	 
+	   var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+       if(userdata)
+		  {
+			var user_id=userdata.id;
+		  }
+	   else
+		{
+		  var user_id='';		
+		}	
+		
+	   jQuery.ajax({					  
+					type:'POST', 
+					dataType: 'JSON',                   			
+					url:base_url+"/training/training_details",
+					data: JSON.stringify({id: training_id}),				
+					success:function(response)
+						 {	 
+                             jQuery('.loading').hide();
+	                         jQuery('.mask').hide();
+							 console.log(response);				 
+							 if(response.success=="true")
+							 {
+							   /***********SET COUNTRY DROPDOWN**************/
+							 var countryhtml='<option value="">International</option>';
+							 for (i in response.data.country) {							
+									  countryhtml+='<option value="'+response.data.country[i].countries_id+'">'+response.data.country[i].countries_name+'</option>';
+									}                                 
+							  jQuery('#country_id').html(countryhtml);
+							/***********END SET COUNTRY DROPDOWN**************/
+							
+							/***********SET Profession DROPDOWN**************/
+							var professionhtml='<option value="">Profession</option>';
+							 for (i in response.data.profession) {						
+									  professionhtml+='<option value="'+response.data.profession[i].id+'">'+response.data.profession[i].cat_name+'</option>';
+									}                                 
+							  jQuery('#profession_id').html(professionhtml);
+							/***********END SET COUNTRY DROPDOWN**************/
+				
+				            /*********Set general information********/
+							jQuery('.training_name').html(response.data.gernalinfo.title);
+							jQuery('.price').html('PRICE '+response.currency+response.data.gernalinfo.price);
+							price=response.data.gernalinfo.price;
+							jQuery('.provider').html('By : '+response.data.provider);
+							jQuery('.units').html(response.data.gernalinfo.units);
+							jQuery('.start_date').html(response.data.gernalinfo.start_date);
+							jQuery('.start_time').html(response.data.gernalinfo.start_time);
+							jQuery('.contact_person').html(response.data.gernalinfo.contact_person);
+							jQuery('.phone').html(response.data.gernalinfo.phone);
+							jQuery('.location').html(response.data.gernalinfo.location);
+							jQuery('.tprice').html(response.currency+response.data.gernalinfo.price);
+							
+							jQuery('#trainingimg').attr('src',response.data.gernalinfo.image);
+						  /*********End general information********/
+						  
+						  /*********Set Overview information********/
+						  jQuery('.objectives').html(response.data.overview.objectives);
+						  jQuery('.methodologies').html(response.data.overview.methodologies);
+						  
+						  jQuery('.participants').html(response.data.overview.participants);						  
+						  jQuery('.item_to_bring').html(response.data.overview.item_to_bring);
+						  
+						  /*********End Overview information********/
+						  
+						  /*********Set speaker information********/
+						  jQuery('.speaker_name').html(response.data.speaker[0].speaker_name);
+						  
+						  jQuery('.speaker_description').html(response.data.speaker[0].speaker_description);
+						  
+						  jQuery('.speaker_image').attr('src',response.data.speaker[0].speaker_image);
+						  /*********END speaker information********/
+							
+							 }
+                           
+						}
+			});	
+		
+	   
+	}
+ function searchresult()
+ {
+   
+	var profession_id=jQuery('#profession_id').val();
+	var country_id=jQuery('#country_id').val();
+	var start_date=jQuery('#start_date').val();
+	var training_title=jQuery('#training_title').val();
+	var location_name=jQuery('#location_name').val();
+	window.localStorage.setItem("profession_id", profession_id);
+    window.localStorage.setItem("country_id", country_id);
+    window.localStorage.setItem("start_date", start_date);
+    window.localStorage.setItem("training_title", training_title); window.localStorage.setItem("location_name", location_name);	
+     nextpage('traingseminar.html');
+}
+function paynow()
+{
+  window.localStorage.setItem("training_price", price);
+  nextpage('book-seminar.html');
+}	
+</script>   
+	<header class="header-btn p-0 bsl-trainung">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="back-link-box p-0 fashion-link">
+
+						<div class="back-link">
+							<a href="javascript:void(0)" onclick="bakpage('traingseminar.html')">
+								<img class="img-fluid" src="images/left.png" alt="">
+							</a>
+						</div>
+
+						<div class="back-logo listing-details">
+							<a href="#">
+								<p class="training_name"> </p>
+							</a>
+						</div>
+						<div class="bsl-searching">
+							<ul id="tabing" class="nav nav-tabs">
+								<li class="nav-item">
+									<a href="#" data-target="#fa-search" data-toggle="tab" class="tab-img nav-link show">
+										<i class="fa fa-search" aria-hidden="true"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<section id="tabingContent" class="tab-content bsl-icon">
+		<div id="fa-search" class="py-1 tab-pane fade">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="select-tab">
+							<div class="current_select">
+								<span>
+									<img class="img-fluid" src="images/gloab.png" alt="">
+								</span>
+								<select name="country_id" id="country_id">
+									<option value="" selected="">International</option>
+									
+								</select>
+							</div>
+	
+							<div class="tabing-box select-tabing">
+								<ul id="tabs" class="nav nav-tabs">
+									<li class="nav-item">
+										<a href="#" data-target="#training" data-toggle="tab"
+											class="tab-img nav-link show">
+											<img class="dis-none" src="images/training.png" alt="">
+											<img class="dis-block" src="images/training-1.png" alt="">
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="#" data-target="#employee" data-toggle="tab" class="tab-img nav-link show">
+											<img class="dis-none" src="images/employee.png" alt="">
+											<img class="dis-block" src="images/employee-1.png" alt="">
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="#" data-target="#calendar" data-toggle="tab" class="tab-img nav-link show">
+											<img class="dis-none" src="images/calendar-spring.png" alt="">
+											<img class="dis-block" src="images/calendar-spring-1.png" alt="">
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="#" data-target="#location" data-toggle="tab"
+											class="tab-img nav-link show">
+											<img class="dis-none" src="images/location-pin.png" alt="">
+											<img class="dis-block" src="images/location-pin-1.png" alt="">
+										</a>
+									</li>
+									<li class="nav-item">
+										<a onclick="searchresult()" data-toggle="tab"
+											class="tab-img nav-link show">
+											<img class="dis-none" src="images/search.png" alt="">
+											<img class="dis-block" src="images/search-1.png" alt="">
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="tabContent" class="tab-content header-bottom-banner">
+	
+		<div id="training" class="tab-pane fade pb-2">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box">
+								<input type="search" id="training_title" placeholder="Enter Training Title">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="employee" class="tab-pane fade pb-2">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box current_select">
+								<!-- <input type="search" placeholder="Profession"> -->
+								<select name="profession_id" id="profession_id" class="pl-0">
+									<option value="" selected>Profession</option>
+									
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="calendar" class="tab-pane fade pb-2">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box">
+								<input type="search" id="start_date" placeholder="search Date">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="location" class="tab-pane fade pb-2">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box">
+								<input type="search" id="location_name" placeholder="Enter Location">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="search-png" class="tab-pane fade pb-2">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pr-4 pl-4 pt-2">
+							<div class="input-box">
+								<input type="search" placeholder="search Courses">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="listing-hero-banner  bsl-banner">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12 px-0">
+					<div class="hero-login-box">
+						<img class="img-fluid" id="trainingimg" src="" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="pay-banner bsl-pay-banner">
+	
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="pay-title">
+						<h6 class="provider"></h6>
+					</div>
+
+					<div class="d-flex">
+						<div class="pay-price-box">
+							<div class="review-field-rating">
+								<div class="review-control-vote">
+
+									<span>(512)</span>
+
+									<input type="radio" name="ratings[10]" id="Rating_110" value="16" class="radio"
+										data-validate="{'rating-required':true}"
+										aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true"
+										checked="">
+
+									<label class="rating-1" for="Rating_110" id="Rating_110_label">
+									</label>
+
+									<input type="radio" name="ratings[10]" id="Rating_210" value="17" class="radio"
+										data-validate="{'rating-required':true}"
+										aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
+
+									<label class="rating-2" for="Rating_210" id="Rating_210_label">
+									</label>
+
+									<input type="radio" name="ratings[10]" id="Rating_310" value="18" class="radio"
+										data-validate="{'rating-required':true}"
+										aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
+
+									<label class="rating-3" for="Rating_310" id="Rating_310_label">
+									</label>
+
+									<input type="radio" name="ratings[10]" id="Rating_410" value="19" class="radio"
+										data-validate="{'rating-required':true}"
+										aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
+
+									<label class="rating-4" for="Rating_410" id="Rating_410_label">
+									</label>
+
+									<input type="radio" name="ratings[10]" id="Rating_510" value="20" class="radio"
+										data-validate="{'rating-required':true}"
+										aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
+
+									<label class="rating-5" for="Rating_510" id="Rating_510_label">
+									</label>
+
+								</div>
+							</div>
+							<p class="price">PRICE : $123</p>
+						</div>
+
+						<div class="pay-btn-box">
+							<a href="javascript:void(0)" onclick="paynow()" class="pay-btn">Register now</a>
+						</div>
+
+					</div>
+
+					<div class="bsl-social-icon">
+						<a href="#" class="plus-bg" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus" aria-hidden="true"></i></a>
+						<a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+						<a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+						<a href="#" class="whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+
+					</div>
+
+					<div class="tabing-box">
+						<ul id="tabs" class="nav nav-tabs">
+							<li class="nav-item"><a href="#" data-target="#Overview" data-toggle="tab"
+									class="nav-link active">Genral info</a></li>
+							<li class="nav-item"><a href="#" data-target="#Lesson" data-toggle="tab"
+									class="nav-link ">Overview</a></li>
+							<li class="nav-item"><a href="#" data-target="#Exam" data-toggle="tab"
+									class="nav-link">sechedule</a></li>
+							<li class="nav-item"><a href="#" data-target="#Certificate" data-toggle="tab"
+									class="nav-link">Speaker </a></li>
+							<li class="nav-item"><a href="#" data-target="#Evaluation" data-toggle="tab"
+									class="nav-link">Evalutation</a></li>
+						</ul>
+
+						<div id="tabsContent" class="tab-content">
+							<div id="Overview" class="tab-pane fade active  show">
+								<section class="table-banner bsl-info">
+
+									<div class="row">
+										<div class="col-12">
+											<div class="table-title bls-head">
+												<h6>Genral information</h6>
+											</div>
+										</div>
+
+										<div class="col-12">
+											<div class="pending-table">
+												<table class="table table-bordered table-sm">
+													<thead class="bls-table">
+														<tr class="bls-border">
+
+															<th>Title:</th>
+															<th class="training_name">BLS TRAINING</th>
+
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Units:</td>
+															<td class="units"></td>
+
+														</tr>
+														<tr>
+															<td>Date:</td>
+															<td class="start_date">2020-01-23 to 2020-01-20</td>
+
+														</tr>
+														<tr>
+															<td>Time:</td>
+															<td class="start_time">23:59:00 to 01:00:00</td>
+
+														</tr>
+														<tr>
+
+															<th>Contact Person: </th>
+															<th class="contact_person">Ceon Point</th>
+
+														</tr>
+														<tr>
+															<td>Contact Number:</td>
+															<td class="phone">132154633</td>
+
+														</tr>
+														<tr>
+															<td>Location:</td>
+															<td class="location">New ledhi india </td>
+
+														</tr>
+														<tr>
+															<td>Ticket Price:</td>
+															<td class="tprice">$123</td>
+
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+										</div>
+
+									</div>
+
+								</section>
+							</div>
+
+							<div id="Lesson" class="tab-pane fade">
+								<div class="panel-group" id="accordion">
+
+									<section class="table-banner bsl-info overvie">
+
+										<div class="row">
+											<div class="col-12">
+												<div class="table-title bls-head">
+													<h6>Overview information</h6>
+												</div>
+											</div>
+
+											<div class="col-12">
+												<div class="pending-table">
+													<table class="table table-bordered table-sm">
+														<thead class="bls-table">
+														<tr>
+															<th>Training Overview: </th>
+															<th class="objectives"></th>
+														</tr>
+														</thead>
+														<tbody>
+														<tr>
+															<td>Participants:</td>
+															<td class="participants"></td>
+														</tr>
+															<tr>
+
+																<td>Training:</td>
+																<td class="objectives"></td>
+															</tr>
+															<tr>
+
+																<td>Methordologies: </td>
+																<td class="methodologies"></td>
+															</tr>
+															<tr>
+																<td>Item to bring: </td>
+																<td class="item_to_bring"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+										</div>
+
+									</section>
+								</div>
+								</div>
+
+							<div id="Exam" class="tab-pane fade">
+								<section class="table-banner sechedule">
+									<div class="row">
+										<div class="col-12">
+											<div class="table-title bls-head">
+												<h6>sechedule</h6>
+											</div>
+										</div>
+
+										<div class="col-12">
+											<div class="time-detail">
+												<div class="bls-date">
+													<p>30th-fab-2020</p>
+												</div>
+												<div class="bls-min">
+													<span>-</span>
+												</div>
+											</div>
+											<div class="pending-table">
+												<table class="table table-bordered table-sm">
+													<thead class="bgblue text-white">
+														<tr>
+															<th>TIME</th>
+															<th>TOPIC</th>
+															<th>SPEAKER(S)</th>
+
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>1</td>
+															<td>EFG Courses</td>
+															<td>10</td>
+
+														</tr>
+
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+									</div>
+
+								</section>
+							</div>
+
+							<div id="Certificate" class="tab-pane fade">
+								<section class="table-banner speaker">
+
+									<div class="row">
+										<div class="col-12">
+											<div class="table-title bls-head">
+												<h6>Speaker</h6>
+											</div>
+										</div>
+
+										<div class="col-12">
+											<div class="speaker-profile">
+												<div class="speaker-profile-img">
+													<img src="images/user.png" class="speaker_image" alt="">
+												</div>
+												<div class="speaker-profile-dtl">
+													<h6 class="speaker_name"></h6>
+													<p class="speaker_description"></p>
+												</div>
+											</div>
+
+										</div>
+
+									</div>
+
+								</section>
+							</div>
+
+							<div id="Evaluation" class="tab-pane fade">
+								<section class="evalution">
+									<div class="row">
+										<div class="col-12">
+											<div class="table-title bls-head">
+												<h6>Genral information</h6>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="evalution-area">
+												<div class="evalution-star">
+													<span><i class="fa fa-star" aria-hidden="true"></i></span>
+													<span><i class="fa fa-star" aria-hidden="true"></i></span>
+													<span><i class="fa fa-star" aria-hidden="true"></i></span>
+													<span><i class="fa fa-star" aria-hidden="true"></i></span>
+												</div>
+												<div class="evalution-msg">
+													<div class="form-group">
+														<!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+														<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="How can i use this training in mu profession."></textarea>
+													  </div>
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="login-box text-center">
+												<a href="#" class="login-btn">SUBMIT</a>
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="icon-modal">
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLongTitle">Social Media</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+					<div class="bsl-social-icon">
+						<a href="#" class="youtube"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+						<a href="#" class="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+						<a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+						<a href="#" class="google"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+
+					</div>
+				</div>
+				
+			  </div>
+			</div>
+		  </div>
+	</div>
+
+     <div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	
+	 <script type="text/javascript" src="cordova.js"></script>        
+     <script src="js/jquery-1.11.2.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>    
+   <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+<script>
+ jQuery('.loading').show();
+  jQuery('.mask').show();	
+</script>
+	
+</body>
+
+</html>

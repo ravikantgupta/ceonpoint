@@ -18,10 +18,59 @@
 	{
 	   addfootermenu(); 
 	   
+	   if(window.localStorage.getItem("profession_id"))
+	   {
+	    var profession_id=window.localStorage.getItem("profession_id");
+	    window.localStorage.removeItem("profession_id");   
+	   }else
+	   {
+	   var profession_id='';
+	   }
+	   if(window.localStorage.getItem("country_id"))
+	   {
+        var country_id=window.localStorage.getItem("country_id");
+	    window.localStorage.removeItem("country_id"); 
+	   }else
+	   {
+	    var country_id='';
+	   }
+	   
+	   if(window.localStorage.getItem("start_date"))
+	   {
+         var start_date=window.localStorage.getItem("start_date");
+		 window.localStorage.removeItem("start_date");
+       }else
+       {
+	    var start_date='';
+	   }	 
+	  
+      if(window.localStorage.getItem("training_title"))
+      {	  
+        var training_title=window.localStorage.getItem("training_title");
+		window.localStorage.removeItem("training_title");
+	  }else
+       {
+	     var training_title='';
+	   }
+	   
+	    if(window.localStorage.getItem("location_name"))
+        {	
+          var location_name=window.localStorage.getItem("location_name");
+          window.localStorage.removeItem("location_name");		  
+	    }else
+        {
+		 var location_name='';
+		}		
+	   
 	    jQuery.ajax({					  
-					type:'GET', 
+					type:'POST', 
 					dataType: 'JSON',                   			
-					url:base_url+"/training/training_list",					
+					url:base_url+"/training/training_list",
+                    data: JSON.stringify({profession_id: profession_id,
+	                         country_id:country_id,
+  							 training_title:training_title,
+							 start_date:start_date,
+							 location_name:location_name}),	 					
 					success:function(response)
 						 {
 						   jQuery('.loading').hide();
@@ -47,42 +96,16 @@
 							
 							
 							 /***********SET TRAINING**************/
+							 renderHtml(response.data.training);
 							 var traininghtml='<div class="col-12">\
 											<div class="latest-box">\
 												<h4>Latest Training / Seminars</h4>\
-												<a href="javascript:void(0)" class="after-link pull-right mt-1">View All</a>\
+												<a href="javascript:void(0)" onclick="viewall()" class="after-link pull-right mt-1">View All</a>\
 											</div>\
 										</div>';
-							 for (i in response.data.training) {							
-									 traininghtml+='<div class="col-6 pr-1" onclick="viewtraing('+response.data.training[i].id+')">\
-											<div class="care-box">\
-												<div class="care-img">\
-													<img class="img-fluid" src="'+response.data.training[i].image+'" alt="">\
-												</div>\
-												<div class="care-title">\
-													<h4>'+response.data.training[i].title+'</h4>\
-													<p>Price : $'+response.data.training[i].price+'</p>\
-													<div class="time-box">\
-														<p>\
-															<img class="img-fluid" src="images/calendar.png" alt="">\
-															'+response.data.training[i].start_date+' @ '+response.data.training[i].start_time+'\
-														</p>\
-														<p>\
-															<img class="img-fluid" src="images/location.png" alt="">\
-															'+response.data.training[i].location+'\
-														</p>\
-													</div>\
-													<p>By : Intensive Care Unit - '+response.data.training[i].host_name+'</p>\
-												</div>\
-											</div>\
-										</div>';
-									}                                 
-							  jQuery('#trainglist').html(traininghtml);
-							/***********END SET TRAINING**************/
-
-							
-						      }
-						   
+							jQuery('#trainglist').prepend(traininghtml);			
+							/***********END SET TRAINING**************/					
+						      }						   
 						 }			 
 						 
 			         });
@@ -93,22 +116,104 @@
      window.localStorage.setItem("training_id", training_id);	    
      nextpage('training-detail.html');
  } 
+ function searchresult()
+ {
+   
+	var profession_id=jQuery('#profession_id').val();
+	var country_id=jQuery('#country_id').val();
+	var start_date=jQuery('#start_date').val();
+	var training_title=jQuery('#training_title').val();
+	var location_name=jQuery('#location_name').val();
+	
+    jQuery('.loading').show();
+    jQuery('.mask').show();
+    jQuery.ajax({					  
+		type:'POST', 
+		dataType: 'JSON',                   			
+		url:base_url+"/training/training_list",	
+        data: JSON.stringify({profession_id: profession_id,
+	                         country_id:country_id,
+  							 training_title:training_title,
+							 start_date:start_date,
+							 location_name:location_name}),	
+		success:function(response)
+		 {
+		   jQuery('.loading').hide();
+		   jQuery('.mask').hide();					   
+		   if(response.success)
+		   {     
+				renderHtml(response.data.training);							
+		   }						   
+		 }			 
+	 
+	});
+ 
+ }
+function viewall()
+{
+    jQuery('.loading').show();
+    jQuery('.mask').show();
+    jQuery.ajax({					  
+		type:'GET', 
+		dataType: 'JSON',                   			
+		url:base_url+"/training/training_list",					
+		success:function(response)
+		 {
+		   jQuery('.loading').hide();
+		   jQuery('.mask').hide();					   
+		   if(response.success)
+		   {     
+				renderHtml(response.data.training);							
+		   }						   
+		 }			 
+	 
+	});
+}
+
+function renderHtml(result)
+{
+	var traininghtml='';
+	for (i in result) {							
+		 traininghtml+='<div class="col-6 pr-1" onclick="viewtraing('+result[i].id+')">\
+				<div class="care-box">\
+					<div class="care-img">\
+						<img class="img-fluid" src="'+result[i].image+'" alt="">\
+					</div>\
+					<div class="care-title">\
+						<h4>'+result[i].title+'</h4>\
+						<p>Price : $'+result[i].price+'</p>\
+						<div class="time-box">\
+							<p>\
+								<img class="img-fluid" src="images/calendar.png" alt="">\
+								'+result[i].start_date+' @ '+result[i].start_time+'\
+							</p>\
+							<p>\
+								<img class="img-fluid" src="images/location.png" alt="">\
+								'+result[i].location+'\
+							</p>\
+						</div>\
+						<p>By : Intensive Care Unit - '+result[i].host_name+'</p>\
+					</div>\
+				</div>\
+			</div>';
+		}                                 
+	jQuery('#trainglist').html(traininghtml);
+
+}
 </script>
 
     <header class="header-btn">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="d-flex">
-                        
+                    <div class="d-flex">                        
                         <div class="btn-box text-center">
                             <span>TRAINING / SEMINAR</span>
-                        </div>
-                       
+                        </div>                       
                         <div class="link-nav">
                             <nav class="navbar navbar-expand-lg navbar-dark p-0">
                                 <div class="container pr-0">
-                                    <a href="menunew.html" class="navbar-toggler" onclick="openNav()">
+                                    <a href="javascript:void(0)" onclick="nextpagewithback('traingseminar.html','menunew.html')" class="navbar-toggler" onclick="openNav()">
                                         <span class="navbar-toggler-icon"></span>
                                         <span class="navbar-toggler-icon ml-1"></span>
                                         <span class="navbar-toggler-icon"></span>
@@ -156,8 +261,7 @@
 							<span>
 								<img class="img-fluid" src="images/gloab.png" alt="">
 							</span>
-							<select name="country_id" id="country_id">
-								
+							<select name="country_id" onchange="searchresult()" id="country_id">					
 							</select>
 						</div>
 
@@ -188,7 +292,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="" data-target="#Evaluation" data-toggle="tab" class="tab-img nav-link">
+									<a  onclick="searchresult()"  data-toggle="tab" class="tab-img nav-link">
 										<img class="dis-none" src="images/search.png" alt="">
 										<img class="dis-block" src="images/search-1.png" alt="">
 									</a>
@@ -211,7 +315,7 @@
 					<div class="col-12">
 						<div class="pr-4 pl-4 pt-2">
 							<div class="input-box">
-								<input type="search" placeholder="Enter Training Title">
+								<input type="search" id="training_title" placeholder="Enter Training Title">
 								<!-- <button type="search">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button> -->
@@ -229,8 +333,7 @@
 						<div class="pr-4 pl-4 pt-2">
 							<div class="input-box current_select">
 								<!-- <input type="search" placeholder="Profession"> -->
-								<select name="profession_id" id="profession_id" style="width: 100%;" class="pl-0">
-									
+								<select name="profession_id" id="profession_id" style="width: 100%;" class="pl-0">							
 								</select>
 							</div>
 						</div>
@@ -245,7 +348,7 @@
 					<div class="col-12">
 						<div class="pr-4 pl-4 pt-2">
 							<div class="input-box">
-								<input type="search" placeholder="search Date">
+								<input type="date" id="start_date" placeholder="search Date">
 							</div>
 						</div>
 					</div>
@@ -259,7 +362,7 @@
 					<div class="col-12">
 						<div class="pr-4 pl-4 pt-2">
 							<div class="input-box">
-								<input type="search" placeholder="Enter Location">
+								<input type="search" id="location_name" placeholder="Enter Location">
 							</div>
 						</div>
 					</div>

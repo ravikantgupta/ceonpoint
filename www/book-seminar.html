@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>CEONPOINT Dasbord</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">	
+	<link rel="stylesheet" href="css/style.css">	<link
+		href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+		rel="stylesheet">
+		 <script type="text/javascript" src="js/functions.js"></script>
+</head>
+
+<body onload="setvalue()">
+<script>
+var price=0;
+ function setvalue()
+	{  
+	   
+	   var training_id=window.localStorage.getItem("training_id");
+       var training_price=window.localStorage.getItem("training_price");	   
+	   var userdata=JSON.parse(window.localStorage.getItem("userdata"));
+	   jQuery('#totalprice').val(training_price);
+	   jQuery('#price').val('$'+training_price);
+       if(userdata)
+		  {
+			var user_id=userdata.id;
+		  }
+	   else
+		{
+		  var user_id='';		
+		}	
+		
+	  
+	}
+	
+	function paynow()
+		{
+		  jQuery('#buyNowBtn').click()
+		  var loggedIn=	window.localStorage.getItem("loggedIn"); 
+		  
+		    if(loggedIn)
+		     {
+			 // jQuery('#buyNowBtn').click();			
+		     } 
+ 	 }
+	 
+ 
+function placeorder()
+{
+    var course_id=window.localStorage.getItem("course_id");	 
+	var userdata=JSON.parse(window.localStorage.getItem("userdata"));  
+	var price=jQuery('#totalprice').val();	  
+		  jQuery('.loader').show();
+		  jQuery('.mask').show();	  
+        $.ajax({	    	
+				   type:'POST',						
+					url:base_url+"/professional/payment",
+					data:JSON.stringify({'user_id':userdata.id,
+					                     'course_id':course_id,
+										 'price':price,
+										 txn_id:'4564d5646ds7',
+										 txn_status:'Completed',
+										 quantity:1
+					                    }),						
+					contentType: 'application/json',
+					success:function(data)
+					{				 
+					  jQuery('.loader').hide();
+			          jQuery('.mask').hide();	  
+					  
+					  if(data.success=="true")
+						{
+						
+						  nextpage('thanku.html')
+						
+						}
+						
+					},
+					error: function(e) {
+					   jQuery('.loader').hide();
+			           jQuery('.mask').hide();
+						alert('Error: ' + e.message);
+					}
+			});	
+   
+}	 
+	 
+function cancelpayment()
+{
+  alert('paymentcancel');
+}
+ 
+</script>  
+
+<input type="hidden" name="totalprice" id="totalprice" value="">
+	<div class="home-link-banner">
+
+		<div class="main-link-box">
+
+			<div class="hero-link-box">
+
+				<a href="ceunit2-modal.html">
+
+					<div class="hero-link-img">
+
+						<img class="img-fluid" src="images/home.png" alt="">
+
+					</div>
+
+					<div class="hero-link-text">
+
+						<span>HOME</span>
+
+					</div>
+
+				</a>
+
+			</div>
+
+			<div class="hero-link-box">
+
+				<a href="onlinehome.html">
+
+					<div class="hero-link-img">
+
+						<img class="img-fluid" src="images/online-course.png" alt="">
+
+					</div>
+
+					<div class="hero-link-text">
+
+						<span>Online Courses</span>
+
+					</div>
+
+				</a>
+
+			</div>
+
+			<div class="hero-link-box">
+
+				<a href="hometraing.html">
+
+					<div class="hero-link-img">
+
+						<img class="img-fluid" src="images/bord.png" alt="">
+
+					</div>
+
+					<div class="hero-link-text">
+
+						<span>Training</span>
+
+					</div>
+
+				</a>
+
+			</div>
+
+			<div class="hero-link-box">
+
+				<a href="profile.html">
+
+					<div class="hero-link-img">
+
+						<img class="img-fluid" src="images/user-icon.png" alt="">
+
+					</div>
+
+					<div class="hero-link-text">
+
+						<span>Account</span>
+
+					</div>
+
+				</a>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+	<header class="header-btn p-0">
+
+		<div class="container-fluid">
+
+			<div class="row">
+
+				<div class="col-12">
+
+					<div class="back-link-box pr-0">
+						<div class="back-link">
+							<a href="javascript:void(0)" onclick="bakpage('training-detail.html')">
+								<img class="img-fluid" src="images/left.png" alt="">
+							</a>
+
+						</div>
+
+
+
+						<div class="back-logo">
+
+							<a href="#">
+
+								<img class="img-fluid" src="images/logo-new.png" alt="">
+
+								<span>Continuing Education to all Professionals Worldwide</span>
+
+							</a>
+
+						</div>
+
+
+
+						<div class="link-nav">
+
+						</div>
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</header>
+
+
+
+	<section class="dashboard-title-banner form-banner  book-seminar">
+	    <div class="container-fluid">
+	        <div class="row">
+				<div class="col-12">
+					<div class="seminar-heading">
+						<p>Book A Seminar Or training </p>
+					</div>
+				</div>
+            
+	            <div class="col-12">
+	                <div class="form-text">
+						<label for="text">Name <span>*</span> </label>
+						<input id="text" type="text">
+					</div>
+	            </div>
+	            
+	           
+	            <div class="col-12">
+	                <div class="form-text">
+						<label for="email">Email ID  <span>*</span> </label>
+						<input id="email" type="email">
+					</div>
+				</div>
+
+				<div class="col-12">
+	                <div class="form-text">
+						<label for="email">Profession</label>
+						<div class="select-box">
+						    <select name="" id="">
+                                <option value="" selected="">select</option>
+                                <option value="">01</option>
+                                <option value="">02</option>
+                                <option value="">03</option>
+                                <option value="">04</option>
+                            </select>
+						</div>
+					</div>
+	            </div>
+				
+				<div class="col-12">
+	                <div class="form-text paid-amount">
+						<label for="text">Paid Amount</label>
+						<input id="price" type="text" placeholder="$25" disabled>
+					</div>
+				</div>
+				
+	            <div class="col-12">
+					<div class="login-box text-center pt-5">
+						<a href="javascript:void(0)" onclick="paynow()" class="login-btn">SUBMIT</a>
+					</div>
+	            </div>
+	         
+	        </div>
+	    </div>
+	</section>
+<div class="mask" style="display:none;"></div>	
+	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>
+	
+	 <script type="text/javascript" src="cordova.js"></script>        
+     <script src="js/jquery-1.11.2.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>    
+   <style>
+   .mask{ position:fixed; background:#000; left:0px; top:0px; right:0px; bottom:0px; opacity:0.6; z-index:99; }
+   </style>
+</body>
+
+</html>
