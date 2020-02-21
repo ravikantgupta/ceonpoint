@@ -196,7 +196,11 @@ function renderHtml(result)
 					</div>\
 				</div>\
 			</div>';
-		}                                 
+		}        
+     if(traininghtml=='')
+     {
+	   traininghtml='<div class="col-12 pr-1" style="text-align: center;">Record not found</div>';
+	 }	 
 	jQuery('#trainglist').html(traininghtml);
 
 }
