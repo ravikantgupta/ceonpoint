@@ -25,46 +25,137 @@ var price=0;
 	   var userdata=JSON.parse(window.localStorage.getItem("userdata"));
 	   jQuery('#totalprice').val(training_price);
 	   jQuery('#price').val('$'+training_price);
-       if(userdata)
-		  {
-			var user_id=userdata.id;
-		  }
-	   else
-		{
-		  var user_id='';		
-		}	
+      
 		
+		jQuery.ajax({					  
+					type:'GET', 
+					dataType: 'JSON',                   			
+					url:base_url+"/users/profession",
+                    success:function(response)
+						 {
+						   jQuery('.loading').hide();
+	                       jQuery('.mask').hide();						 
+						   
+						   if(response.success)
+						   {                   
+                            
+							/***********SET Profession DROPDOWN**************/
+							var professionhtml='';
+							 for (i in response.profession) {						
+									  professionhtml+='<option value="'+response.profession[i].id+'">'+response.profession[i].cat_name+'</option>';
+									}                                 
+							  jQuery('#profession_id').html(professionhtml);
+							/***********END SET COUNTRY DROPDOWN**************/
+							
+							
+							 				
+						      }						   
+						 }			 
+						 
+			         });
 	  
 	}
 	
 	function paynow()
 		{
-		  jQuery('#buyNowBtn').click()
-		  var loggedIn=	window.localStorage.getItem("loggedIn"); 
+          var name=jQuery('#name').val();
+		  var email=jQuery('#email').val();
+		  var phone=jQuery('#phone').val();
+		  var profession_id=jQuery('#profession_id').val();
+		  var flag=0;		  
+		  if(name=='')
+		  {
+		    jQuery('.name-error').show();
+			flag=1;				  
+		  }
+		  if(email=='')
+		  {
+		    jQuery('.email-error').show();
+			flag=1;				  
+		  }
+		  if(phone=='')
+		  {
+		    jQuery('.phone-error').show();
+			flag=1;				  
+		  }
 		  
+		  if(flag==1)
+		  {
+		    setTimeout(function(){ jQuery('.error').hide(); },3000)
+		   return false;
+		   
+		  }
+		
+		  var loggedIn=	window.localStorage.getItem("loggedIn"); 		  
 		    if(loggedIn)
-		     {
-			 // jQuery('#buyNowBtn').click();			
-		     } 
- 	 }
-	 
+		     { 
+			 
+			   var training_id=window.localStorage.getItem("training_id");
+			   
+			    $.ajax({	    	
+				   type:'POST',						
+					url:base_url+"/training/check_training_book",
+					data:JSON.stringify({'email':email,
+					                     'training_id':training_id
+					                    }),						
+					contentType: 'application/json',
+					success:function(data)
+					{				 
+					  jQuery('.loader').hide();
+			          jQuery('.mask').hide();						  
+					  if(data.success=="true")
+						{					
+						  jQuery('#buyNowBtn').click();						
+						}						
+					},
+					error: function(e) {
+					   jQuery('.loader').hide();
+			           jQuery('.mask').hide();
+					   alert('Error: ' + e.message);
+					}
+			     });	
+			   
+		     }else
+              {
+			    jQuery('#buyNowBtn').click();
+			  }			 
+		  
+		  
+		 
+ 	   }	 
  
 function placeorder()
 {
-    var course_id=window.localStorage.getItem("course_id");	 
+    var training_id=window.localStorage.getItem("training_id");	 
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));  
-	var price=jQuery('#totalprice').val();	  
+	var price=jQuery('#totalprice').val();	
+    var name=jQuery('#name').val();
+    var email=jQuery('#email').val();
+    var phone=jQuery('#phone').val();
+    var profession_id=jQuery('#profession_id').val();
+     if(userdata)
+		  {
+			var user_id=userdata.id;
+		  }
+	    else
+		{
+		  var user_id='';		
+		 }	
+			
 		  jQuery('.loader').show();
 		  jQuery('.mask').show();	  
         $.ajax({	    	
 				   type:'POST',						
-					url:base_url+"/professional/payment",
-					data:JSON.stringify({'user_id':userdata.id,
-					                     'course_id':course_id,
+					url:base_url+"/training/book_training",
+					data:JSON.stringify({'training_id':training_id,
+					                     'user_id':user_id,
+										 'name':name,
+										 'email':email,
+										 'phone':phone,
+										 'profession_id':profession_id,
 										 'price':price,
-										 txn_id:'4564d5646ds7',
-										 txn_status:'Completed',
-										 quantity:1
+										  txn_id:'4564d5646ds7',
+										  payment_status:'1'
 					                    }),						
 					contentType: 'application/json',
 					success:function(data)
@@ -75,7 +166,7 @@ function placeorder()
 					  if(data.success=="true")
 						{
 						
-						  nextpage('thanku.html')
+						  nextpage('thank-you-page.html')
 						
 						}
 						
@@ -83,7 +174,7 @@ function placeorder()
 					error: function(e) {
 					   jQuery('.loader').hide();
 			           jQuery('.mask').hide();
-						alert('Error: ' + e.message);
+					   alert('Error: ' + e.message);
 					}
 			});	
    
@@ -97,98 +188,7 @@ function cancelpayment()
 </script>  
 
 <input type="hidden" name="totalprice" id="totalprice" value="">
-	<div class="home-link-banner">
-
-		<div class="main-link-box">
-
-			<div class="hero-link-box">
-
-				<a href="ceunit2-modal.html">
-
-					<div class="hero-link-img">
-
-						<img class="img-fluid" src="images/home.png" alt="">
-
-					</div>
-
-					<div class="hero-link-text">
-
-						<span>HOME</span>
-
-					</div>
-
-				</a>
-
-			</div>
-
-			<div class="hero-link-box">
-
-				<a href="onlinehome.html">
-
-					<div class="hero-link-img">
-
-						<img class="img-fluid" src="images/online-course.png" alt="">
-
-					</div>
-
-					<div class="hero-link-text">
-
-						<span>Online Courses</span>
-
-					</div>
-
-				</a>
-
-			</div>
-
-			<div class="hero-link-box">
-
-				<a href="hometraing.html">
-
-					<div class="hero-link-img">
-
-						<img class="img-fluid" src="images/bord.png" alt="">
-
-					</div>
-
-					<div class="hero-link-text">
-
-						<span>Training</span>
-
-					</div>
-
-				</a>
-
-			</div>
-
-			<div class="hero-link-box">
-
-				<a href="profile.html">
-
-					<div class="hero-link-img">
-
-						<img class="img-fluid" src="images/user-icon.png" alt="">
-
-					</div>
-
-					<div class="hero-link-text">
-
-						<span>Account</span>
-
-					</div>
-
-				</a>
-
-			</div>
-
-		</div>
-
-	</div>
-
-
-
 	<header class="header-btn p-0">
-
 		<div class="container-fluid">
 
 			<div class="row">
@@ -249,34 +249,39 @@ function cancelpayment()
 	            <div class="col-12">
 	                <div class="form-text">
 						<label for="text">Name <span>*</span> </label>
-						<input id="text" type="text">
+						<input id="name" name="name" type="text">
 					</div>
-	            </div>
-	            
-	           
+					<span class="name-error error" style="color:red;display:none;">Please enter name.</span>
+	            </div>           
 	            <div class="col-12">
 	                <div class="form-text">
 						<label for="email">Email ID  <span>*</span> </label>
 						<input id="email" type="email">
 					</div>
-				</div>
-
-				<div class="col-12">
+					<span class="email-error error" style="color:red;display:none;">Please enter email.</span>
+				</div>				
+				 <div class="col-12">
 	                <div class="form-text">
-						<label for="email">Profession</label>
-						<div class="select-box">
-						   <select name="profession_id" id="profession_id"  class="pl-0"><option value="">Select</option><option value="5">Teacher</option><option value="4">Doctor</option><option value="7">Accountancy</option><option value="8">Agriculture</option><option value="9">Chemist</option><option value="10">Criminology</option><option value="11">Chemical Engineering</option><option value="51">Landscape Architecture</option><option value="17">Aeronautical Engineering</option><option value="18">Agricultural &amp; Biosystems Engineering</option><option value="19">Veterinary Medicine</option><option value="20">Social Work</option><option value="21">Sanitary Engineering</option><option value="22">Real Estate Services - Salesperson</option><option value="23">Real Estate Services - Broker</option><option value="24">Real Estate Services - Appraisers</option><option value="25">Real Estate Services - Consultant</option><option value="26">X-ray Technician</option><option value="27">Radiologic Technologist</option><option value="28">Respiratory Therapy</option><option value="29">Professional Teachers</option><option value="30">Occupational Therapy</option><option value="31">Psychologist</option><option value="32">Psychometrician</option><option value="33">Physical Therapy</option><option value="34">Pharmacy</option><option value="35">Optometry</option><option value="36">Nutrition &amp; Dietetics</option><option value="37">Nursing</option><option value="38">Naval Architecture</option><option value="39">Mining Architecture</option><option value="40">Midwifery</option><option value="41">Metallurgical Engineering</option><option value="42">Medicine</option><option value="43">Medical Laboratory Technician</option><option value="44">Medical Technologist</option><option value="45">Certified Plant Mechanic</option><option value="46">REgistered Mechinical Engineer</option><option value="47">Professional Mechanical Engineer</option><option value="48">Master Pl;umbing</option><option value="49">Librarian</option><option value="52">Interior Design -70 yrs old &amp; above</option><option value="53">Interior Design -Between 60-69 yrs old</option><option value="54">Interior Design -below 60 yrs old</option><option value="55">Guidance &amp; Counselling</option><option value="56">Geology</option><option value="57">Geodetic Engineering</option><option value="58">Forestry</option><option value="59">Fisheries</option><option value="60">Environmental Planning</option><option value="61">Electronics Teahnician</option><option value="62">REgistered Electronics Engineer</option><option value="63">Professional Electronics Engineer</option><option value="64">Electrical Engineering - Registered Master Electrician</option><option value="65">Electrical Engineering - Registered Electrical Engineer</option><option value="66">Electrical Engineering - Professional Electric Engineer</option><option value="67">Dentistry - Dental Technologist</option><option value="68">Dentristry - Dental Hygeinist</option><option value="69">Dentistry - Dentist</option><option value="70">Customs Brokers</option><option value="71">Civil Engineering</option><option value="72">Chemistry - Chemist</option><option value="73">Chemistry- Chemical Laboratory Technician</option><option value="74">Architecture -Below 60 yrs old</option><option value="75">Architecture - Between 60-69 yrsold</option><option value="76">Architecture   -70 yrs old &amp; above</option></select>
-						</div>
+						<label for="phone">Phone  <span>*</span> </label>
+						<input id="phone" type="number">
 					</div>
-	            </div>
-				
+					<span class="phone-error error" style="color:red;display:none;">Please enter phone.</span>
+				</div>				
+				<div class="col-12">
+				<div class="form-text">
+					<label for="email">Profession</label>
+					<div class="select-box">
+					   <select name="profession_id" id="profession_id"  class="pl-0">
+					   </select>
+					</div>
+				</div>
+	            </div>				
 				<div class="col-12">
 	                <div class="form-text paid-amount">
 						<label for="text">Paid Amount</label>
 						<input id="price" type="text" placeholder="$25" disabled>
 					</div>
-				</div>
-				
+				</div>				
 	            <div class="col-12">
 					<div class="login-box text-center pt-5">
 						<a href="javascript:void(0)" onclick="paynow()" class="login-btn">SUBMIT</a>

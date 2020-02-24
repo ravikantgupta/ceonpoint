@@ -84,7 +84,7 @@ var app = {
     },
     configuration : function () {
       // for more options see `paypal-mobile-js-helper.js`
-      var config = new PayPalConfiguration({merchantName: "Pure CBD Group", merchantPrivacyPolicyURL: "https://purecbdgroup.com/returns", merchantUserAgreementURL: "https://purecbdgroup.com/returns"});
+      var config = new PayPalConfiguration({merchantName: "Ceonpoint", merchantPrivacyPolicyURL: "https://ceonpoint.com", merchantUserAgreementURL: "https://ceonpoint.com"});
       return config;
     },
     onPrepareRender : function() {
