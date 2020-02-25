@@ -41,7 +41,7 @@ var price=0;
 						 {	 
                              jQuery('.loading').hide();
 	                         jQuery('.mask').hide();
-							 console.log(response);				 
+							 				 
 							 if(response.success=="true")
 							 {
 							   /***********SET COUNTRY DROPDOWN**************/
@@ -85,12 +85,65 @@ var price=0;
 						  
 						  /*********End Overview information********/
 						  
+						  /*********Start schedule********/
+						  var schedule='';
+						   for (i in response.data.schedule) {						 
+									
+						     schedule+='<div class="col-12">\
+									<div class="time-detail">\
+									 <div class="bls-date">\
+										<p>'+response.data.schedule[i].schedule_date+'</p>\
+									 </div>\
+									 <div class="bls-min"><span>-</span></div>\
+									</div>\
+									<div class="pending-table">\
+									 <table class="table table-bordered table-sm">\
+									  <thead class="bgblue text-white">\
+										<tr>\
+										 <th>TIME</th>\
+										 <th>TOPIC</th>\
+										 <th>SPEAKER(S)</th>\
+                                        </tr>\
+									  </thead>\
+									  <tbody>\
+                                        <tr>\
+										 <td>'+response.data.schedule[i].schedule_start_time+'</td>\
+										 <td>'+response.data.schedule[i].topic+'</td>\
+										 <td>1</td>\
+										</tr>\
+                                      </tbody></table></div></div>';
+						         }
+
+                                 if(schedule=='')
+								 {
+								  schedule='<div class="col-12">No schedule</div>';
+								 
+								 }
+                                jQuery('#schedule').append(schedule);								 
+						  
 						  /*********Set speaker information********/
-						  jQuery('.speaker_name').html(response.data.speaker[0].speaker_name);
 						  
-						  jQuery('.speaker_description').html(response.data.speaker[0].speaker_description);
-						  
-						  jQuery('.speaker_image').attr('src',response.data.speaker[0].speaker_image);
+						    var speaker='';
+						   for (i in response.data.speaker) {						   
+						      speaker+='<div class="col-12">\
+										<div class="speaker-profile">\
+											<div class="speaker-profile-img">\
+												<img src="'+response.data.speaker[0].speaker_image+'" class="speaker_image" alt="">\
+											</div>\
+											<div class="speaker-profile-dtl">\
+												<h6 class="speaker_name">'+response.data.speaker[i].speaker_name+'</h6>\
+												<p class="speaker_description">'+response.data.speaker[i].speaker_description+'</p>\
+											</div>\
+										</div>\
+									  </div>';					   
+						        }
+								
+							if(speaker=='')
+								 {
+								  speaker='<div class="col-12">No speakers</div>';
+								 
+								 }
+                                jQuery('#speaker').append(speaker);	
 						  /*********END speaker information********/
 							
 							 }
@@ -384,8 +437,8 @@ function paynow()
 									class="nav-link">sechedule</a></li>
 							<li class="nav-item"><a href="#" data-target="#Certificate" data-toggle="tab"
 									class="nav-link">Speaker </a></li>
-							<li class="nav-item"><a href="#" data-target="#Evaluation" data-toggle="tab"
-									class="nav-link">Evalutation</a></li>
+							<!--<li class="nav-item" > <a href="#" data-target="#Evaluation" data-toggle="tab"
+									class="nav-link">Evalutation</a></li>-->
 						</ul>
 
 						<div id="tabsContent" class="tab-content">
@@ -511,73 +564,25 @@ function paynow()
 
 							<div id="Exam" class="tab-pane fade">
 								<section class="table-banner sechedule">
-									<div class="row">
+									<div class="row" id="schedule">
 										<div class="col-12">
 											<div class="table-title bls-head">
-												<h6>sechedule</h6>
+												<h6>Schedule</h6>
 											</div>
 										</div>
-
-										<div class="col-12">
-											<div class="time-detail">
-												<div class="bls-date">
-													<p>30th-fab-2020</p>
-												</div>
-												<div class="bls-min">
-													<span>-</span>
-												</div>
-											</div>
-											<div class="pending-table">
-												<table class="table table-bordered table-sm">
-													<thead class="bgblue text-white">
-														<tr>
-															<th>TIME</th>
-															<th>TOPIC</th>
-															<th>SPEAKER(S)</th>
-
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>1</td>
-															<td>EFG Courses</td>
-															<td>10</td>
-
-														</tr>
-
-
-													</tbody>
-												</table>
-											</div>
 										</div>
-
-									</div>
-
-								</section>
+                                 </section>
 							</div>
 
 							<div id="Certificate" class="tab-pane fade">
 								<section class="table-banner speaker">
 
-									<div class="row">
+									<div class="row" id="speaker">
 										<div class="col-12">
 											<div class="table-title bls-head">
 												<h6>Speaker</h6>
 											</div>
-										</div>
-
-										<div class="col-12">
-											<div class="speaker-profile">
-												<div class="speaker-profile-img">
-													<img src="images/user.png" class="speaker_image" alt="">
-												</div>
-												<div class="speaker-profile-dtl">
-													<h6 class="speaker_name"></h6>
-													<p class="speaker_description"></p>
-												</div>
-											</div>
-
-										</div>
+										</div>							
 
 									</div>
 

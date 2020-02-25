@@ -106,6 +106,9 @@ var price=0;
 					  if(data.success=="true")
 						{					
 						  jQuery('#buyNowBtn').click();						
+						}else{
+						
+						  jQuery('.msg').html('<span style="color:red">You have already book.</span>');
 						}						
 					},
 					error: function(e) {
@@ -144,7 +147,7 @@ function placeorder()
 			
 		  jQuery('.loader').show();
 		  jQuery('.mask').show();	  
-        $.ajax({	    	
+          $.ajax({	    	
 				   type:'POST',						
 					url:base_url+"/training/book_training",
 					data:JSON.stringify({'training_id':training_id,
@@ -239,13 +242,14 @@ function cancelpayment()
 
 	<section class="dashboard-title-banner form-banner  book-seminar">
 	    <div class="container-fluid">
+		  
 	        <div class="row">
 				<div class="col-12">
 					<div class="seminar-heading">
 						<p>Book A Seminar Or training </p>
 					</div>
 				</div>
-            
+            <div class="msg col-12"></div>
 	            <div class="col-12">
 	                <div class="form-text">
 						<label for="text">Name <span>*</span> </label>
@@ -290,6 +294,7 @@ function cancelpayment()
 	         
 	        </div>
 	    </div>
+		<button id="buyNowBtn" hidden>Pay Now</button>
 	</section>
 <div class="mask" style="display:none;"></div>	
 	<div class="loading" style="position: absolute;top: 50%;width: 100px;left: 34%;z-index: 9999;display:none;"><img class="img-fluid" src="images/loading.gif" alt=""></div>	
