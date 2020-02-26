@@ -59,8 +59,7 @@ var price=0;
 	function paynow()
 		{
           var name=jQuery('#name').val();
-		  var email=jQuery('#email').val();
-		  var phone=jQuery('#phone').val();
+		  var email=jQuery('#email').val();		
 		  var profession_id=jQuery('#profession_id').val();
 		  var flag=0;		  
 		  if(name=='')
@@ -73,12 +72,7 @@ var price=0;
 		    jQuery('.email-error').show();
 			flag=1;				  
 		  }
-		  if(phone=='')
-		  {
-		    jQuery('.phone-error').show();
-			flag=1;				  
-		  }
-		  
+		 
 		  if(flag==1)
 		  {
 		    setTimeout(function(){ jQuery('.error').hide(); },3000)
@@ -133,8 +127,7 @@ function placeorder()
 	var userdata=JSON.parse(window.localStorage.getItem("userdata"));  
 	var price=jQuery('#totalprice').val();	
     var name=jQuery('#name').val();
-    var email=jQuery('#email').val();
-    var phone=jQuery('#phone').val();
+    var email=jQuery('#email').val();  
     var profession_id=jQuery('#profession_id').val();
      if(userdata)
 		  {
@@ -153,8 +146,7 @@ function placeorder()
 					data:JSON.stringify({'training_id':training_id,
 					                     'user_id':user_id,
 										 'name':name,
-										 'email':email,
-										 'phone':phone,
+										 'email':email,									
 										 'profession_id':profession_id,
 										 'price':price,
 										  txn_id:'4564d5646ds7',
@@ -264,13 +256,7 @@ function cancelpayment()
 					</div>
 					<span class="email-error error" style="color:red;display:none;">Please enter email.</span>
 				</div>				
-				 <div class="col-12">
-	                <div class="form-text">
-						<label for="phone">Phone  <span>*</span> </label>
-						<input id="phone" type="number">
-					</div>
-					<span class="phone-error error" style="color:red;display:none;">Please enter phone.</span>
-				</div>				
+							
 				<div class="col-12">
 				<div class="form-text">
 					<label for="email">Profession</label>
